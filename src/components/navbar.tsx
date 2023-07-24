@@ -70,7 +70,7 @@ const navbar = () => {
                   </Link>
                 </li>
                 <li className="font-montserrat font-bold text-xl">
-                  <Link href="/" legacyBehavior>
+                  <Link href="/login" legacyBehavior>
                     <a>Sign In</a>
                   </Link>
                 </li>
