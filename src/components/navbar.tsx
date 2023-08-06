@@ -8,7 +8,7 @@ const navbar = () => {
     return (
     <>
         <Head>
-            <title>Event Buzz</title>
+            <title>EventBud</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         </Head>
 
@@ -17,7 +17,7 @@ const navbar = () => {
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <a href="#">
-                <h2 className="text-3xl body-font font-montserrat font-bold">EventBuzz</h2>
+                <h2 className="text-3xl body-font font-montserrat font-bold">EventBud</h2>
               </a>
               <div className="md:hidden">
                 <button
