@@ -1,6 +1,8 @@
-import React from "react";
+import React, {FormEventHandler, useRef, useState} from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+
 
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,55 +17,9 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 
-const LoginValidator = z.object({
-    email: z
-        .string()
-        .email()
-        .min(8,{
-            message:
-                "Email must be at least 8 characters"
-        }),
-    password: z
-        .string()
-        .min(3,{
-            message:
-                "Password must be at least 3 characters"})
-        .max(20,{
-            message:
-            "Password must be at most 20 characters"})
-});
-
-type LoginCredentials = z.infer<typeof LoginValidator>;
-
-type LoginResponse = {
-    accessToken: string;
-}
-
 
 
 export const login = () => {
-{/*
-    const accessToken = useSelector((state: RootState) => state.user.accessToken);
-    const{
-        register,
-        handleSubmit,
-        getValues,
-        formState: { errors },
-    } = useForm<LoginCredentials>({
-        resolver: zodResolver(LoginValidator),
-    });
-
-    const dispatch = useDispatch();
-    const navigate = useRouter();
-    const location = useLocation();
-
-    const locationFrom = location.state?.from || "/";
-
-    useEffect(() => {
-        if (accessToken) {navigate('/main')
-        }
-    }, []);
-*/}
 
     return (
         <>
@@ -86,7 +42,6 @@ export const login = () => {
                                         <label className="font-montserrat">Email</label>
                                         <span className="text-red-600 ml-1">*</span>
                                         <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="email" placeholder=""
-                                        // {...register("email", { required: true })}
                                         />
                                         <label className="font-montserrat">Password</label>
                                         <span className="text-red-600 ml-1">*</span>
@@ -113,5 +68,6 @@ export const login = () => {
         </>
     )
 }
+
 
 export default login
