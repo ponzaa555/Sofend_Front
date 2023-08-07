@@ -15,6 +15,7 @@ const EventDetail = ({}) => {
     const [countNormal, setCountNormal] = useState(0);
     const [countVIP, setCountVIP] = useState(0);
 
+    
     return(
         <>
             <Navbar/>
