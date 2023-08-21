@@ -4,6 +4,7 @@ import Card from './eventcard'
 
 
 const allevent = () => {
+<<<<<<< HEAD
 
   const[selectedtag,setSelectedtag] = useState("")
   const[filteredEvents,setFilteredEvents] = useState(Data)
@@ -14,10 +15,12 @@ const allevent = () => {
       return filteredEvents;
     }
 
-  const filteredE = filteredEvents.filter((E) => E.tag===selectedtag);
+    const filteredE = filteredEvents.filter((E) => E.tag===selectedtag);
       console.log("filtered")
       return filteredE;
   }
+
+
 
 
 
@@ -65,10 +68,10 @@ const allevent = () => {
       </div>
       <div className='flex flex-col items-center'>
         <div className='w-5/6 flex justify-start gap-4'>
-          <button className={`border border-black rounded-full px-2 hover:bg-black hover:text-white ${colorChange}`} value="Exhibition" onClick={handleclicktag}>Exhibition</button>
-          <button  className ={`border border-black rounded-full px-2 hover:bg-black hover:text-white ${colorChange}`} value="Concert" onClick={handleclicktag} >Concert</button>
-          <button  className= {`border border-black rounded-full px-2 hover:bg-black hover:text-white ${colorChange}`} value="Festival" onClick={handleclicktag}>Festival</button> 
-          <button  className = {`border border-black rounded-full px-2 hover:bg-black hover:text-white ${colorChange}`} value="Show" onClick={handleclicktag}>Show</button>
+          <button className={`border border-black rounded-full px-2 hover:bg-black hover:text-white`} value="Exhibition" onClick={handleclicktag}>Exhibition</button>
+          <button  className ={`border border-black rounded-full px-2 hover:bg-black hover:text-white`} value="Concert" onClick={handleclicktag} >Concert</button>
+          <button  className= {`border border-black rounded-full px-2 hover:bg-black hover:text-white`} value="Festival" onClick={handleclicktag}>Festival</button> 
+          <button  className = {`border border-black rounded-full px-2 hover:bg-black hover:text-white`} value="Show" onClick={handleclicktag}>Show</button>
         </div>
         <div className='grid  grid-cols-4 grid-rows-2  gap-0'>
         {filteredEvents.map((eventcard) => (
@@ -77,6 +80,10 @@ const allevent = () => {
         </div>
       </div>
     </>
+=======
+  return (
+    <div>allevent</div>
+>>>>>>> parent of ac0b060 (PonFirstCommit)
   )
 }
 
