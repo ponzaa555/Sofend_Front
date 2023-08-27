@@ -119,7 +119,7 @@ const Signup = ({}) => {
                                         <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="text" placeholder=""
                                             {...register("lastName", { required: true })}
                                         />
-                                        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 w-full rounded mt-10" type="submit">Log in</button>
+                                        <button className="bg-black border-2 hover:bg-white hover:text-black active:scale-95 border-black duration-300 text-white font-bold py-2 w-full rounded mt-10" type="submit">Sign Up</button>
                                 </form>
                             </div>
                         </div>
