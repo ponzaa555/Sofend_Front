@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Clock from '~/components/icon/Clock';
 import Location from '~/components/icon/Location';
 import Calendar from '~/components/icon/Calendar';
-import Ticket from '~/components/icon/Ticket';
 
 const EventDetail = ({}) => {
     const ref = useRef(null);
