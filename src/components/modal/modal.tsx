@@ -11,7 +11,7 @@ export default function Modal({}) {
 
     return (
     <>
-        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 rounded mt-2 mb-2 box-content h-6 w-32 mr-5" onClick={togglemodal}>Contact</button>
+        <button className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content h-6 w-32 mr-5" onClick={togglemodal}>Contact</button>
         
         <Mymodal onClose={togglemodal} visible={modal}/>
     </>
