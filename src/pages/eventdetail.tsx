@@ -67,16 +67,34 @@ const EventDetail = ({}) => {
                                 <div className='grid grid-cols-5 justify-around border-2 border-gray-300 rounded-md place-items-center pl-5 pr-5'>
                                     <div className='font-montserrat'>Normal</div>
                                     <div className='font-montserrat font-bold'>650 ฿</div>
-                                    <button onClick={()=>setCountNormal(countNormal-1)}  disabled={countNormal<=0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded mt-2 mb-2 box-content h-6 w-6 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit"><p className='text-center' >-</p></button>
+                                    <button onClick={()=>setCountNormal(countNormal-1)}  disabled={countNormal<=0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded my-2 box-content py-2.5 px-1.5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
+                                        <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <line y1="1" x2="10" y2="1" stroke={countNormal<=0 ? "#696969":"#FFF"} stroke-width="2" className="icon" />
+                                        </svg>
+                                    </button>
                                     <div className='font-montserrat'>{countNormal}</div>
-                                    <button onClick={()=>setCountNormal(countNormal+1)} disabled={countVIP>0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded mt-2 mb-2 box-content h-6 w-6 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">+</button>
+                                    <button onClick={()=>setCountNormal(countNormal+1)} disabled={countVIP>0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded box-content  p-1.5 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
+                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
+                                            <line x1="5" y1="4.37114e-08" x2="5" y2="10" stroke={countVIP>0 ? "#696969":"#FFF"} stroke-width="2" />
+                                            <line y1="5" x2="10" y2="5" stroke={countVIP>0 ? "#696969":"#FFF"} stroke-width="2" />
+                                        </svg>
+                                    </button>
                                 </div>
                                 <div className='grid grid-cols-5 justify-around border-2 border-gray-300 rounded-md place-items-center pl-5 pr-5'>
                                     <div className='font-montserrat'>VIP</div>
                                     <div className='font-montserrat font-bold'>1,000 ฿</div>
-                                    <button onClick={()=>setCountVIP(countVIP-1)} disabled={countVIP<=0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded mt-2 mb-2 box-content h-6 w-6 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">-</button>
+                                    <button onClick={()=>setCountVIP(countVIP-1)} disabled={countVIP<=0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded mt-2 mb-2 box-content py-2.5 px-1.5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
+                                        <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <line y1="1" x2="10" y2="1" stroke={countVIP<=0 ? "#696969":"#FFF"} stroke-width="2" className="icon" />
+                                        </svg>
+                                    </button>
                                     <div className='font-montserrat'>{countVIP}</div>
-                                    <button onClick={()=>setCountVIP(countVIP+1)} disabled={countNormal>0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded mt-2 mb-2 box-content h-6 w-6 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">+</button>
+                                    <button onClick={()=>setCountVIP(countVIP+1)} disabled={countNormal>0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded mt-2 mb-2 box-content p-1.5 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
+                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
+                                            <line x1="5" y1="4.37114e-08" x2="5" y2="10" stroke={countNormal>0 ? "#696969":"#FFF"} stroke-width="2" />
+                                            <line y1="5" x2="10" y2="5" stroke={countNormal>0 ? "#696969":"#FFF"} stroke-width="2" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>
