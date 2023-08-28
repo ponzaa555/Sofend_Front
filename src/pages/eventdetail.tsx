@@ -8,6 +8,8 @@ import Clock from '~/components/icon/Clock';
 import Location from '~/components/icon/Location';
 import Calendar from '~/components/icon/Calendar';
 
+import Head from "next/head";
+
 const EventDetail = ({}) => {
     const ref = useRef(null);
 
@@ -21,6 +23,11 @@ const EventDetail = ({}) => {
     
     return(
         <>
+            <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+                <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
+            </Head>
             <Navbar/>
             <div className='flex flex-col mb-32'>
                 <div className="bg-[url('https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1')] h-56 mb-20 bg-no-repeat bg-cover relative backdrop-blur-md">

@@ -21,15 +21,15 @@ const EventDetail = ({}) => {
         <>
             <Navbar/>
             <div className='flex flex-col mb-32'>
-                <div className="bg-[url('https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1')] h-56 mb-20 bg-no-repeat bg-cover relative backdrop-blur-md">
+                <div className="bg-[url('https://pbs.twimg.com/media/FzyTww2aQAE_JAS?format=jpg&name=4096x4096')] h-56 mb-20 bg-no-repeat bg-cover relative backdrop-blur-md">
                 <div className="backdrop-blur-md h-56 relative"></div>
                     <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                         <div className='flex flex-row justify-center absolute -top-0'>
                             <div className='w-60 h-60 mb-10 mt-20'>
-                                <img className=' border-gray-300 rounded-md' src='https://www.google.com/url?sa=i&url=https%3A%2F%2Ftwitter.com%2Fsukanofficial%2Fstatus%2F1674376748895719424&psig=AOvVaw0Gp_4ogaHTyqlyIW-6SZhi&ust=1693239061500000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCIjMiZid_YADFQAAAAAdAAAAABAI'></img>
+                                <img className=' border-gray-300 rounded-md' src='https://pbs.twimg.com/media/FzyTww2aQAE_JAS?format=jpg&name=4096x4096'></img>
                             </div>
                             <div className='ml-16 mt-20'>
-                                <div className='text-white font-montserrat text-xl mb-5'>exhibition</div>
+                                <div className='text-white font-montserrat font-medium text-xl mb-5'>exhibition</div>
                                 <div className='text-white font-montserrat font-bold text-2xl mb-20'>THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023</div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Calendar></Calendar>
