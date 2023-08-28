@@ -2,11 +2,11 @@ import React from 'react';
 import Navbar from '../components/navbar'
 import Modal from '../components/modal/modal'
 import { useRef } from 'react';
-import Image from 'next/image'
 import { useState } from 'react';
 import Clock from '~/components/icon/Clock';
 import Location from '~/components/icon/Location';
 import Calendar from '~/components/icon/Calendar';
+//import { getEventDetail } from './services/api';
 
 import Head from "next/head";
 
@@ -19,7 +19,8 @@ const EventDetail = ({}) => {
 
     const [countNormal, setCountNormal] = useState(0);
     const [countVIP, setCountVIP] = useState(0);
-
+    //const {eventDetail} = getEventDetail('1');
+    //console.log(eventDetail);
     
     return(
         <>
