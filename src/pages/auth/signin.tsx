@@ -1,25 +1,42 @@
 import React, {FormEventHandler, useRef, useState} from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { NextPage } from "next";
 import { signIn } from "next-auth/react";
-
 
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import { z } from "zod";
+import { set, z } from "zod";
 import axios from "axios";
 import {toast} from 'react-hot-toast'
+
 import { useSelector } from "react-redux"; 
 
 import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { sign } from "crypto";
 
 
 
 
-export const login = () => {
+export const login: NextPage = (props): JSX.Element => {
+    const [info, setInfo] = useState({email: "", password: ""});
+    const handleSubmit:FormEventHandler<HTMLFormElement> = async (e) => {
+        //validation here
+        e.preventDefault();
+        const res = await signIn('credentials', {
+            email: info.email,
+            password: info.password,
+            redirect: false,
+            callbackUrl: '/main'
+        });
+
+        console.log(res);
+    }
+
+
 
     return (
         <>
@@ -38,14 +55,25 @@ export const login = () => {
                             <div className="flex flex-col justify-start">
                                 <h1 className="font-montserrat text-4xl font-bold">Log In</h1>
                                 <div className="flex flex-col">
-                                    <form className="">
+                                    <form onSubmit={handleSubmit}>
                                         <label className="font-montserrat">Email</label>
                                         <span className="text-red-600 ml-1">*</span>
-                                        <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="email" placeholder=""
+                                        <input 
+                                            className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" 
+                                            type="email" 
+                                            placeholder="me@email.com"
+                                            value={info.email}
+                                            onChange={(e) => {setInfo({...info, email: e.target.value})}}
                                         />
                                         <label className="font-montserrat">Password</label>
                                         <span className="text-red-600 ml-1">*</span>
-                                        <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="password" placeholder=""></input>
+                                        <input 
+                                            className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" 
+                                            type="password" 
+                                            placeholder=""
+                                            value={info.password}
+                                            onChange={(e) => {setInfo({...info, password: e.target.value})}}
+                                        />
                                         <div className="flex flex-row justify-between">
                                             <div>
                                             <input type="checkbox"></input>
@@ -53,7 +81,11 @@ export const login = () => {
                                             </div>
                                             <a className="font-montserrat text-gray-500 pl-2" href="/resetpassword">Forgot password?</a> 
                                         </div> 
-                                        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 w-full rounded mt-5" type="submit">Log in</button>
+                                        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 w-full rounded mt-5" type="submit" onClick={
+                                            () =>{
+                                                toast.success('Login Success')
+                                            }}>
+                                                Log in</button>
                                     </form>
                                 </div>
                             </div>

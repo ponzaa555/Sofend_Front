@@ -12,20 +12,25 @@ const options: NextAuthOptions = {
             type: "credentials",
             credentials: {},
             authorize(credentials,req){
-                const {email,password} = credentials as {
-                    email: string, 
-                    password: string
-                };
+                const {email,password} = credentials as {email:string,password:string};
+                //perform login logic
                 //find user in database
-                if (email !== "test@gmail,com" && password !== "123456"){
-                    return null;
+                if (email !== "admin@email.com" && password !== "admin") {
+                    throw new Error("Invalid login");
                 }
 
-                //if user is found return user object
-                return {id: 1, name: "Test User", email: "test@gmail.com"}
+                //if everything is ok, return user object
+                return {id:'1',name:'Admin', email:'admin@email.com'}
+                
             },
         }),
     ],
+    pages:{
+        signIn: "/auth/signin",
+
+    },
+
+
 };
 
 
