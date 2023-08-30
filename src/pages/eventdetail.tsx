@@ -25,9 +25,13 @@ const EventDetail = ({}) => {
     return(
         <>
             <Head>
+                {/* import font to page */}
                 <link rel="preconnect" href="https://fonts.googleapis.com"/>
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
                 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+                <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
             </Head>
             <Navbar/>
             <div className='flex flex-col mb-32'>
@@ -63,7 +67,7 @@ const EventDetail = ({}) => {
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                 <div className=' text-black font-montserrat font-bold mb-5'>Info</div>
-                <div className='text-center'>ไลฟ์ เนชั่น เทโร ร่วมกับ สตูดิโอจิบลิ และศูนย์การค้าเซ็นทรัลเวิลด์ จัดงานแถลงข่าวเปิดนิทรรศการ THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023 พร้อมการปรากฏตัวของ ‘โทโทโร่’ และ ‘คาโอนาชิ’ รอให้แฟนๆ เข้าไปสำรวจโลกแห่งจินตนาการกับเหล่าตัวละครในแอนิเมชั่นเรื่องโปรด เริ่ม 1 กรกฎาคมเป็นต้นไป ที่เซ็นทรัลเวิลด์ ไลฟ์ ศูนย์การค้าเซ็นทรัลเวิลด์
+                <div className='font-kanit text-center'>ไลฟ์ เนชั่น เทโร ร่วมกับ สตูดิโอจิบลิ และศูนย์การค้าเซ็นทรัลเวิลด์ จัดงานแถลงข่าวเปิดนิทรรศการ THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023 พร้อมการปรากฏตัวของ ‘โทโทโร่’ และ ‘คาโอนาชิ’ รอให้แฟนๆ เข้าไปสำรวจโลกแห่งจินตนาการกับเหล่าตัวละครในแอนิเมชั่นเรื่องโปรด เริ่ม 1 กรกฎาคมเป็นต้นไป ที่เซ็นทรัลเวิลด์ ไลฟ์ ศูนย์การค้าเซ็นทรัลเวิลด์
                 </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>

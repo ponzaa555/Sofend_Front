@@ -11,6 +11,7 @@ import Calendar from '~/components/icon/Calendar';
 const EventDetail = ({}) => {
     const ref = useRef(null);
 
+
     const handleClick = () => {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
     };
@@ -52,8 +53,23 @@ const EventDetail = ({}) => {
                 </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
-                <div className=' text-black font-montserrat font-bold mb-5'>Info</div>
-                <div className='text-center'>ไลฟ์ เนชั่น เทโร ร่วมกับ สตูดิโอจิบลิ และศูนย์การค้าเซ็นทรัลเวิลด์ จัดงานแถลงข่าวเปิดนิทรรศการ THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023 พร้อมการปรากฏตัวของ ‘โทโทโร่’ และ ‘คาโอนาชิ’ รอให้แฟนๆ เข้าไปสำรวจโลกแห่งจินตนาการกับเหล่าตัวละครในแอนิเมชั่นเรื่องโปรด เริ่ม 1 กรกฎาคมเป็นต้นไป ที่เซ็นทรัลเวิลด์ ไลฟ์ ศูนย์การค้าเซ็นทรัลเวิลด์
+                <div className=' text-black font-montserrat font-bold mb-5 text-2xl'>Info</div>
+                <div className='font-kanit text-center'>
+                    ไลฟ์ เนชั่น เทโร ร่วมกับ สตูดิโอจิบลิ และศูนย์การค้าเซ็นทรัลเวิลด์ จัดงานแถลงข่าวเปิดนิทรรศการ THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023 พร้อมการปรากฏตัวของ ‘โทโทโร่’ และ ‘คาโอนาชิ’ รอให้แฟนๆ เข้าไปสำรวจโลกแห่งจินตนาการกับเหล่าตัวละครในแอนิเมชั่นเรื่องโปรด เริ่ม 1 กรกฎาคมเป็นต้นไป ที่เซ็นทรัลเวิลด์ ไลฟ์ ศูนย์การค้าเซ็นทรัลเวิลด์
+                </div>
+            </div>
+            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
+                <h1 className=' text-black font-montserrat font-bold mb-5 text-2xl'>Ticket</h1>
+                <div>
+                    <div className='flex flex-row'>
+                        <svg height="50" width="50">
+                            <circle cx="25" cy="25" r="21" fill="red" />
+                        </svg>
+                        <div className='font-montserrat font-bold flex flex-col justify-start'>
+                            <h1 className={``}>Red Zone-6,500฿</h1>
+                            <h2 className={`text-green-500`}>Available</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
