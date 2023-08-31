@@ -3,11 +3,13 @@ import Head from "next/head";
 import Image from "next/image";
 import { NextPage } from "next";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+
 
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { set, z } from "zod";
 import axios from "axios";
@@ -22,21 +24,18 @@ import { sign } from "crypto";
 
 
 export const login: NextPage = (props): JSX.Element => {
-    const [info, setInfo] = useState({email: "", password: ""});
+    const [info, setInfo] = useState({"email": "", "password": ""});
     const handleSubmit:FormEventHandler<HTMLFormElement> = async (e) => {
         //validation here
         e.preventDefault();
         const res = await signIn('credentials', {
-            email: info.email,
-            password: info.password,
-            redirect: false,
-            callbackUrl: '/main'
+            "email": info.email,
+            "password": info.password,
+            callbackUrl: '/main' //change this to main page
         });
 
         console.log(res);
     }
-
-
 
     return (
         <>
@@ -81,9 +80,9 @@ export const login: NextPage = (props): JSX.Element => {
                                             </div>
                                             <a className="font-montserrat text-gray-500 pl-2" href="/resetpassword">Forgot password?</a> 
                                         </div> 
-                                        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 w-full rounded mt-5" type="submit" onClick={
-                                            () =>{
-                                                toast.success('Login Success')
+                                        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 w-full rounded mt-5" type="submit" 
+                                            onClick={() =>{
+                                                console.log(info);
                                             }}>
                                                 Log in</button>
                                     </form>
