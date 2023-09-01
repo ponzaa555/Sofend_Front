@@ -11,7 +11,7 @@ import Calendar from '~/components/icon/Calendar';
 import Head from "next/head";
 
 const EventDetail = ({}) => {
-    const ref = useRef(null);
+    const ref = useRef<null | HTMLDivElement>(null);
 
     const handleClick = () => {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,10 +27,10 @@ const EventDetail = ({}) => {
             <Head>
                 {/* import font to page */}
                 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous'/>
                 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
                 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous' />
                 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
             </Head>
             <Navbar/>
@@ -44,7 +44,7 @@ const EventDetail = ({}) => {
                             </div>
                             <div className='ml-16 mt-20'>
                                 <div className='text-white font-montserrat text-xl mb-5'>exhibition</div>
-                                <div className='text-white font-montserrat font-bold text-2xl mb-20'>THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023</div>
+                                <div className='text-white font-kanit font-bold text-2xl mb-20'>THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023</div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Calendar></Calendar>
                                     <div className='text-black font-montserrat text-xl mb-3'>1 July 2023 - 31 December 2023</div>
