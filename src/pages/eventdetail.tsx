@@ -66,12 +66,12 @@ const EventDetail = ({}) => {
                 </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
-                <div className=' text-black font-montserrat font-bold mb-5'>Info</div>
+                <div className=' text-black font-montserrat font-bold mb-5 text-2xl'>Info</div>
                 <div className='font-kanit text-center'>ไลฟ์ เนชั่น เทโร ร่วมกับ สตูดิโอจิบลิ และศูนย์การค้าเซ็นทรัลเวิลด์ จัดงานแถลงข่าวเปิดนิทรรศการ THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023 พร้อมการปรากฏตัวของ ‘โทโทโร่’ และ ‘คาโอนาชิ’ รอให้แฟนๆ เข้าไปสำรวจโลกแห่งจินตนาการกับเหล่าตัวละครในแอนิเมชั่นเรื่องโปรด เริ่ม 1 กรกฎาคมเป็นต้นไป ที่เซ็นทรัลเวิลด์ ไลฟ์ ศูนย์การค้าเซ็นทรัลเวิลด์
                 </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
-                <div className=' text-black font-montserrat font-bold mb-5' ref={ref}>Ticket</div>
+                <div className=' text-black font-montserrat font-bold mb-5 text-2xl' ref={ref}>Ticket</div>
                     <div className='flex flex-row justify-between gap-5'>
                         <div className="basis-3/5">
                             <div className='flex flex-col gap-5'>
@@ -113,13 +113,13 @@ const EventDetail = ({}) => {
                             <div className=' border-2 border-gray-300 rounded-md'>
                             <div className='flex flex-col'>
                                 <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
-                                    <div className='font-montserrat'>Total</div>
+                                    <div className='font-montserrat text-xl'>Total</div>
                                     <div className='font-montserrat'>{countNormal+countVIP} items</div>
                                 </div>
                                 <hr className='border-[1.5px] border-gray-300 mx-8'></hr>
                                 <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
-                                    <div className='font-montserrat font-bold'>{650*countNormal+1000*countVIP}</div>
-                                    <div className='font-montserrat font-bold'>฿</div>   
+                                    <div className='font-montserrat font-bold texl-xl'>{650*countNormal+1000*countVIP}</div>
+                                    <div className='font-montserrat font-bold text-xl'>฿</div>   
                                 </div>
                             </div>
                             </div>
