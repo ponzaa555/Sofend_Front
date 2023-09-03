@@ -4,7 +4,6 @@ import Card from './eventcard'
 
 
 const allevent = () => {
-<<<<<<< HEAD
 
   const[selectedtag,setSelectedtag] = useState("")
   const[filteredEvents,setFilteredEvents] = useState(Data)
@@ -80,10 +79,6 @@ const allevent = () => {
         </div>
       </div>
     </>
-=======
-  return (
-    <div>allevent</div>
->>>>>>> parent of ac0b060 (PonFirstCommit)
   )
 }
 
