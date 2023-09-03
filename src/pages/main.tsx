@@ -11,11 +11,9 @@ export const main = () => {
     <>
         <Navbar/>
         <Introevent/>
-        <div className='flex flex-col'>
-            <Recommendevent/>
-            <Allevent/>
-            <Monthlyevent/>
-        </div>
+        <div className='flex flex-col mx-20 mt-20 '><Recommendevent/></div>
+        <div className='flex flex-col mx-20 mt-20'><Allevent/></div>
+        <div className='flex flex-col mx-20 mt-20'> <Monthlyevent/></div>
         <Footer/>
     </>
   )

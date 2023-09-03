@@ -43,7 +43,7 @@ const monthlyevent = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-6 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
+      <div className="grid grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
         {filteredEvents.map((eventcard) => (
           <a href= "/event" className="">
           <Card image={eventcard.image} date={eventcard.date} name={eventcard.name} place={eventcard.place} />
