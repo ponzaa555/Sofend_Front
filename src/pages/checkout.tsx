@@ -75,11 +75,11 @@ const checkout = () => {
                 <div className='text-[27px] font-bold'>
                     <h1>Review Ticket Information</h1>
                 </div>
-                <div className='flex flex-row-2 justify-around'>
-                    <div className='w-60 rounded-md pr-5'>
+                <div className='flex flex-row-2 justify-between mt-6'>
+                    <div className='w-60 rounded-md'>
                         <img className=' border-gray-300 rounded-md' src='https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1'></img>
                     </div>
-                    <div className='flex flex-col justify-evenly'>
+                    <div className='flex flex-col justify-evenly w-4/5 pl-8'>
                         <div className='text-black font-kanit font-bold text-[22px] mb-3'>THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023</div>
                         <div className='flex'>
                             <div className='text-black font-montserrat text-[17px] mb-3 pr-8'>1st July 2023 - 31 December 2023</div>
@@ -95,16 +95,16 @@ const checkout = () => {
                 <div className='mx-auto md:items-center md:px-8 mb-10 border-2 border-gray-300 rounded-md p-10 mt-3'>
                     <div className='flex justify-evenly'>
                         <div className='flex'>
-                            <div className='text-[27px] font-bold pr-5'>First Name</div>
-                            <div className='text-[27px]'>Woohoo</div>
+                            <div className='text-[22px] font-bold pr-5'>First Name</div>
+                            <div className='text-[22px]'>Puifai</div>
                         </div>
                         <div className='flex'>
-                            <div className='text-[27px] font-bold pr-5'>Last Name</div>
-                            <div className='text-[27px]'>Yeah</div>
+                            <div className='text-[22px] font-bold pr-5'>Last Name</div>
+                            <div className='text-[22px]'>Yeah</div>
                         </div>
                     </div>
                 </div>
-                <p className='text-red-500 text-center'>
+                <p className='text-red-500 text-center tex-[17px]'>
                     Staff will check attendee's ID card or passport for entry. Please make sure that the name on the ticket is match the name of the person using it. You can change personal information in your profile at any time.
                 </p>
             </div>
