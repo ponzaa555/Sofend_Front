@@ -1,6 +1,6 @@
 import React,{useEffect,useState}from 'react'
 import Card from './eventcard'
-import Eventcards from '../../data/MOCK_DATA.json'
+import Eventcards from '../data/MOCK_DATA.json'
 
 for (const event of Eventcards){
   console.log(event)

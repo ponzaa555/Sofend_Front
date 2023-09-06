@@ -1,7 +1,7 @@
 import React , {useEffect, useState} from 'react'
 import Slideshow from './slideshow';
 import { Dropdown } from 'react-bootstrap';
-import Eventcard from  "../../data/MOCK_DATA.json"
+import Eventcard from  "../data/MOCK_DATA.json"
 const searchbar =({setResults})=>{
     const [input,setInput] = useState("") 
     const fetchData = (value) => {
