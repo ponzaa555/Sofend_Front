@@ -1,27 +1,25 @@
 import React from 'react'
 import { useSession } from 'next-auth/react'
-
-
+import { signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 
 const profile = () => {
     const {data:session} = useSession();
  
     if (session){
-        const {user} = session;
         return (
             <div>
-                <h1>Profile</h1>
-                <p>{user.email}</p>
+                <h1>{session.user?.email}</h1>
+                <button
+                    onClick={() => signOut()}
+                >Sign out</button>
             </div>
         )
     }
 
     return (
-        <div>
-            <h1>Profile</h1>
-            <p>You are not signed in</p>
-        </div>
+        <button onClick={() => signIn()} className="font-montserrat font-bold text-xl">Sign In</button>
     )
 }
 

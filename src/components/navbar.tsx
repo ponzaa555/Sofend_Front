@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head';
 import Profile from './profile';
 import { useSession } from 'next-auth/react'
-import { signIn } from 'next-auth/react';
+
 
 
 
@@ -18,10 +18,10 @@ const navbar = () => {
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             {/* import font to page */}
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous'/>
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='anonymous'/>
             <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
         </Head>
 
@@ -83,13 +83,7 @@ const navbar = () => {
                   </Link>
                 </li>
                 <li className="font-montserrat font-bold text-xl">
-                  {
-                    session ? ( <Profile/> ) : 
-                    ( 
-                      <button onClick={() => signIn()} className="font-montserrat font-bold text-xl">Sign In</button>
-                    )
-                  }
-                  
+                  <Profile/>
                 </li>
               </ul>
             </div>

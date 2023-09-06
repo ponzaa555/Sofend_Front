@@ -1,81 +1,53 @@
-import React,{useState} from 'react';
+import React,{useState, FormEvent, ChangeEvent} from 'react';
 import Head from "next/head";
 import Image from "next/image";
-import axios from 'axios';
-import {toast} from 'react-hot-toast'
-import {Navigate} from 'react-router-dom'
-
-import {z} from 'zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-const validationSchema = z
-    .object({
-        email: z.string()
-                .email()
-                .min(1, {message: 'Email is required'}),
-        password:   z.string()
-                    .min(6, {message: 'Password must be at least 6 characters'}),
-        passwordConfirmation:   z.string()
-                                .min(1, {message: 'Confirm Password is required'}),
-        firstName:  z.string()
-                    .min(1, {message: 'First Name must be at least 1 characters'}),
-        lastName:   z.string()
-                    .min(1, {message: 'Last Name must be at least 1 characters'})
-        })
-    .refine(data => data.password === data.passwordConfirmation, {
-        path: ['passwordConfirmation'],
-        message: 'Passwords do not match'
-    });
-
-type ValidationSchema = z.infer<typeof validationSchema>;
-
-type validationSchema = {
-    email: string;
-    password: string;
-    passwordConfirmation: string;
-    firstName: string;
-    lastName: string;
-};
+import {Toaster, toast} from 'react-hot-toast'
+import { set } from 'zod';
+import { useRouter } from 'next/router';
 
 
 
+const Signup = () => {
+    const [info, setInfo] = useState({email: "", password: "", password_confirmation: "", first_name: "", last_name: ""});
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-const Signup = ({}) => {
-{/*
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [nav, setNav] = useState(false);
-
-    const handleSubmit = async (e) => {
+    const onSubmit = async (e:React.FormEvent) => {
+        console.log(info)
         e.preventDefault();
-        await axios.post('http://localhost:8000/api/register', {
-            email,
-            password,
-            firstName,
-            lastName,
-            })
-        toast.success('Sign Up Success')
-        setNav(true);
-    };
-
-    if (nav) {
-        return <Navigate to="/login" />;
+        setLoading(true);
+        if (info.password !== info.password_confirmation) {
+            toast.error('Password does not match')
+            return
+        }
+        else {
+            const sendInfo = {email: info.email, password: info.password, firstName: info.first_name, lastName: info.last_name}
+            console.log(sendInfo)
+            try{
+                const res = await fetch('https://eventbud-jujiu2awda-uc.a.run.app/signup',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sendInfo)
+                })
+                if(!res.ok){
+                    toast.error('Sign up failed')
+                    setLoading(false);
+                }
+                else{
+                    router.push('/auth/signin')
+                }
+            }
+            catch(err){
+                toast.error('There is an error')
+                setLoading(false);
+            }
+        }
     }
-*/}
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<ValidationSchema>({
-        resolver: zodResolver(validationSchema),
-    });
 
-    const onSubmit: SubmitHandler<ValidationSchema> = (data) => console.log(data);
+
 
     return(
         <>
@@ -93,31 +65,46 @@ const Signup = ({}) => {
                         <div className="flex flex-col w-1/2">
                             <div className="flex flex-col justify-start">
                                 <h1 className="font-montserrat text-4xl font-bold">Sign Up</h1>
-                                <form onSubmit={handleSubmit(onSubmit)}>
+                                <form onSubmit={onSubmit}>
                                         <label className="font-montserrat">Email</label>
                                         <span className="text-red-600 ml-1">*</span>
-                                        <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="text" placeholder="Email"
-                                            {...register("email", { required: true })}
+                                        <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="text" placeholder="Email" 
+                                            value={info.email}
+                                            onChange={e => setInfo({...info, email: e.target.value})}
+                                            name="email"
+                                            required
                                         />
                                         <label className="font-montserrat">Password</label>
                                         <span className="text-red-600 ml-1">*</span>
                                         <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="password" placeholder=""
-                                            {...register("password", { required: true })}
+                                            value={info.password}
+                                            onChange={e => setInfo({...info, password: e.target.value})}
+                                            name="password"
+                                            required
                                         />
                                         <label className="font-montserrat">Password Confirmation</label>
                                         <span className="text-red-600 ml-1">*</span>
                                         <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="password" placeholder=""
-                                            {...register("passwordConfirmation", { required: true })}
+                                            value={info.password_confirmation}
+                                            onChange={e => setInfo({...info, password_confirmation: e.target.value})}
+                                            name="password_confirmation"
+                                            required
                                         />
                                         <label className="font-montserrat">First Name</label>
                                         <span className="text-red-600 ml-1">*</span>
                                         <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="text" placeholder=""
-                                            {...register("firstName", { required: true })}
+                                            value={info.first_name}
+                                            onChange={e => setInfo({...info, first_name: e.target.value})}
+                                            name="first_name"
+                                            required
                                         />
                                         <label className="font-montserrat">Last Name</label>
                                         <span className="text-red-600 ml-1">*</span>
                                         <input className="border-2 border-gray-300 rounded-md pl-2 w-full py-2" type="text" placeholder=""
-                                            {...register("lastName", { required: true })}
+                                            value={info.last_name}
+                                            onChange={e => setInfo({...info, last_name: e.target.value})}
+                                            name="last_name"
+                                            required
                                         />
                                         <button className="bg-black border-2 hover:bg-white hover:text-black active:scale-95 border-black duration-300 text-white font-bold py-2 w-full rounded mt-10" type="submit">Sign Up</button>
                                 </form>
