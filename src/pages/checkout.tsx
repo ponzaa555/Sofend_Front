@@ -62,12 +62,12 @@ const checkout = () => {
                         Congratulations*/}
             {handleComponent()}
             {/*Button Cancel and Next by San*/}
-            <div>
-                <button
+            <div className='flex justify-between mx-auto md:items-center md:px-8 pb-10'>
+                <button className='border-2 border-black rounded-md text-2xl px-14 hover:bg-black hover:text-white'
                 onClick={handleBack}>
                     Cancel
                 </button>
-                <button 
+                <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black'
                 onClick={handleNext}>
                     Next
                 </button>
