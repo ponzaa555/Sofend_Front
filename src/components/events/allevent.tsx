@@ -1,5 +1,5 @@
 import React, {useState,useEffect}from 'react'
-import Data from "../../data/Eventcards.json"
+import Data from "../data/Eventcards.json"
 import Card from './eventcard'
 
 
