@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "name": "The World of Studio Ghibli's Animation",
+        "place": "Central World",
+        "date": "2021.01.01",
+        "time": "10:00 ~ 18:00",
+        "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+        "featured": true,
+        "tag": "exhibition"
+    },
+    {
+        "id": 2,
+        "name": "Crybaby Everybody",
+        "place": "서울시 강남구",
+        "date": "2021.02.01",
+        "time": "10:00 ~ 18:00",
+        "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+        "featured": true,
+        "tag": "exhibition"
+    },
+    {
+      "id": 3,
+      "name": "The World of Studio Ghibli's Animation",
+      "place": "Central World",
+      "date": "2021.03.01",
+      "time": "10:00 ~ 18:00",
+      "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+      "featured": true,
+      "tag": "exhibition"
+  },
+  {
+    "id": 4,
+    "name": "The World of Studio Ghibli's Animation",
+    "place": "Central World",
+    "date": "2021.04.01",
+    "time": "10:00 ~ 18:00",
+    "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+    "featured": true,
+    "tag": "exhibition"
+  },
+  {
+    "id": 5,
+    "name": "The World of Studio Ghibli's Animation",
+    "place": "Central World",
+    "date": "2021.04.01",
+    "time": "10:00 ~ 18:00",
+    "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+    "featured": true,
+    "tag": "exhibition"
+  },
+  {
+    "id": 6,
+    "name": "The World of Studio Ghibli's Animation",
+    "place": "Central World",
+    "date": "2021.01.01",
+    "time": "10:00 ~ 18:00",
+    "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+    "featured": true,
+    "tag": "exhibition"
+  },
+  {
+    "id": 7,
+    "name": "The World of Studio Ghibli's Animation",
+    "place": "Central World",
+    "date": "2021.01.01",
+    "time": "10:00 ~ 18:00",
+    "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+    "featured": true,
+    "tag": "exhibition"
+  },
+  {
+    "id": 8,
+    "name": "Crybaby Everybody",
+    "place": "서울시 강남구",
+    "date": "2021.02.01",
+    "time": "10:00 ~ 18:00",
+    "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+    "featured": true,
+    "tag": "exhibition"
+  },
+  {
+  "id": 9,
+  "name": "The World of Studio Ghibli's Animation",
+  "place": "Central World",
+  "date": "2021.08.01",
+  "time": "10:00 ~ 18:00",
+  "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+  "featured": true,
+  "tag": "exhibition"
+  },
+  {
+  "id": 10,
+  "name": "The World of Studio Ghibli's Animation",
+  "place": "Central World",
+  "date": "2021.04.01",
+  "time": "10:00 ~ 18:00",
+  "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+  "featured": true,
+  "tag": "exhibition"
+  },
+  {
+  "id": 11,
+  "name": "The World of Studio Ghibli's Animation",
+  "place": "Central World",
+  "date": "2021.06.01",
+  "time": "10:00 ~ 18:00",
+  "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+  "featured": true,
+  "tag": "exhibition"
+  },
+  {
+  "id": 12,
+  "name": "The World of Studio Ghibli's Animation",
+  "place": "Central World",
+  "date": "2021.12.01",
+  "time": "10:00 ~ 18:00",
+  "image": "https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1",
+  "featured": true,
+  "tag": "exhibition"
+  }
+]
