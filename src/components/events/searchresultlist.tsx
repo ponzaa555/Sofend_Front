@@ -6,7 +6,7 @@ const filterresult = results.filter((e,index)=> {
         return true
     }
 })
-    return <div className= 'box-boder bg-white rounded-xl mt-10  w-2/5 shadow-md mb-3'>
+    return <div className= 'box-boder bg-white rounded-xl mt-9 drop-shadow-lg mb-3 '>
        {
         filterresult.map((result,id) =>{
             return <div className='mx-10' key={id} >
