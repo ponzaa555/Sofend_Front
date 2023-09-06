@@ -3,7 +3,7 @@ import Card from './eventcard'
 import { date } from 'zod'
 import MaterialSymbolsArrowBackIosNew from '../icon/PreButton'
 import MaterialSymbolsArrowForwardIos from '../icon/ForwardButton'
-import Eventcards from '../data/Eventcards.json'
+import Eventcards from '../../data/Eventcards.json'
 
 const ArrayMonth = [
     'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'
