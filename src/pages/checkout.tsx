@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Navbar from '../components/navbar'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Image from "next/image";
 import Component1 from '../components/Checkout/Checkout1stStep'
 import Component2 from '../components/Checkout/Checkout2ndStep'
 import Component3 from '../components/Checkout/Checkout3rdStep'
@@ -51,36 +50,6 @@ const checkout = () => {
         <Navbar/>
         <div className='bg-[#F9F9F9]'>  
             {/* timeline steps*/}
-            {/* <div className='relative after:absolute after:inset-x-0 after:top-1/2 after:block after:h-0.5 after:-translate-y-1/2 after:rounded-lg after:bg-green-400'>
-                <ol
-                    className="relative z-10 flex justify-evenly text-sm font-medium text-white"
-                >
-                    <li
-                        className="flex items-center gap-2 bg-white p-2"
-                    >
-                        <span
-                            className="p-10 rounded-full border-2 border-[#54D260] bg-[#54D260] text-[50px] text-center  font-montserrat font-bold"
-                        >1
-                        </span>
-                    </li>
-                    <li
-                        className="flex items-center gap-2 bg-white p-2"
-                    >
-                        <span
-                            className={`p-10 rounded-full border-2 ${step >= 2? "bg-[#54D260] text-white":"bg-white text-[#54D260]"} border-[#54D260] text-4xl text-center font-montserrat font-bold`}
-                        >2
-                        </span>
-                    </li>
-                    <li
-                        className="flex items-center gap-2 bg-white p-2"
-                    >
-                        <span
-                            className={`p-10 rounded-full border-2 ${step >= 3? "bg-[#54D260] text-white":"bg-white text-[#54D260]"} border-[#54D260] text-[40px] text-center font-montserrat font-bold`}
-                        >3
-                        </span>
-                    </li>
-                </ol>
-            </div> */}
             {handleComponent()}
             {/*Ticket Summary*/}
             <div className='font-montserrat mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
