@@ -31,16 +31,16 @@ const Component1 = () => {
                 <div className='mx-auto md:items-center md:px-8 mb-8 border-2 border-gray-300 rounded-md p-10 mt-6'>
                     <div className='flex justify-around'>
                         <div className='flex'>
-                            <div className='text-2xl font-bold pr-5'>First Name</div>
-                            <div className='text-2xl'>Woohoo</div>
+                            <div className='text-2xl font-bold pr-5 font-montserrat'>First Name</div>
+                            <div className='text-2xl font-montserrat'>Woohoo</div>
                         </div>
                         <div className='flex'>
-                            <div className='text-2xl font-bold pr-5'>Last Name</div>
-                            <div className='text-2xl'>Yeah</div>
+                            <div className='text-2xl font-bold pr-5 font-montserrat'>Last Name</div>
+                            <div className='text-2xl font-montserrat'>Yeah</div>
                         </div>
                     </div>
                 </div>
-                <p className='text-red-500 text-center tex-base'>
+                <p className='text-red-500 text-center tex-base font-montserrat'>
                     Staff will check attendee's ID card or passport for entry. Please make sure that the name on the ticket is match the name of the person using it. You can change personal information in your profile at any time.
                 </p>
             </div>
