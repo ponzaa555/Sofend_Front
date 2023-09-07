@@ -65,7 +65,6 @@ const checkout = () => {
     const handleBack = () => {
         setStep(step - 1)
         if (step === 1) {
-            alert('Go to Event Detail')
             return router.push('/main')
         }
     }

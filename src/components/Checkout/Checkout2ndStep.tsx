@@ -7,8 +7,36 @@ import { useRouter } from 'next/router'
 const Component2 = () => {
     return (
         <div className=''>
-            <div className='mx-56 pt-5 pb-8'>
-                <Image className='' src="/images/events/Timeline2nd.png" width={500} height={500} style={{ width: '100%', height: '100%' }} alt="Timeline1stStep"/>
+            {/* timeline steps*/}
+            <div className='relative after:absolute after:inset-x-0 after:top-1/2 after:block after:h-0.5 after:-translate-y-1/2 after:rounded-lg after:bg-green-400'>
+                <ol
+                    className="relative z-10 flex justify-evenly text-sm font-medium text-white"
+                >
+                    <li
+                        className="flex items-center gap-2 p-2"
+                    >
+                        <span
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                        >1
+                        </span>
+                    </li>
+                    <li
+                        className="flex items-center gap-2 p-2"
+                    >
+                        <span
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                        >2
+                        </span>
+                    </li>
+                    <li
+                        className="flex items-center gap-2 p-2"
+                    >
+                        <span
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                        >3
+                        </span>
+                    </li>
+                </ol>
             </div>
             <div className='font-montserrat mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                 <div className='text-2xl font-bold'>
@@ -19,7 +47,7 @@ const Component2 = () => {
                         <div className="border-8 border-[#D9D9D9] rounded-lg mx-10">
                             <div className="border-8 border-black rounded-sm"></div>
                         </div>
-                        <div className=''>
+                        <div className='relative bottom-3.5'>
                             <div className='bg-white mx-20 px-20 drop-shadow-md'>
                                 <div className='text-xl font-kanit font-bold pt-12'>จิ้นกันให้ YUPP!</div>
                                 <div className='text-lg font-montserrat pb-1 text-[#9F9F9F]'>Thunder dome stadium, Muang Thong Thani</div>
