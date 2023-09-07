@@ -19,15 +19,15 @@ const Component2 = () => {
                         <div className='bg-[#D9D9D9] rounded-lg'>
                             <p>----</p>
                         </div>
-                        <div className='bg-white mx-10 px-20'>
+                        <div className='bg-white mx-10 px-20 drop-shadow-md'>
                             <div className='text-xl font-kanit font-bold pt-12'>จิ้นกันให้ YUPP!</div>
-                            <div className='text-lg font-montserrat pb-1'>Thunder dome stadium, Muang Thong Thani</div>
-                            <div className='text-xl font-bold'>-------------------------------------------------------------------</div>
-                            <div className='flex justify-between'>
+                            <div className='text-lg font-montserrat pb-1 text-[#9F9F9F]'>Thunder dome stadium, Muang Thong Thani</div>
+                            <div className="border-t-4 border-[#BDBDBD] rounded-md my-6"></div>
+                            <div className='flex justify-between mb-2'>
                                 <div className='text-black font-montserrat text-lg'>2 September 2023</div>
                                 <div className='text-black font-montserrat text-lg'>19:00-22:00</div>
                             </div>
-                            <div className='flex justify-between'>
+                            <div className='flex justify-between mb-2'>
                                 <div className='text-black font-montserrat text-xl'>Deep Blue Zone x1</div>
                                 <div className='text-black font-montserrat text-xl'>5,500 ฿</div>
                             </div>
@@ -47,10 +47,56 @@ const Component2 = () => {
                                         <div className='text-black font-montserrat text-2xl font-bold'>฿</div>
                                     </div>
                                 </div>
-                                <Image className='ml-10' src="/images/events/QR.png" width={500} height={500} style={{ width: '30%', height: '30%' }} alt="Timeline1stStep"/>
+                                <Image className='ml-10' src="/images/events/QR.png" width={500} height={500} style={{ width: '30%', height: '30%' }} alt="Timeline1stStep"/> 
                             </div>
                         </div>
-                        
+                        <div className='flex mx-10 drop-shadow-md'>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div> 
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div> 
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>
+                            <div className="w-0 h-0 
+                                border-l-[40px] border-l-transparent
+                                border-t-[50px] border-t-white
+                                border-r-[40px] border-r-transparent">
+                            </div>    
+                        </div>                       
                     </div>
                     <div className='flex flex-col justify-evenly pl-8 w-4/12 pt-14'>
                         <div className='text-black font-montserrat text-xl mb-3'>To protect your interests, please ensure the information is correct before proceeding with the payment.</div>
