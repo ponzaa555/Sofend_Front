@@ -8,10 +8,10 @@ const Component2 = () => {
     return (
         <div className=''>
             {/* timeline steps*/}
-            <div className='relative after:absolute after:inset-x-0 after:top-1/2 after:block after:h-0.5 after:-translate-y-1/2 after:rounded-lg after:bg-green-400'>
-                <ol
-                    className="relative z-10 flex justify-evenly text-sm font-medium text-white"
-                >
+            <div className='relative after:absolute after:inset-x-0 after:top-1/2 after:block after:h-0.5 after:-translate-y-1/2 after:rounded-lg '>
+                <div
+                    className="relative z-10 flex text-sm font-medium text-white w-3/4 max-w-4xl m-auto items-center  py-6"
+                >   
                     <li
                         className="flex items-center gap-2 p-2"
                     >
@@ -20,6 +20,7 @@ const Component2 = () => {
                         >1
                         </span>
                     </li>
+                    <div className="w-full h-0 border-2 border-green-400 border-dashed"></div>
                     <li
                         className="flex items-center gap-2 p-2"
                     >
@@ -28,6 +29,7 @@ const Component2 = () => {
                         >2
                         </span>
                     </li>
+                    <div className="w-full h-0 border-2 border-green-400 border-dashed"></div>
                     <li
                         className="flex items-center gap-2 p-2"
                     >
@@ -36,7 +38,7 @@ const Component2 = () => {
                         >3
                         </span>
                     </li>
-                </ol>
+                </div>
             </div>
             <div className='font-montserrat mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                 <div className='text-2xl font-bold'>
@@ -79,48 +81,6 @@ const Component2 = () => {
                                     <Image className='ml-10' src="/images/events/QR.png" width={500} height={500} style={{ width: '30%', height: '30%' }} alt="Timeline1stStep"/> 
                                 </div>
                             </div>
-                            <div className='flex mx-20 drop-shadow-md'>
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div>
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div> 
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div>
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div>
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div>
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div> 
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div>
-                                <div className="w-0 h-0 
-                                    border-l-[40px] border-l-transparent
-                                    border-t-[50px] border-t-white
-                                    border-r-[40px] border-r-transparent">
-                                </div>  
-                            </div>  
                         </div>                     
                     </div>
                     <div className='flex flex-col justify-evenly pl-8 w-4/12 pt-14'>

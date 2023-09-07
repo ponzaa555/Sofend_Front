@@ -7,7 +7,7 @@ const Component1 = () => {
             {/* timeline steps*/}
             <div className='relative after:absolute after:inset-x-0 after:top-1/2 after:block after:h-0.5 after:-translate-y-1/2 after:rounded-lg '>
                 <div
-                    className="relative z-10 flex text-sm font-medium text-white w-3/4 max-w-4xl m-auto items-center"
+                    className="relative z-10 flex text-sm font-medium text-white w-3/4 max-w-4xl m-auto items-center py-6"
                 >   
                     <li
                         className="flex items-center gap-2 p-2"

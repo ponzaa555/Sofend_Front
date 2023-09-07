@@ -11,7 +11,7 @@ import Link from 'next/link'
 function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any) {
     switch (step) {
         case 1: 
-            return <div className='flex justify-between mx-auto md:items-center md:px-8 pb-10'>
+            return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8 mb-10'>
                         <button className='border-2 border-black rounded-md text-2xl px-14 hover:bg-black hover:text-white py-2'
                         onClick={handleBack}>
                             Cancel
@@ -22,7 +22,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any)
                         </button>
                     </div>
         case 2:
-            return <div className='flex justify-between mx-auto md:items-center md:px-8 pb-10'>
+            return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8 mb-10'>
                         <button className='border-2 border-black rounded-md text-2xl px-14 hover:bg-black hover:text-white py-2'
                         onClick={handleBack}>
                             Back
@@ -33,7 +33,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any)
                         </button>
                     </div>
         case 3:
-            return <div className='flex justify-center mx-auto md:items-center md:px-8 pb-10'>
+            return <div className='flex justify-center mx-auto lg:max-w-7xl md:items-center md:px-8 mb-10'>
                         <Link href='/main'>
                             <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black py-2 mr-10'>
                                 My Ticket
