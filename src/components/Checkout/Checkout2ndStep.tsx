@@ -70,7 +70,7 @@ const Component2 = () => {
                                     <div className='flex justify-between w-full'>
                                         <div className="">
                                             <div className='text-black font-montserrat text-2xl font-bold pb-6'>Total</div>
-                                            <div className='text-black font-montserrat text-2xl font-bold pb-10'>5,500.00</div>
+                                            <div className='text-black font-montserrat text-2xl font-bold pb-8'>5,500.00</div>
                                             <div className='text-[#838383] font-montserrat text-lg font-bold'>scan QR code to pay</div>
                                         </div>
                                         <div className="">
@@ -83,8 +83,8 @@ const Component2 = () => {
                             </div>
                         </div>                     
                     </div>
-                    <div className='flex flex-col justify-evenly pl-8 w-4/12 pt-14'>
-                        <div className='text-black font-montserrat text-xl mb-3'>To protect your interests, please ensure the information is correct before proceeding with the payment.</div>
+                    <div className='justify-center w-4/12 relative text-start'>
+                        <div className='text-black font-montserrat fixed w-1/3 text-xl mr-8 mt-16'>To protect your interests, please ensure the information is correct before proceeding with the payment.</div>
                     </div>
                 </div>
             </div>

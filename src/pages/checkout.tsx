@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Navbar from '../components/navbar'
-import { useState } from 'react'
+import { useState , useRef } from 'react'
 import { useRouter } from 'next/router'
 import Component1 from '../components/Checkout/Checkout1stStep'
 import Component2 from '../components/Checkout/Checkout2ndStep'
@@ -11,7 +11,7 @@ import Link from 'next/link'
 function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any) {
     switch (step) {
         case 1: 
-            return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8 mb-10'>
+            return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8'>
                         <button className='border-2 border-black rounded-md text-2xl px-14 hover:bg-black hover:text-white py-2'
                         onClick={handleBack}>
                             Cancel
@@ -22,7 +22,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any)
                         </button>
                     </div>
         case 2:
-            return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8 mb-10'>
+            return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8'>
                         <button className='border-2 border-black rounded-md text-2xl px-14 hover:bg-black hover:text-white py-2'
                         onClick={handleBack}>
                             Back
@@ -33,7 +33,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any)
                         </button>
                     </div>
         case 3:
-            return <div className='flex justify-center mx-auto lg:max-w-7xl md:items-center md:px-8 mb-10'>
+            return <div className='flex justify-center mx-auto lg:max-w-7xl md:items-center md:px-8'>
                         <Link href='/main'>
                             <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black py-2 mr-10'>
                                 My Ticket
@@ -55,9 +55,14 @@ const checkout = () => {
     const router = useRouter()
     const [step, setStep] = useState(1)
 
+
     // function to handle next button.
     const handleNext = () => {
         setStep(step + 1)
+        window.scrollTo({
+            top: 0,
+            behavior: 'instant',
+          });
     }
     
     // function to handle back button and cancel button.
@@ -67,6 +72,11 @@ const checkout = () => {
         if (step === 1) {
             return router.push('/main')
         }
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'instant',
+          });
     }
 
     // function to handle component by step.
@@ -95,7 +105,7 @@ const checkout = () => {
             <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
         </Head>
         <Navbar/>
-        <div className='bg-[#F9F9F9] h-full'>  
+        <div className='bg-[#F9F9F9] h-full min-h-full pb-10'>  
             {/* step 1: Timeline 1
                         Review Ticket Information
                 step 2: Timeline 2
