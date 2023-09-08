@@ -1,6 +1,5 @@
 import NextAuth, {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {toast} from "react-hot-toast";
 
 const options: NextAuthOptions = {
 
@@ -27,7 +26,6 @@ const options: NextAuthOptions = {
                 if (res.ok && user) {
                     return user;
                 }
-
                 return null;
             },}),
     ],
