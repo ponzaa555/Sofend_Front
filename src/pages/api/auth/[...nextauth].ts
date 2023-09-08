@@ -1,6 +1,5 @@
 import NextAuth, {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {toast} from "react-hot-toast";
 
 const options: NextAuthOptions = {
 
@@ -12,7 +11,7 @@ const options: NextAuthOptions = {
             type: "credentials",
             credentials: {},
             async authorize(credentials,req){
-                const {email,password} = credentials as {email:string,password:string};
+                // const {email,password} = credentials as {email:string,password:string};
                 //perform login logic
                 //find user in database
                 const res = await fetch("https://eventbud-jujiu2awda-uc.a.run.app/signin",{
@@ -27,7 +26,6 @@ const options: NextAuthOptions = {
                 if (res.ok && user) {
                     return user;
                 }
-
                 return null;
             },}),
     ],

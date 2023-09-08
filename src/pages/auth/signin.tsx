@@ -1,32 +1,10 @@
-import React, {FormEventHandler, useRef, useState} from "react";
+import React, {FormEventHandler, useState} from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { NextPage } from "next";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-
-
-import { useSession } from "next-auth/react";
-
-
-import { useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import { set, z } from "zod";
-import axios from "axios";
-import {toast} from 'react-hot-toast'
-
-import { useSelector } from "react-redux"; 
-
-import { BrowserRouter, Routes, Route} from "react-router-dom";
-import { sign } from "crypto";
-
-
-
 
 export const login: NextPage = (props): JSX.Element => {
-    const router = useRouter();
     const [info, setInfo] = useState({"email": "", "password": ""});
     const handleSubmit:FormEventHandler<HTMLFormElement> = async (e) => {
         //validation here
