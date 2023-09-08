@@ -58,6 +58,7 @@ const Signup = () => {
             </Head>
             <main className="fixed top-0 left-0 right-0 bottom-0 bg-gray-100">
                 <div className='flex flex-row h-full'>
+                    <Toaster/>
                     <div className="w-1/2 h-full">
                         <Image src="/images/1login.png" width={500} height={500} style={{ width: '100%', height: '100%' }} alt="vdo" />
                     </div>
