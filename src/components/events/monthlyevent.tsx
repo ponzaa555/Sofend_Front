@@ -3,7 +3,7 @@ import Card from './eventcard'
 import { date } from 'zod'
 import MaterialSymbolsArrowBackIosNew from '../icon/PreButton'
 import MaterialSymbolsArrowForwardIos from '../icon/ForwardButton'
-import Eventcards from '../data/Eventcards.json'
+import { getAllEvent } from '../../service/api'
 
 const ArrayMonth = [
     'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'
@@ -11,13 +11,25 @@ const ArrayMonth = [
 
 
 const monthlyevent = () => {
+  const [Eventcards, setEventcards] = useState([]);
+
+  //fetch all event from api
+  useEffect(() => {
+    getAllEvent()
+      .then(data => {
+        setEventcards(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   const [current, setCurrent] = useState(0);
   const [filteredEvents, setFilteredEvents] = useState(Eventcards);
 
 
   const filterEventsHandler = () => {
-    setFilteredEvents(Eventcards.filter((eventcard) => ( parseInt(eventcard.date.split('.')[1]) === (current+1))));
+    setFilteredEvents(Eventcards.filter((eventcard) => ( parseInt(eventcard.startDateTime.split('-')[1]) === (current+1))));
   };
 
 
@@ -46,7 +58,7 @@ const monthlyevent = () => {
       <div className="grid grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
         {filteredEvents.map((eventcard) => (
           <a href= "/event" className="">
-          <Card image={eventcard.image} date={eventcard.date} name={eventcard.name} place={eventcard.place} />
+          <Card image={eventcard.posterImage} date={eventcard.startDateTime} name={eventcard.eventName} place={eventcard.location} />
           </a>
         ))}
       </div>

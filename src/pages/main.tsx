@@ -5,23 +5,9 @@ import Introevent from '../components/events/introevent'
 import Recommendevent from '../components/events/recommendevent'
 import Allevent from '../components/events/allevent'
 import Monthlyevent from '../components/events/monthlyevent'
-import { getAllEvent } from '../service/api'
 import Head from "next/head";
 
 export const main = () => {
-  const [events, setEvents] = useState([]);
-  
-  //fetch all event from api
-  useEffect(() => {
-    getAllEvent()
-      .then(data => {
-        setEvents(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }, []);
-
   return (
     <>
       <Head>

@@ -1,13 +1,27 @@
 import React, {useState,useEffect}from 'react'
-import Data from "../data/Eventcards.json"
+import { getAllEvent } from '../../service/api'
 import Card from './eventcard'
+import { set } from 'zod'
 
 
 const allevent = () => {
-
+  
   const[selectedtag,setSelectedtag] = useState("")
-  const[filteredEvents,setFilteredEvents] = useState(Data)
+  const[filteredEvents,setFilteredEvents] = useState([])
+  const[Data,setData] = useState([])
+  //fetch all event from api
+  useEffect(() => {
+    getAllEvent()
+      .then(data => {
+        setFilteredEvents(data);
+        setData(data)
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
   console.log(filteredEvents)
+
 
   //set color tag
   const defaultcolor = `border border-black rounded-full px-3 py-2 hover:bg-black hover:text-white`
@@ -19,12 +33,12 @@ const allevent = () => {
   const alltag = ["Exhibition","Concert","Festival","Show"]
 
 
-  const filteredbytag = (filteredEvents:object) => {
+  const filteredbytag = () => {
     if(!selectedtag){
       return filteredEvents;
     }
 
-    const filteredE = filteredEvents.filter((E) => E.tag===selectedtag);
+    const filteredE = Data.filter((E) => E.tagName.includes(selectedtag));
       console.log("filtered")
       return filteredE
   }
@@ -61,7 +75,7 @@ const allevent = () => {
   }
 
   useEffect(() => {
-    var filteredData = filteredbytag(filteredEvents)
+    var filteredData = filteredbytag()
     setFilteredEvents(filteredData)
   },[selectedtag])
   
@@ -85,7 +99,7 @@ const allevent = () => {
         </div>
         <div id='2row5col' className='grid  grid-cols-4 grid-rows-2 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 '>
         {filteredEvent1.map((eventcard) => (
-          <Card image={eventcard.image} date={eventcard.date} name={eventcard.name} place={eventcard.place} />
+          <Card image={eventcard.posterImage} date={eventcard.startDateTime} name={eventcard.eventName} place={eventcard.location} />
         ))}
         </div>
       </div>
