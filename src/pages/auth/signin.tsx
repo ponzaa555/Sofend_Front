@@ -3,19 +3,33 @@ import Head from "next/head";
 import Image from "next/image";
 import { NextPage } from "next";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import toast, {Toaster} from "react-hot-toast";
 
 export const login: NextPage = (props): JSX.Element => {
     const [info, setInfo] = useState({"email": "", "password": ""});
+    const router = useRouter();
     const handleSubmit:FormEventHandler<HTMLFormElement> = async (e) => {
         //validation here
         e.preventDefault();
+
+
         const res = await signIn('credentials', {
             "email": info.email,
             "password": info.password,
-            //redirect: false,
-            callbackUrl: '/main', //change this to main page
+            redirect: false,
+            //callbackUrl: '/main', //change this to main page
             
         });
+
+        if (res.error) {
+            toast.error('Sign in failed , please check your email and password')
+        }
+        else{
+            toast.success('Sign in success')
+            router.push('/main')
+
+        }
 
     }
 
@@ -27,6 +41,7 @@ export const login: NextPage = (props): JSX.Element => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className="fixed top-0 left-0 right-0 bottom-0 bg-gray-100">
+                <Toaster />
                 <div className='flex flex-row h-full'>
                     <div className="w-1/2 h-full">
                         <Image src="/images/loginsignup/1.png" width={500} height={500} style={{ width: '100%', height: '100%' }} alt="vdo" />
@@ -34,7 +49,7 @@ export const login: NextPage = (props): JSX.Element => {
                     <div className="w-1/2 flex items-center justify-center h-full">
                         <div className="flex flex-col w-1/2">
                             <div className="flex flex-col justify-start">
-                                <h1 className="font-montserrat text-4xl font-bold">Log In</h1>
+                                <h1 className="font-montserrat text-4xl font-bold">Sign In</h1>
                                 <div className="flex flex-col">
                                     <form onSubmit={handleSubmit}>
                                         <label className="font-montserrat">Email</label>
@@ -62,8 +77,8 @@ export const login: NextPage = (props): JSX.Element => {
                                             </div>
                                             <a className="font-montserrat text-gray-500 pl-2" href="/resetpassword">Forgot password?</a> 
                                         </div> 
-                                        <button className="bg-white hover:bg-black hover:text-white border-2 border-black duration-300 text-black font-bold py-2 w-full rounded mt-5" type="submit">
-                                                Log in
+                                        <button className="hover:bg-white bg-black text-white border-2 border-black duration-300 hover:text-black font-bold py-2 w-full rounded mt-5" type="submit">
+                                                Sign In
                                         </button>
                                     </form>
                                 </div>
