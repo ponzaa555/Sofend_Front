@@ -15,7 +15,12 @@ const Signup = () => {
             toast.error('Password does not match')
             return
         }
+        else if (info.password.length < 8) {
+            toast.error('Password must be at least 8 characters')
+            return
+        }
         else {
+            toast.loading('Signing up...')
             const sendInfo = {email: info.email, password: info.password, firstName: info.first_name, lastName: info.last_name}
             console.log(sendInfo)
             try{
@@ -27,16 +32,17 @@ const Signup = () => {
                     body: JSON.stringify(sendInfo)
                 })
                 if(!res.ok){
+                    toast.remove()
                     toast.error('Sign up failed')
                 }
                 else{
+                    toast.remove()
                     toast.success('Sign up success')
-                    setTimeout(() => {
-                        router.push('/auth/signin');
-                    }, 1000);
+                    router.push('/auth/signin')
                 }
             }
             catch(err){
+                toast.remove()
                 toast.error('There is an error')
             }
         }
