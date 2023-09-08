@@ -149,7 +149,7 @@ const monthlyevent = () => {
   }, [current]);
 
 
-  console.log(filteredEvents);
+  // console.log(filteredEvents);
   return (
     <div>
       <div className="flex justify-around p-4">
