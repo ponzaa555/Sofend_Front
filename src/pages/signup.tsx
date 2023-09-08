@@ -4,8 +4,6 @@ import Image from "next/image";
 import { Toaster, toast } from 'react-hot-toast'
 import { useRouter } from 'next/router';
 
-
-
 const Signup = () => {
     const [info, setInfo] = useState({email: "", password: "", password_confirmation: "", first_name: "", last_name: ""});
     const router = useRouter();
