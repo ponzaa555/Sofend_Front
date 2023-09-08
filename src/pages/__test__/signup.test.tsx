@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import Signup from "../signup";
-import userEvent from "@testing-library/user-event";
-import { setupServer } from 'msw/node'
-import { rest } from 'msw'
+// import userEvent from "@testing-library/user-event";
+// import { setupServer } from 'msw/node'
+// import { rest } from 'msw'
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'))
 
