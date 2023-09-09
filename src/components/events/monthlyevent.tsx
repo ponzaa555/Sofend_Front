@@ -1,6 +1,6 @@
-import React , {useEffect, useState} from 'react'
+import React , {use, useEffect, useState} from 'react'
 import Card from './eventcard'
-import { date } from 'zod'
+import { date, set } from 'zod'
 import MaterialSymbolsArrowBackIosNew from '../icon/PreButton'
 import MaterialSymbolsArrowForwardIos from '../icon/ForwardButton'
 import { getAllEvent } from '../../service/api'
@@ -12,33 +12,28 @@ const ArrayMonth = [
 
 const monthlyevent = () => {
   const [Eventcards, setEventcards] = useState([]);
-
+  const [current, setCurrent] = useState(new Date().getMonth());
+  const [filteredEvents, setFilteredEvents] = useState([]);
   //fetch all event from api
   useEffect(() => {
     getAllEvent()
       .then(data => {
         setEventcards(data);
+        setFilteredEvents(data.filter((eventcard) => ( parseInt(eventcard.startDateTime.split('-')[1]) === (current+1))));
       })
       .catch(error => {
         console.error('Error:', error);
       });
   }, []);
 
-  const [current, setCurrent] = useState(0);
-  const [filteredEvents, setFilteredEvents] = useState(Eventcards);
-
-
   const filterEventsHandler = () => {
     setFilteredEvents(Eventcards.filter((eventcard) => ( parseInt(eventcard.startDateTime.split('-')[1]) === (current+1))));
   };
-
 
   useEffect(() => {
     filterEventsHandler(ArrayMonth[current]);
   }, [current]);
 
-
-  console.log(filteredEvents);
   return (
     <div>
       <div className="flex justify-around p-4">
@@ -55,9 +50,9 @@ const monthlyevent = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
-        {filteredEvents.map((eventcard) => (
-          <a href= "/event" className="">
+      <div className="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
+        {filteredEvents.map((eventcard, index) => (
+          <a key = {index} href= {"/event/"+eventcard.eventID} className="">
           <Card image={eventcard.posterImage} date={eventcard.startDateTime} name={eventcard.eventName} place={eventcard.location} />
           </a>
         ))}

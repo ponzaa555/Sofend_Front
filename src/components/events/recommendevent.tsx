@@ -30,8 +30,8 @@ const recommendevent = () => {
     <div className='flex flex-col '>
       <div className="text-4xl font-montserrat font-bold ml-5 py-4">Recommend Event</div>
       <div className="grid grid-cols-6 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
-        {recE.map((eventcard) => (
-          <a href= "/event" className="">
+        {recE.map((eventcard, index) => (
+          <a key = {index} href= {"/event/"+eventcard.eventID} className="">
           <Card image={eventcard.posterImage} date={eventcard.startDateTime} name={eventcard.eventName} place={eventcard.location} />
           </a>
         ))}
