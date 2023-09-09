@@ -10,7 +10,7 @@ const allevent = () => {
   const[Data,setData] = useState([])
 
   //set number of show event
-  const defultshow = 5
+  const defultshow = 1
   const[showall,setShowall] = useState(defultshow)
 
   //set color button
@@ -55,11 +55,13 @@ const allevent = () => {
       return filteredE
   }
 
-  var filteredEvent1 = filteredEvents.filter((event,index)=> {
-    if(index<showall){
-      return true
-    }
-  })
+  var filteredE = filteredbytag()
+
+  var filteredEvent1 = filteredE.filter((event,index) =>{
+      if(index<showall){
+        return true
+      }
+    })
 
   const handleclicktag = (e:any) => {
     const inputtag = String(e.target.value)
@@ -105,9 +107,10 @@ const allevent = () => {
     if(filteredEvents.length <= defultshow){
       setDisabledv(true)
       setColorviewall(disabledcolorviewall)
+      setShowall(defultshow)
     }else{
       setDisabledv(false)
-      setColorviewall(defaultcolorviewall)
+      setColorviewall(colorveiwall)
     }
   },[filteredEvents])
 

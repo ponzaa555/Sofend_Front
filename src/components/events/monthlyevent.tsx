@@ -19,19 +19,20 @@ const monthlyevent = () => {
     getAllEvent()
       .then(data => {
         setEventcards(data);
-        setFilteredEvents(data.filter((eventcard) => ( parseInt(eventcard.startDateTime.split('-')[1]) === (current+1))));
       })
       .catch(error => {
         console.error('Error:', error);
       });
   }, []);
 
+  var filteredEvent1 = Eventcards.filter((eventcard) => ( parseInt(eventcard.startDateTime.split('-')[1]) === (current+1)))
+
   const filterEventsHandler = () => {
     setFilteredEvents(Eventcards.filter((eventcard) => ( parseInt(eventcard.startDateTime.split('-')[1]) === (current+1))));
   };
 
   useEffect(() => {
-    filterEventsHandler(ArrayMonth[current]);
+    filterEventsHandler();
   }, [current]);
 
   return (
@@ -51,7 +52,7 @@ const monthlyevent = () => {
         </div>
       </div>
       <div className="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
-        {filteredEvents.map((eventcard, index) => (
+        {filteredEvent1.map((eventcard, index) => (
           <a key = {index} href= {"/event/"+eventcard.eventID} className="">
           <Card image={eventcard.posterImage} date={eventcard.startDateTime} name={eventcard.eventName} place={eventcard.location} />
           </a>
