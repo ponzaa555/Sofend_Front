@@ -4,10 +4,11 @@ import Card from './eventcard'
 import { date } from 'zod'
 import MaterialSymbolsArrowBackIosNew from '../icon/PreButton'
 import MaterialSymbolsArrowForwardIos from '../icon/ForwardButton'
+import Link from 'next/link'
 
 const Eventcards = [
   {
-      id: 1,
+      id: 'e6d7490e',
       name: 'The World of Studio Ghibli\'s Animation',
       place: 'Central World',
       date: '2021.01.01',
@@ -57,7 +58,7 @@ const Eventcards = [
   tag: 'exhibition', //exhibition,event,concert
 },
 {
-  id: 6,
+  id: '6b13a85a',
   name: 'The World of Studio Ghibli\'s Animation',
   place: 'Central World',
   date: '2021.01.01',
@@ -138,7 +139,6 @@ const monthlyevent = () => {
   const [current, setCurrent] = useState(0);
   const [filteredEvents, setFilteredEvents] = useState(Eventcards);
 
-
   const filterEventsHandler = () => {
     setFilteredEvents(Eventcards.filter((eventcard) => ( parseInt(eventcard.date.split('.')[1]) === (current+1))));
   };
@@ -168,9 +168,9 @@ const monthlyevent = () => {
       </div>
       <div className="grid grid-cols-6 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
       {filteredEvents.map((eventcard) => (
-        <a href= "/event" className="">
+        <Link href= {`/eventdetail/${eventcard.id}`} className="">
         <Card image={eventcard.image} date={eventcard.date} name={eventcard.name} place={eventcard.place} />
-        </a>
+        </Link>
       ))}
       </div>
     </div>
