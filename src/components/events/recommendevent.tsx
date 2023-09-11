@@ -25,17 +25,32 @@ const recommendevent = () => {
       return true
     }
   })
+
+  const addevent = (recE:any) => {
+    if(recE.length >  0){
+      return (
+      <div className="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 place-content-center ">
+          {recE.map((eventcard, index) => (
+            <a key = {index} href= {"/eventdetail/"+eventcard.eventID} className="">
+            <Card image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
+            </a>
+          ))}
+      </div>)
+    }else{
+      return(
+        <div>
+          <div className="h-32 mt-3"/>
+          <div className="text-4xl h-48 flex items-center justify-center font-montserrat font-medium">No Event</div>
+          <div className="h-32 mt-3"/>
+        </div>
+      )
+    }
+  }
   
   return (
     <div className='flex flex-col '>
-      <div className="text-4xl font-montserrat font-bold ml-5 py-4">Recommend Event</div>
-      <div className="grid grid-cols-6 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 place-content-center p-3">
-        {recE.map((eventcard, index) => (
-          <a key = {index} href= {"/event/"+eventcard.eventID} className="">
-          <Card image={eventcard.posterImage} date={eventcard.startDateTime} name={eventcard.eventName} place={eventcard.location} />
-          </a>
-        ))}
-      </div>
+      <div className="text-4xl font-montserrat font-medium py-4">Recommend Events</div>
+      {addevent(recE)}
     </div>
   )
 }

@@ -21,11 +21,15 @@ export const main = () => {
       </Head>
         <Navbar/>
         <Introevent/>
-        <div className='flex flex-col'>
+          <div className="justify-between px-4 py-8 mx-auto lg:max-w-7xl md:items-center md:px-8">
             <Recommendevent/>
+          </div>
+          <div className="justify-between px-4 py-8 mx-auto lg:max-w-7xl md:items-center md:px-8">
             <Allevent/>
+          </div>
+          <div className="justify-between px-4 py-8 mx-auto lg:max-w-7xl md:items-center md:px-8">
             <Monthlyevent/>
-        </div>
+          </div>
         <Footer/>
     </>
   )
