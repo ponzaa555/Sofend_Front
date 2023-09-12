@@ -116,4 +116,4 @@ const Signup = () => {
         </>
     );
 }
-export default Signup;300
+export default SignupEO;
