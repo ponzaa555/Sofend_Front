@@ -9,9 +9,9 @@ import Clock from '~/components/icon/Clock';
 import Location from '~/components/icon/Location';
 import Calendar from '~/components/icon/Calendar';
 import { useRouter } from 'next/router';
-import Zone from '~/components/events/eventdetailzone';
 import { TicketClass } from '~/components/events/eventitem';
 import Head from "next/head";
+import { number, set } from 'zod';
 
 const EventDetails = () => {
     const ref = useRef<null | HTMLDivElement>(null);
@@ -71,11 +71,28 @@ const EventDetails = () => {
 
     const ticketClassElements : TicketClass[] = eventDetail.ticketClass;
     
+
+    const [listCount,setlistCount] = useState([{
+        name:"",
+        price:0,
+        count:0
+    }]);
+
+    /*console.log(eventDetail.ticketClass.map(item => ({
+        name:  item.className,
+        count: 0
+    })))*/
+
     useEffect(() => {
         if (id) {
           axios.get(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
             .then((res) => {
               setEventDetail(res.data);
+              setlistCount(res.data.ticketClass.map(item => ({
+                name: item.className,
+                price : item.pricePerSeat,
+                count:0,
+              })))
             })
             .catch((err) => {
               console.error(err);
@@ -83,6 +100,61 @@ const EventDetails = () => {
         }
       }, [id]);
     
+
+    const ticketClasses = eventDetail.ticketClass;
+    const updateListCount = (nlistCount:any) => {
+          setlistCount(nlistCount)
+        }
+    
+    //add count to listCount
+
+    const [Zone, setZone] = useState("");
+    const [isSelect,setSelect] = useState(false);
+    const [Total,setTotal] = useState(0);
+    const [Price,setPrice] = useState(0);
+    let items = 0;
+    let prices = 0;
+    let pp = 0;
+
+    const handleButtonClick = (index, newValue) => {
+        const updatedListCount = [...listCount];
+        updatedListCount[index].count = newValue;
+        setlistCount(updatedListCount);
+        if(updatedListCount[index].count===0){
+            setZone("");
+            setSelect(false);
+        }
+        else{
+            setZone(updatedListCount[index].name);
+            setSelect(true);
+        }
+        for (let i = 0; i < listCount.length; i++) {
+            let item = listCount[i];
+            items += item?.count
+        }
+        setTotal(items)
+
+        for (let i = 0; i < listCount.length; i++) {
+            let item = listCount[i];
+            prices += (item?.price)*(item?.count)
+        }
+        setPrice(prices)
+      }
+
+    /*console.log(Total)
+    console.log(Price)*/
+
+    /*for (let i = 0; i < listCount.length; i++) {
+        let item = listCount[i];
+        console.log(`Index ${i}: ${item?.count}`);
+        console.log(`Index ${i}: ${item?.price}`);
+        
+    }
+    
+    console.log("Listc",listCount);
+    console.log("Zone",Zone);
+    console.log("isSelect",isSelect);*/
+
     return(
         <>
             <Head>
@@ -135,8 +207,23 @@ const EventDetails = () => {
                     <div className='flex flex-row justify-between gap-5'>
                         <div className="basis-3/5">
                             <div className='flex flex-col gap-5'>
-                            {ticketClassElements.map((event) => (
-                                <Zone className={event.className} pricePerSeat={event.pricePerSeat} AmountOfSeats={event.AmountOfSeats}/>
+                            {listCount.map((item,index) => (
+                                <div key={index}>
+                                <div className='grid grid-cols-6 justify-around border-2 border-gray-300 rounded-md place-items-center px-5'>
+                                    <span className='col-span-2 text-center font-montserrat'>{item.name}</span>
+                                    <span className='font-montserrat font-bold'>{item.price} ฿</span>
+                                    <button onClick={() => handleButtonClick(index, item.count - 1)} disabled={item.count==0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded my-2 box-content py-2.5 px-1.5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
+                                    <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line y1="1" x2="10" y2="1" stroke={item.count==0 ? "#696969":"#FFF"} stroke-width="2" className="icon" />
+                                    </svg></button>
+                                    <span>{item.count}</span>
+                                    <button onClick={() => handleButtonClick(index, item.count + 1)} disabled={Zone!=item.name && isSelect} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded box-content  p-1.5 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
+                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
+                                    <line x1="5" y1="4.37114e-08" x2="5" y2="10" stroke={countVIP>0 ? "#696969":"#FFF"} stroke-width="2" />
+                                    <line y1="5" x2="10" y2="5" stroke={Zone!=item.name && isSelect ? "#696969":"#FFF"} stroke-width="2" />
+                                    </svg></button>
+                                </div>
+                                </div>
                             ))}
                             </div>
                         </div>
@@ -145,16 +232,16 @@ const EventDetails = () => {
                             <div className='flex flex-col'>
                                 <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
                                     <div className='font-montserrat text-xl'>Total</div>
-                                    <div className='font-montserrat'>{countNormal+countVIP} items</div>
+                                    <div className='font-montserrat'>{Total} items</div>
                                 </div>
                                 <hr className='border-[1.5px] border-gray-300 mx-8'></hr>
                                 <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
-                                    <div className='font-montserrat font-bold texl-xl'>{650*countNormal+1000*countVIP}</div>
+                                    <div className='font-montserrat font-bold texl-xl'>{Price}</div>
                                     <div className='font-montserrat font-bold text-xl'>฿</div>   
                                 </div>
                             </div>
                             </div>
-                            <button disabled={countNormal<=0 && countVIP<=0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                            <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
                         </div>
                     </div>
             </div>
@@ -162,14 +249,14 @@ const EventDetails = () => {
                 <div className='flex justify-between items-center border-2 border-gray-300 rounded-md'>
                     <div className='flex'>
                         <div className="w-20 h-20 overflow-hidden rounded-full border border-gray-300 mb-2 mt-2 ml-5">
-                            <img src='https://s-media-cache-ak0.pinimg.com/originals/45/8b/be/458bbe24f9c6f35c2148e30a926976c8.jpg'/>
+                            <img src='../images/events/profile.png'/>
                         </div>
                         <div className='flex flex-col'>
                             <div className='text-black font-montserrat ml-5 mt-5 '>Organized by</div>
                             <div className='text-black font-montserrat font-bold text-xl ml-5 mb-5'>{eventDetail.organizerName}</div>
                         </div>
                     </div>
-                    <Modal></Modal>
+                    <Modal organizerName={eventDetail.organizerName}></Modal>
                 </div>
             </div>
             <div className='justify-center bg-white p-4'>

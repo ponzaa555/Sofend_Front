@@ -9,4 +9,10 @@ export interface TicketClass {
     className: string,
     AmountOfSeats: number,
     pricePerSeat: number,
+    listCount: object,
+    setlistCount:any
+}
+
+export interface Modal {
+    organizerName : string 
 }
