@@ -64,7 +64,8 @@ const SignupEO = () => {
                     <div className="w-1/2 flex items-center justify-center h-full">
                         <div className="flex flex-col w-1/2">
                             <div className="flex flex-col justify-start">
-                                <h1 className="font-montserrat text-white text-4xl font-bold">Sign Up</h1>
+                                <h1 className="font-montserrat text-white text-4xl font-bold">Sign Up as</h1>
+                                <h1 className="font-montserrat text-white text-4xl font-bold">Event Organizer</h1>
                                 <form onSubmit={onSubmit}>
                                         <label className="font-montserrat text-white" htmlFor='email_signUp'>Email</label>
                                         <span className="text-red-600 ml-1">*</span>

@@ -49,7 +49,8 @@ export const loginEO: NextPage = (props): JSX.Element => {
                     <div className="w-1/2 flex items-center justify-center h-full">
                         <div className="flex flex-col w-1/2">
                             <div className="flex flex-col justify-start">
-                                <h1 className="font-montserrat text-white text-4xl font-bold">Sign In as Event Organizer</h1>
+                                <h1 className="font-montserrat text-white text-4xl font-bold">Sign In as</h1>
+                                <h1 className="font-montserrat text-white text-4xl font-bold">Event Organizer</h1>
                                 <div className="flex flex-col">
                                     <form onSubmit={handleSubmit}>
                                         <label className="font-montserrat text-white">Email</label>
