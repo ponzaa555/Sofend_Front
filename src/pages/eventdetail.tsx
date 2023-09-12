@@ -18,10 +18,9 @@ const EventDetails = () => {
 
     const handleClick = () => {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
-    };
+    };  
 
-    const [countNormal, setCountNormal] = useState(0);
-    const [countVIP, setCountVIP] = useState(0);
+    const [countVIP,setCountVIP] = useState(0);
 
     const router = useRouter();
     const { id } = router.query;
@@ -71,6 +70,38 @@ const EventDetails = () => {
 
     const ticketClassElements : TicketClass[] = eventDetail.ticketClass;
     
+    const daystart = eventDetail.startDateTime.split(/[T-]/)[2]
+    const dayend = eventDetail.endDateTime.split(/[T-]/)[2]
+    const monthstart = eventDetail.startDateTime.split(/[T-]/)[1]
+    const monthend = eventDetail.endDateTime.split(/[T-]/)[1]
+    const yearstart = eventDetail.startDateTime.split(/[T-]/)[0]
+    const yearend = eventDetail.endDateTime.split(/[T-]/)[0]
+
+    const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+    const starttime = eventDetail.startDateTime.split(/[T-]/)[3]
+    const endtime = eventDetail.endDateTime.split(/[T-]/)[3]
+    console.log(starttime)
+
+    const checkdate = () => {
+        if(daystart === dayend && monthstart === monthend && yearstart === yearend){
+        return(
+            <div className="">{parseInt(daystart)} {month[parseInt(monthstart)-1]} {parseInt(yearstart)}</div>
+        )
+        }else if(monthstart === monthend && yearstart === yearend && daystart !== dayend){
+        return(
+            <div className="">{parseInt(daystart)} - {parseInt(dayend)} {month[parseInt(monthstart)-1]} {parseInt(yearstart)}</div>
+        )
+        }else if(yearstart === yearend && monthstart !== monthend){
+        return(
+            <div className="">{parseInt(daystart)} {month[parseInt(monthstart)-1]} - {parseInt(dayend)} {month[parseInt(monthend)-1]} {parseInt(yearstart)}</div>
+        )
+        }else{
+        return(
+            <div className="">{parseInt(daystart)} {month[parseInt(monthstart)-1]} {parseInt(yearstart)} - {parseInt(dayend)} {month[parseInt(monthend)-1]} {parseInt(yearend)}</div>
+        )
+        }
+    }
 
     const [listCount,setlistCount] = useState([{
         name:"",
@@ -180,11 +211,11 @@ const EventDetails = () => {
                                 <div className='text-white font-kanit font-bold text-2xl mb-24'>{eventDetail.eventName}</div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Calendar></Calendar>
-                                    <div className='text-black font-montserrat text-xl mb-3'>{eventDetail.startDateTime} - {eventDetail.endDateTime}</div>
+                                    <div className='text-black font-montserrat text-xl mb-3'>{checkdate()}</div>
                                 </div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Clock></Clock>
-                                    <div className='text-black font-montserrat text-xl mb-3'>{eventDetail.onSaleDateTime}-{eventDetail.endSaleDateTime}</div>
+                                    <div className='text-black font-montserrat text-xl mb-3'>{eventDetail.startDateTime.split(/[T-]/)[3]}-{eventDetail.endDateTime.split(/[T-]/)[3]}</div>
                                 </div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Location></Location>
