@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Toaster, toast } from 'react-hot-toast'
 import { useRouter } from 'next/router';
 
-const Signup = () => {
+const SignupEO = () => {
     const [info, setInfo] = useState({email: "", password: "", password_confirmation: "", organization_name: "", phone_number: ""});
     const router = useRouter();
 
@@ -116,4 +116,4 @@ const Signup = () => {
         </>
     );
 }
-export default SignupEO;
+export default SignupEO

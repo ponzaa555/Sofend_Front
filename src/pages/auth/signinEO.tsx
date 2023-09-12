@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import toast, {Toaster} from "react-hot-toast";
 
-export const login: NextPage = (props): JSX.Element => {
+export const loginEO: NextPage = (props): JSX.Element => {
     const [info, setInfo] = useState({"email": "", "password": ""});
     const router = useRouter();
     const handleSubmit:FormEventHandler<HTMLFormElement> = async (e) => {
