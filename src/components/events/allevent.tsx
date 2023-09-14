@@ -21,7 +21,7 @@ const allevent = () => {
   const[colortag_s,setColortag_Show] = useState(defaultcolor)
 
   const defaultcolorviewall = `text-xl text-gray-400 font-montserrat font-bold  ml-5 hover:text-black`
-  const disabledcolorviewall = `text-xl text-gray-400 font-montserrat font-bold  ml-5`
+  const disabledcolorviewall = `text-xl text-gray-400 font-montserrat font-bold  ml-5 `
   const[colorveiwall,setColorviewall] = useState(defaultcolorviewall)
   const [disabledv, setDisabledv] = useState(false);
 
@@ -108,9 +108,13 @@ const allevent = () => {
       setDisabledv(true)
       setColorviewall(disabledcolorviewall)
       setShowall(defultshow)
-    }else{
+    }
+    else{
       setDisabledv(false)
-      setColorviewall(colorveiwall)
+      if(colorveiwall === disabledcolorviewall)
+        setColorviewall(defaultcolorviewall)
+      else
+        setColorviewall(colorveiwall)
     }
   },[filteredEvents])
 
