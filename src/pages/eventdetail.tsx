@@ -220,7 +220,7 @@ const EventDetails = () => {
                                     <span>{item.count}</span>
                                     <button onClick={() => handleButtonClick(index, item.count + 1)} disabled={Zone!=item.name && isSelect} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold rounded box-content  p-1.5 mr-5 text-center disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none" type="submit">
                                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
-                                    <line x1="5" y1="4.37114e-08" x2="5" y2="10" stroke={"#FFF"} stroke-width="2" />
+                                    <line x1="5" y1="4.37114e-08" x2="5" y2="10" stroke={Zone!=item.name && isSelect ? "#696969":"#FFF"} stroke-width="2" />
                                     <line y1="5" x2="10" y2="5" stroke={Zone!=item.name && isSelect ? "#696969":"#FFF"} stroke-width="2" />
                                     </svg></button>
                                 </div>
