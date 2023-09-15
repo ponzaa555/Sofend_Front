@@ -7,10 +7,9 @@ export interface EventitemProps {
 
 export interface TicketClass {
     className: string,
-    AmountOfSeats: number,
+    AmountOfSeat: number,
     pricePerSeat: number,
-    listCount: object,
-    setlistCount:any
+    seatNo: number[],
 }
 
 export interface Modal {

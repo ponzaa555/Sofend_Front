@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React from 'react';
 import Navbar from '../components/navbar'
 import Modal from '../components/modal/modal'
 import { useRef } from 'react';
@@ -9,9 +9,35 @@ import Clock from '~/components/icon/Clock';
 import Location from '~/components/icon/Location';
 import Calendar from '~/components/icon/Calendar';
 import { useRouter } from 'next/router';
-import { TicketClass } from '~/components/events/eventitem';
 import Head from "next/head";
-import { number, set } from 'zod';
+import type { TicketClass } from '~/components/events/eventitem';
+
+type EventDetail = {
+    eventID: string;
+    eventName: string;
+    startDateTime: string;
+    endDateTime: string;
+    onSaleDateTime: string;
+    endSaleDateTime: string;
+    location: string;
+    info: string;
+    featured: boolean;
+    eventStatus: string;
+    tagName: string[];
+    posterImage: string;
+    seatImage: string[];
+    staff: string[];
+    ticket: string[];
+    ticketType: string;
+    ticketClass: TicketClass[];
+    organizerName: string;
+}
+
+type ForListCount = {
+    name: string;
+    price: number;
+    count: number;
+}
 
 const EventDetails = () => {
     const ref = useRef<null | HTMLDivElement>(null);
@@ -26,62 +52,35 @@ const EventDetails = () => {
     const { id } = router.query;
     console.log(id);
 
-    const [eventDetail, setEventDetail] = useState({
-        "eventID": "79b7ddc5",
-        "eventName": "GARNiDELiA stellacage 2023 -stella ship- Reconnect in Bangkok",
-        "startDateTime": "2023-09-16T11:00:00",
-        "endDateTime": "2023-09-16T15:00:00",
-        "onSaleDateTime": "2023-06-02T17:00:00",
-        "endSaleDateTime": "2023-09-16T15:00:00",
-        "location": "Centerpoint Entertainment : เซ็นเตอร์พ้อยท์ สตูดิโอ",
-        "info": "a concert from J-Pop Anisong duo unit with EDM dance music that incorporate with dazzling Japanese tradition culture style  🇯🇵\nthat reached No.1 chart in BiliBili an QQ music in China 🇨🇳 \nwith their\n[ Gokuraku Jodo] 極楽浄土 that many people used  and applied in many cover dances contests in China.\n\nGARNiDELiA also provided anime songs for many anime blockbusters like Kill la Kill , Mahouka koukou no rettousei ,  Fate Apocrypha ,and etc.\nThis will be their first tour in 4 years after COVID-19.\n[ GARNiDELiA stellacage 2023 -stella ship- Reconnect ] World Tour\n\nThey will perform their blockbuster songs to Reconnect with fans around the world.\nDon't miss it if you are the fans of EDM that fusion seamlessly with Japanese culture and anisongs.",
-        "featured": true,
-        "eventStatus": "On-going",
-        "tagName": [
-          "Concert"
-        ],
-        "posterImage": "https://p-u.popcdn.net/event_details/posters/000/014/901/large/6d86c3a5a56f3d5063610341cdba54571a1152b2.png?1692183338",
-        "seatImage": "[\n  {\n  Zone: \"https://p-u.popcdn.net/attachments/images/000/041/657/large/Stage_Zone02.png?1681028940\"\n  }\n]",
-        "staff": [],
-        "ticket": [],
-        "ticketType": "Classed",
-        "ticketClass": [
-          {
-            "amountOfSeat": 50,
-            "className": "VVIP ( Regular )",
-            "pricePerSeat": 4400,
-            "seatNo": []
-          },
-          {
-            "amountOfSeat": 50,
-            "className": "VIP ( Regular )",
-            "pricePerSeat": 3700,
-            "seatNo": []
-          },
-          {
-            "amountOfSeat": 50,
-            "className": "General Audience ( GA ) ( Regular )",
-            "pricePerSeat": 2600,
-            "seatNo": []
-          }
-        ],
-        "organizerName": "Real Live Entertainment Company Limited"
-      })
-
-    const ticketClassElements : TicketClass[] = eventDetail.ticketClass;
+    const [eventDetail, setEventDetail] = useState<EventDetail>({
+        eventID: "",
+        eventName: "",
+        startDateTime: "",
+        endDateTime: "",
+        onSaleDateTime: "",
+        endSaleDateTime: "",
+        location: "",
+        info: "",
+        featured: false,
+        eventStatus: "",
+        tagName: [],
+        posterImage: "",
+        seatImage: [],
+        staff: [],
+        ticket: [],
+        ticketType: "",
+        ticketClass: [],
+        organizerName: "",
+    })
     
-    const daystart = eventDetail.startDateTime.split(/[T-]/)[2]
-    const dayend = eventDetail.endDateTime.split(/[T-]/)[2]
-    const monthstart = eventDetail.startDateTime.split(/[T-]/)[1]
-    const monthend = eventDetail.endDateTime.split(/[T-]/)[1]
-    const yearstart = eventDetail.startDateTime.split(/[T-]/)[0]
-    const yearend = eventDetail.endDateTime.split(/[T-]/)[0]
+    const daystart = eventDetail.startDateTime.split(/[T-]/)[2] as string
+    const dayend = eventDetail.endDateTime.split(/[T-]/)[2] as string
+    const monthstart = eventDetail.startDateTime.split(/[T-]/)[1] as string
+    const monthend = eventDetail.endDateTime.split(/[T-]/)[1] as string
+    const yearstart = eventDetail.startDateTime.split(/[T-]/)[0] as string
+    const yearend = eventDetail.endDateTime.split(/[T-]/)[0] as string
 
     const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-
-    const starttime = eventDetail.startDateTime.split(/[T-]/)[3]
-    const endtime = eventDetail.endDateTime.split(/[T-]/)[3]
-    console.log(starttime)
 
     const checkdate = () => {
         if(daystart === dayend && monthstart === monthend && yearstart === yearend){
@@ -103,20 +102,15 @@ const EventDetails = () => {
         }
     }
 
-    const [listCount,setlistCount] = useState([{
+    const [listCount,setlistCount] = useState<ForListCount[]>([{
         name:"",
         price:0,
         count:0
     }]);
 
-    /*console.log(eventDetail.ticketClass.map(item => ({
-        name:  item.className,
-        count: 0
-    })))*/
-
     useEffect(() => {
         if (id) {
-          axios.get(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
+          axios.get<EventDetail>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
             .then((res) => {
               setEventDetail(res.data);
               setlistCount(res.data.ticketClass.map(item => ({
@@ -131,12 +125,6 @@ const EventDetails = () => {
         }
       }, [id]);
     
-
-    const ticketClasses = eventDetail.ticketClass;
-    const updateListCount = (nlistCount:any) => {
-          setlistCount(nlistCount)
-        }
-    
     //add count to listCount
 
     const [Zone, setZone] = useState("");
@@ -145,9 +133,8 @@ const EventDetails = () => {
     const [Price,setPrice] = useState(0);
     let items = 0;
     let prices = 0;
-    let pp = 0;
 
-    const handleButtonClick = (index, newValue) => {
+    const handleButtonClick = (index: number, newValue: number) => {
         const updatedListCount = [...listCount];
         updatedListCount[index].count = newValue;
         setlistCount(updatedListCount);
@@ -160,31 +147,17 @@ const EventDetails = () => {
             setSelect(true);
         }
         for (let i = 0; i < listCount.length; i++) {
-            let item = listCount[i];
-            items += item?.count
+            const item = listCount[i] as ForListCount;
+            items += item.count
         }
         setTotal(items)
 
         for (let i = 0; i < listCount.length; i++) {
-            let item = listCount[i];
-            prices += (item?.price)*(item?.count)
+            const item = listCount[i] as ForListCount;
+            prices += (item.price)*(item.count)
         }
         setPrice(prices)
       }
-
-    /*console.log(Total)
-    console.log(Price)*/
-
-    /*for (let i = 0; i < listCount.length; i++) {
-        let item = listCount[i];
-        console.log(`Index ${i}: ${item?.count}`);
-        console.log(`Index ${i}: ${item?.price}`);
-        
-    }
-    
-    console.log("Listc",listCount);
-    console.log("Zone",Zone);
-    console.log("isSelect",isSelect);*/
 
     return(
         <>
