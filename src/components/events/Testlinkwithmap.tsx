@@ -23,7 +23,7 @@ const Testlinkwithmap = () =>{
     })
     const handleChange = (e) => {
         const filterData = product.filter((d) => 
-        d.eventName.toLocaleLowerCase().match(e.target.value))
+        d.eventName.toLocaleLowerCase().match(e.target.value.toLocaleLowerCase()))
         setResults(filterData)
         let lengthinput = e.target.value.length
         console.log("e",lengthinput)
@@ -35,7 +35,7 @@ const Testlinkwithmap = () =>{
     },[results]);
     return(
         <div className="">
-            <div className="  w-[600px] m-auto  bg-white justify-center rounded-lg shadow-xl pl-5 py-2 border-2 border-gray-500
+            <div className="  w-[600px]   m-auto  bg-white justify-center rounded-lg shadow-xl pl-5 py-2 border-2 border-gray-500
              focus:border-gray-700">
                 <input type="text" placeholder="Type Here ...." 
                 className=" w-full h-10 rounded-lg outline-none text-lg relative pl-7
