@@ -1,6 +1,7 @@
 export interface EventitemProps{
     name : string,
     place : string,
-    date : string,
+    datestart : string,
+    dateend : string,
     image: string,
 }
