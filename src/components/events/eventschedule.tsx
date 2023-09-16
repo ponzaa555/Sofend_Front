@@ -23,7 +23,7 @@ const eventschedule = () => {
             <div className="mt-8 mr-6 ml-6">
                 <div className="grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 place-content-center ">
                 {showevents.map((eventcard, index) => (
-                    <a key = {index} className="flex flex-col items-center">
+                    <a key = {index} className="flex flex-col items-center ">
                         <div className="flex-1">
                             <ScheduleCard image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
                         </div>
