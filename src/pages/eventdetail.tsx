@@ -11,6 +11,7 @@ import Calendar from '~/components/icon/Calendar';
 import { useRouter } from 'next/router';
 import Head from "next/head";
 import type { TicketClass } from '~/components/events/eventitem';
+import { Console } from 'console';
 
 type EventDetail = {
     eventID: string;
@@ -99,6 +100,15 @@ const EventDetails = () => {
         }
     }
 
+    const timestart = eventDetail.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[0] as string
+    const timeend = eventDetail.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[0] as string
+
+    const checktime = () => {
+        return(
+            <div className="">{parseInt(timestart)+7}:{eventDetail.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)+7}:{eventDetail.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
+        )
+    }
+
     const [listCount,setlistCount] = useState<ForListCount[]>([{
         name:"",
         price:0,
@@ -185,7 +195,7 @@ const EventDetails = () => {
                                 </div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Clock></Clock>
-                                    <div className='text-black font-montserrat text-xl mb-3'>{eventDetail.startDateTime.split(/[T-]/)[3]}-{eventDetail.endDateTime.split(/[T-]/)[3]}</div>
+                                    <div className='text-black font-montserrat text-xl mb-3'>{checktime()}</div>
                                 </div>
                                 <div className='flex justify-items-center gap-2'>
                                     <Location></Location>
@@ -196,7 +206,7 @@ const EventDetails = () => {
                     </div>
                 </div>
                 </div>
-                <div className='bg-white'>
+                <div className='bg-white mb-10'>
                 </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
