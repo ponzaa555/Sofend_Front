@@ -5,3 +5,14 @@ export interface EventitemProps{
     dateend : string,
     image: string,
 }
+
+export interface TicketClass {
+    className: string,
+    AmountOfSeat: number,
+    pricePerSeat: number,
+    seatNo: number[],
+}
+
+export interface Modal {
+    organizerName : string 
+}
