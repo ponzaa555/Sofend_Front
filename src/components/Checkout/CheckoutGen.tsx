@@ -1,5 +1,4 @@
-// import React, {SVGProps} from "react";
-
+import SVG from 'react-inlinesvg';
 
 const ComponentGenerateQR = () => {
     const generatePayload = require('promptpay-qr') 
@@ -16,12 +15,13 @@ const ComponentGenerateQR = () => {
     // Convert to SVG QR Code
     qrcode.toString(payload, options, (err:any, svg:any) => {
         if (err) return console.log(err)
-        // fs.writeFileSync('./qr.svg', svg)
-        console.log(svg)
         getSVG = svg
+        console.log("SVG: ", svg)
     })
+
     return (
-        getSVG
+        <SVG src={getSVG} />
+        // getSVG
     )
 }
 

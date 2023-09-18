@@ -1,29 +1,19 @@
-import React, {SVGProps} from "react";
+import React from "react";
 import Image from "next/image";
 import Head from 'next/head'
-
+import SVG from 'react-inlinesvg';
 import ComponentGenerateQR from "./CheckoutGen";
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 const Component2 = () => {
-    // const convertpayloadtoqrcode = () => {
-    //     const payload = ComponentGenerateQR()
-    //     const qrcode = require('qrcode')
-        
-    //     const options = { type: 'svg', color: { dark: '#000', light: '#fff' } }
+    // const convertor= () => {
+    //     const stringSvg = ComponentGenerateQR()
     //     return (
-    //         require('qrcode').toString(payload, options, (err:any, svg:SVGProps<SVGAElement>) => {
-    //             // if (err) return err
-    //             const getsvg = svg
-    //             return (
-    //                 svg
-    //             )
-    //             // console.log(img)
-    //         })
-
+    //         stringSvg
     //     )
     // }
+    
     return (
         <div className=''>
             {/* timeline steps*/}
@@ -97,8 +87,11 @@ const Component2 = () => {
                                             <div className='text-black font-montserrat text-2xl font-bold'>฿</div>
                                         </div>
                                     </div>
-                                    <ComponentGenerateQR/>
-                                    {/* <Image className='ml-10' src="/images/events/QR.png" width={500} height={500} style={{ width: '30%', height: '30%' }} alt="Timeline1stStep"/>  */}
+                                    <div>
+                                        <ComponentGenerateQR/>
+                                        {/* {convertor()} */}
+                                        {/* <SVG src={convertor()} /> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>                     
