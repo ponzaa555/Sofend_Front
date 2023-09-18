@@ -58,13 +58,13 @@ const monthlyevent = () => {
   return (
     <div>
       <div className="flex justify-between p-4 mb-2 mt-2">
-        <div className="flex text-2xl font-montserrat font-bold ">
+        <div className="flex text-2xl font-montserrat font-bold w-1/4">
             <button onClick={()=>setCurrent((current-1+12)%12)} className='flex mt-1'><MaterialSymbolsArrowBackIosNew></MaterialSymbolsArrowBackIosNew>
               <div className="text-2xl font-montserrat font-medium text-center">{ArrayMonth[((current-1+12)%12)]}</div>
             </button>
         </div>
         <div className="text-4xl font-montserrat font-bold text-center ">{ArrayMonth[current]}</div>
-        <div className="flex text-2xl font-montserrat font-bold ">
+        <div className="flex text-2xl font-montserrat font-bold w-1/4 justify-end">
           <button onClick={()=>setCurrent((current+1)%12)} className='flex mt-1'>
             <div className="text-2xl font-montserrat font-medium text-center ">{ArrayMonth[((current+1)%12)]}</div>
             <MaterialSymbolsArrowForwardIos></MaterialSymbolsArrowForwardIos>
