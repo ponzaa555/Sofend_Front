@@ -15,13 +15,13 @@ const ComponentGenerateQR = () => {
     // Convert to SVG QR Code
     qrcode.toString(payload, options, (err:any, svg:any) => {
         if (err) return console.log(err)
-        getSVG = svg
+        getSVG = svg as string
         console.log("SVG: ", svg)
     })
 
     return (
-        <SVG src={getSVG} />
-        // getSVG
+        // <SVG className='w-48 h-48' src= {getSVG}/>
+        <SVG src= {getSVG}/>
     )
 }
 

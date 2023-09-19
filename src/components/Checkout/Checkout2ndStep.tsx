@@ -6,14 +6,7 @@ import ComponentGenerateQR from "./CheckoutGen";
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
-const Component2 = () => {
-    // const convertor= () => {
-    //     const stringSvg = ComponentGenerateQR()
-    //     return (
-    //         stringSvg
-    //     )
-    // }
-    
+const Component2 = () => {    
     return (
         <div className=''>
             {/* timeline steps*/}
@@ -86,12 +79,11 @@ const Component2 = () => {
                                             <div className='text-black font-montserrat text-lg pb-6'>(1 items)</div>
                                             <div className='text-black font-montserrat text-2xl font-bold'>฿</div>
                                         </div>
+                                        <div className="w-48 h-48">
+                                            <ComponentGenerateQR/>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <ComponentGenerateQR/>
-                                        {/* {convertor()} */}
-                                        {/* <SVG src={convertor()} /> */}
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>                     
