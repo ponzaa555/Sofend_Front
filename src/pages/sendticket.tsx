@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from '../components/navbar'
 import Head from "next/head";
-import Ticket from "../components/ticket/ticket";
+import TicketSend from "../components/ticket/ticketforsend";
+import ComponentSend1 from "~/components/ticket/com_send1";
+import ComponentSend2 from "~/components/ticket/com_send2";
 
-
-const MyTicket = () => {
-
-    return(
+const SendTicket = () => {
+    return (
         <>
             <Head>
                 {/* import font to page */}
@@ -19,17 +19,15 @@ const MyTicket = () => {
             </Head>
             <Navbar/>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
-                <div className="font-montserrat font-bold text-4xl mb-4">MY TICKET</div>
-                <div className="flex flex-row-2 justify-start gap-4">
-                    <button className="text-xl border border-black rounded-full px-2 py-1 hover:bg-black hover:text-white font-montserrat">Available</button>
-                    <button className="text-xl border border-black rounded-full px-3 py-2 hover:bg-black hover:text-white font-montserrat">Expired</button>
-                </div>
-            </div>
-            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
-                    <div className ="flex flex-wrap gap-8">
-                    <Ticket />
-                    <Ticket />
-                    <Ticket />
+                <div className="font-montserrat font-bold text-4xl mb-10">Send ticket to your friend</div>
+                <div className="flex flex-row gap-16">
+                    <div className="basis-3/5">
+                        <TicketSend/>
+                    </div>
+                    <div className="basis-2/4">
+                        <ComponentSend1 />
+                        {/* <ComponentSend2 /> */}
+                    </div>
                 </div>
             </div>
             <div className='justify-center bg-white p-4'>
@@ -37,5 +35,6 @@ const MyTicket = () => {
                 <h1 className='text-center text-black font-montserrat'>all right reserved</h1>
             </div>
         </>
-    )}
-export default MyTicket;
+    )
+}
+export default SendTicket;

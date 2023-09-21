@@ -9,7 +9,7 @@ const Ticket = () => {
                     <img className="mt-10" src="../images/events/e1.png"></img>
                         <button className="flex flex-row justify-center">
                             <p className="font-montserrat font-bold text-sm text-white w-3/4">Send this ticket to your friend</p>
-                            <img className="w-auto h-6 mt-3" src="../images/events/sendIcon.png"></img>
+                            <img className="w-auto h-6 mt-3" src="../images/tickets/sendIcon.png"></img>
                         </button>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ const Ticket = () => {
                                 </div>
                             </div>
                             <div className="mt-10">
-                                <img className="w-44" src="../images/events/qrcode.png"></img>
+                                <img className="w-44" src="../images/tickets/qrcode.png"></img>
                             </div>
                         </div>
                         <div className="flex flex-row-2 justify-items-start gap-20">
