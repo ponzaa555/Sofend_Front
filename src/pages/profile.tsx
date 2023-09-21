@@ -21,8 +21,8 @@ export const profile = () => {
         <Navbar/>
             <div className="w-full">
                 <div className="flex justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
-                    <a className="w-1/4 flex-col shadow-2xl mr-2 ">profile</a>
-                    <div className="w-3/4 flex-col shadow-2xl ">
+                    <a className="w-1/4 shadow-2xl ">profile</a>
+                    <div className="w-3/4 shadow-2xl ">
                         <Eventschedule/>
                     </div>
                 </div>
