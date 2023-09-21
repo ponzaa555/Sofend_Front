@@ -6,7 +6,6 @@ import Recommendevent from '../components/events/recommendevent'
 import Allevent from '../components/events/allevent'
 import Monthlyevent from '../components/events/monthlyevent'
 import Head from "next/head";
-// test
 
 export const main = () => {
   return (

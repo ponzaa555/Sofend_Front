@@ -4,6 +4,7 @@ export const dashboard = () => {
   return (
     <>
       <div>Hello</div>
+      <div>World!!!</div>
     </>
   )
 }
