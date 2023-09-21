@@ -3,7 +3,6 @@ import Navbar from '../components/navbar'
 import Head from "next/head";
 import Ticket from "../components/ticket/ticket";
 
-
 const MyTicket = () => {
 
     return(
