@@ -8,6 +8,14 @@ import Component2 from '../components/Checkout/Checkout2ndStep'
 import Component3 from '../components/Checkout/Checkout3rdStep'
 import Link from 'next/link'
 
+type EventDetail = {
+    eventID: string;
+    eventName: string;
+    startDateTime: string;
+    endDateTime: string;
+    location: string;
+}
+
 function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any) {
     switch (step) {
         case 1: 
@@ -50,16 +58,23 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any)
     }
 }
 
-interface ChildProps {
-    receivedData: string,
-}
+const Checkout = ({}) => {
 
-const Checkout : React.FC<ChildProps> = ({ receivedData }) => {
-
-    console.log(receivedData)
-    
     const router = useRouter()
     const [step, setStep] = useState(1)
+
+    const { data } = router.query;
+    console.log(data)
+
+  // Parse the data back into an object
+  let parsedData = null;
+  if (data) {
+    try {
+      parsedData = JSON.parse(decodeURIComponent(data as string));
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+    }
+  }
 
     // function to handle next button.
     const handleNext = () => {

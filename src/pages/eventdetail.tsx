@@ -42,11 +42,7 @@ type ForListCount = {
     count: number;
 }
 
-interface ParentProps {
-    dataToSend: string; // Define the prop
-}
-
-const EventDetails : React.FC<ParentProps> = ({ dataToSend }) => {
+const EventDetails = ({}) => {
 
     const ref = useRef<null | HTMLDivElement>(null);
 
@@ -172,8 +168,17 @@ const EventDetails : React.FC<ParentProps> = ({ dataToSend }) => {
         }
         setPrice(prices)
       }
-
-    <Checkout receivedData={"a"}></Checkout>
+    
+    const data = { 
+        eventName: eventDetail.eventName,
+        startDateTime: eventDetail.startDateTime,
+        endDateTime: eventDetail.endDateTime,
+        posterImage: eventDetail.posterImage,
+        zone: Zone,
+        amount: Total,
+        price: Price,
+    }
+    const dataString = encodeURIComponent(JSON.stringify(data));
 
     return(
         <>
@@ -261,7 +266,7 @@ const EventDetails : React.FC<ParentProps> = ({ dataToSend }) => {
                                 </div>
                             </div>
                             </div>
-                            <Link href={`/checkout`}>
+                            <Link href={`/checkout?data=${dataString}`}>
                                 <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
                             </Link>
                         </div>
