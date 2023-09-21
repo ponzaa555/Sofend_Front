@@ -50,11 +50,16 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any)
     }
 }
 
-const checkout = () => {
+interface ChildProps {
+    receivedData: string,
+}
+
+const Checkout : React.FC<ChildProps> = ({ receivedData }) => {
+
+    console.log(receivedData)
     
     const router = useRouter()
     const [step, setStep] = useState(1)
-
 
     // function to handle next button.
     const handleNext = () => {
@@ -121,4 +126,4 @@ const checkout = () => {
   )
 }
 
-export default checkout
+export default Checkout
