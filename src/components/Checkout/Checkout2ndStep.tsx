@@ -101,6 +101,7 @@ const Component2 = (props:any) => {
                                     <div className='text-black font-montserrat text-xl'>{eventData.zone}</div>
                                     <div className='text-black font-montserrat text-xl'>{eventData.price} ฿</div>
                                 </div>
+                                {/* กรณีเลือกที่นั่ง */}
                                 {/* <div className='flex justify-start pb-14'>
                                     <div className='text-black font-montserrat text-xl pr-12'>area C1</div>
                                     <div className='text-black font-montserrat text-xl'>seat (เลขที่นั่ง)</div>
@@ -117,7 +118,9 @@ const Component2 = (props:any) => {
                                             <div className='text-black font-montserrat text-2xl font-bold'>฿</div>
                                         </div>
                                         <div className="w-48 h-48">
-                                            <ComponentGenerateQR/>
+                                            <ComponentGenerateQR
+                                                price={eventData.price}
+                                            />
                                         </div>
                                     </div>
                                     

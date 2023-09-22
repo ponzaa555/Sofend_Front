@@ -3,12 +3,12 @@ import Head from 'next/head'
 import Navbar from '../components/navbar'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Component1 from '../components/Checkout/Checkout1stStep'
-import Component2 from '../components/Checkout/Checkout2ndStep'
-import Component3 from '../components/Checkout/Checkout3rdStep'
+import Checkout1stStep from '../components/Checkout/Checkout1stStep'
+import Checkout2ndStep from '../components/Checkout/Checkout2ndStep'
+import Checkout3rdStep from '../components/Checkout/Checkout3rdStep'
 import Link from 'next/link'
 
-function ButtonCheckout(step:Number, handleNext:any, handleBack:any, router:any) {
+function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
     switch (step) {
         case 1: 
             return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8'>
@@ -95,7 +95,7 @@ const Checkout = ({}) => {
         switch (step) {
             case 1:
                 return (
-                    <Component1
+                    <Checkout1stStep
                         eventName={eventData.eventName}
                         startDateTime={eventData.startDateTime}
                         endDateTime={eventData.endDateTime}
@@ -108,7 +108,7 @@ const Checkout = ({}) => {
                   );
             case 2:
                 return (
-                    <Component2
+                    <Checkout2ndStep
                         eventName={eventData.eventName}
                         startDateTime={eventData.startDateTime}
                         endDateTime={eventData.endDateTime}
@@ -120,38 +120,38 @@ const Checkout = ({}) => {
                     />
                   );
             case 3:
-                return <Component3/>
+                return <Checkout3rdStep/>
             default:
                 return null;
         }
     };
 
     return (
-    <div className='font-montserrat'>
-        <Head>
-            {/* import font to page */}
-            <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin = 'anonymous'/>
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
-            <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin = 'anonymous'/>
-            <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
-        </Head>
-        <Navbar/>
-        <div className='bg-[#F9F9F9] h-full min-h-full pb-10'>  
-            {/* step 1: Timeline 1
-                        Review Ticket Information
-                step 2: Timeline 2
-                        Payment
-                step 3: Timeline 3
-                        Congratulations*/}
-            {/* timeline steps and Ticket Summary*/}
-            {handleComponent(parsedData)}
-            {/*Button Cancel and Next*/}
-            {ButtonCheckout(step, handleNext, handleBack, router)}
+        <div className='font-montserrat'>
+            <Head>
+                {/* import font to page */}
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin = 'anonymous'/>
+                <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin = 'anonymous'/>
+                <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
+            </Head>
+            <Navbar/>
+            <div className='bg-[#F9F9F9] h-full min-h-full pb-10'>  
+                {/* step 1: Timeline 1
+                            Review Ticket Information
+                    step 2: Timeline 2
+                            Payment
+                    step 3: Timeline 3
+                            Congratulations*/}
+                {/* timeline steps and Ticket Summary*/}
+                {handleComponent(parsedData)}
+                {/*Button Cancel and Next*/}
+                {ButtonCheckout(step, handleNext, handleBack)}
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Checkout
