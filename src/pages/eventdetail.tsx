@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import Head from "next/head";
 import type { TicketClass } from '~/components/events/eventitem';
 import { Console } from 'console';
-import Checkout from './checkout';
 import Link from 'next/link';
 
 type EventDetail = {
@@ -174,6 +173,7 @@ const EventDetails = ({}) => {
         startDateTime: eventDetail.startDateTime,
         endDateTime: eventDetail.endDateTime,
         posterImage: eventDetail.posterImage,
+        location: eventDetail.location,
         zone: Zone,
         amount: Total,
         price: Price,

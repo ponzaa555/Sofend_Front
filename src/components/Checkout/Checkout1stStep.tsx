@@ -1,7 +1,47 @@
 import React from "react";
-import Image from "next/image";
 
-const Component1 = () => {
+const Component1 = (props:any) => {
+    const eventData = props
+
+    // function to convert date and time to format that we want.
+    const daystart = eventData.startDateTime.split(/[T-]/)[2] as string
+    const dayend = eventData.endDateTime.split(/[T-]/)[2] as string
+    const monthstart = eventData.startDateTime.split(/[T-]/)[1] as string
+    const monthend = eventData.endDateTime.split(/[T-]/)[1] as string
+    const yearstart = eventData.startDateTime.split(/[T-]/)[0] as string
+    const yearend = eventData.endDateTime.split(/[T-]/)[0] as string
+
+    const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+    const checkdate = () => {
+        if(daystart === dayend && monthstart === monthend && yearstart === yearend){
+        return(
+            <div className="">{parseInt(daystart)} {month[parseInt(monthstart)-1]} {parseInt(yearstart)}</div>
+        )
+        }else if(monthstart === monthend && yearstart === yearend && daystart !== dayend){
+        return(
+            <div className="">{parseInt(daystart)} - {parseInt(dayend)} {month[parseInt(monthstart)-1]} {parseInt(yearstart)}</div>
+        )
+        }else if(yearstart === yearend && monthstart !== monthend){
+        return(
+            <div className="">{parseInt(daystart)} {month[parseInt(monthstart)-1]} - {parseInt(dayend)} {month[parseInt(monthend)-1]} {parseInt(yearstart)}</div>
+        )
+        }else{
+        return(
+            <div className="">{parseInt(daystart)} {month[parseInt(monthstart)-1]} {parseInt(yearstart)} - {parseInt(dayend)} {month[parseInt(monthend)-1]} {parseInt(yearend)}</div>
+        )
+        }
+    }
+
+    const timestart = eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[0] as string
+    const timeend = eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[0] as string
+
+    const checktime = () => {
+        return(
+            <div className="">{parseInt(timestart)+7}:{eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)+7}:{eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
+        )
+    }
+
     return (
         <div className=''>
             {/* timeline steps*/}
@@ -37,27 +77,32 @@ const Component1 = () => {
                     </li>
                 </div>
             </div>
+
+            {/* review ticket information */}
             <div className='font-montserrat mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                 <div className='text-2xl font-bold'>
                     <h1>Review Ticket Information</h1>
                 </div>
                 <div className='flex flex-row-2 justify-between mt-6'>
                     <div className='w-60 rounded-md'>
-                        <img className=' border-gray-300 rounded-md' src='https://th.bing.com/th/id/OIP.gWyiEiX-q58hancFtVWMagHaKC?pid=ImgDet&rs=1'></img>
+                        <img className=' border-gray-300 rounded-md' src={eventData.posterImage}></img>
                     </div>
                     <div className='flex flex-col justify-evenly w-full pl-8'>
-                        <div className='text-black font-kanit font-bold text-xl mb-3'>THE WORLD OF STUDIO GHIBLI'S ANIMATION EXHIBITION BANGKOK 2023</div>
+                        <div className='text-black font-kanit font-bold text-xl mb-3'>{eventData.eventName}</div>
                         <div className='flex'>
-                            <div className='text-black font-montserrat text-lg mb-3 pr-8'>1st July 2023 - 31 December 2023</div>
-                            <div className='text-black font-montserrat text-lg mb-3'>11:00-21:00</div>
+                            <div className='text-black font-montserrat text-lg mb-3 pr-8'>{checkdate()}</div>
+                            <div className='text-black font-montserrat text-lg mb-3'>{checktime()}</div>
                         </div>
-                        <div className='text-black font-montserrat text-lg mb-7'>Central World Live at Central World Fl.8</div>
+                        <div className='text-black font-montserrat text-lg mb-7'>{eventData.location}</div>
                         <div className='flex justify-between bg-[#EFEFEF] p-7'>
-                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-left'>Normal x1</div>
-                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-right pr-5'>650 ฿</div>
+                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-left'>{eventData.zone}</div>
+                            <p className='text-black font-bold font-montserrat text-2xl my-4 text-left pr-36'>x{eventData.amount}</p>
+                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-right pr-5'>{eventData.price} ฿</div>
                         </div>
                     </div>
                 </div>
+
+                {/* First name and last name */}
                 <div className='mx-auto md:items-center md:px-8 mb-8 border-2 border-gray-300 rounded-md p-10 mt-6'>
                     <div className='flex justify-around'>
                         <div className='flex'>
