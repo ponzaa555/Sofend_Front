@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Navbar from '../components/navbar'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import Checkout1stStep from '../components/Checkout/Checkout1stStep'
 import Checkout2ndStep from '../components/Checkout/Checkout2ndStep'
 import Checkout3rdStep from '../components/Checkout/Checkout3rdStep'
@@ -54,6 +55,7 @@ const Checkout = ({}) => {
     const router = useRouter()
     const [step, setStep] = useState(1)
     const { data } = router.query;
+    const {data:session} = useSession();
 
     // recieve data from event detail page.
     let parsedData = null;
@@ -90,7 +92,7 @@ const Checkout = ({}) => {
     }
 
     // function to handle component by step and pass data to component.
-    const handleComponent = (props:any) => {
+    const handleComponent = (props:any, session:any) => {
         const eventData = props
 
         switch (step) {
@@ -105,6 +107,8 @@ const Checkout = ({}) => {
                         amount={eventData.amount}
                         price={eventData.price}
                         location={eventData.location}
+                        Firstname={session?.user?.name?.split(/[' ']/)[0] as string}
+                        Lastname={session?.user?.name?.split(/[' ']/)[1] as string}
                     />
                   );
             case 2:
@@ -148,7 +152,7 @@ const Checkout = ({}) => {
                             Congratulations*/}
 
                 {/* timeline steps and Ticket Summary*/}
-                {handleComponent(parsedData)}
+                {handleComponent(parsedData, session)}
 
                 {/*Button Cancel and Next*/}
                 {ButtonCheckout(step, handleNext, handleBack)}
