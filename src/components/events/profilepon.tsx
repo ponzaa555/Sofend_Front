@@ -1,6 +1,7 @@
 import React , {use, useEffect, useState} from 'react'
 import user from '../../../public/images/events/user.png'
 import Editprofile from '../../components/eachprofileeiment/edit_profile'
+import Eventschedule from './eventschedule'
 
 
 
@@ -156,10 +157,8 @@ const profilepage = () => {
             {/* Staff */}
             {
                 show3 && 
-                <div className='grid grid-row-1 grid-col-1 place-content-center w-[55%] h-[500px]  bg-white mt-20 rounded-2xl shadow-xl'>
-                    <div className='items-center'>
-                         <h1 className=' text-8xl font-montserrat font-bold'>EVENT</h1>
-                    </div>
+                <div className='grid grid-row-1 grid-col-1 w-[55%]  bg-white mt-20 rounded-2xl shadow-xl'>
+                    <Eventschedule/>
                 </div>
             }
         </div>

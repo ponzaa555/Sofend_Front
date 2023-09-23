@@ -134,7 +134,7 @@ export const scan = () => {
                         ref={qrReader}
                         scanDelay={1000}
                         onResult={handleScanResult}
-                        videoStyle={{ position: "absolute", top: "0", left: "0", width: "100%", height: "50%", objectFit: "cover" }}
+                        videoStyle={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%", objectFit: "cover" }}
                         videoContainerStyle={{ width: "100%", height: "50%" }}
                     /> : <div
                 /> }

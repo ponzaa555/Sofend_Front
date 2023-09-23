@@ -23,3 +23,14 @@ export async function getEventDetail(id: string) {
     throw error; 
   }
 };
+
+//get eventstaff by userid
+export async function getEventSchedule(userid: string) {
+  try {
+    const response = await axios.get(`${BASE_URL}/staff_event/${userid}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error; 
+  }
+};
