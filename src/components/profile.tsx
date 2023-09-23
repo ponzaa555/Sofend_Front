@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
+import PersonCircle from './icon/PersonCircle';
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
@@ -10,10 +12,14 @@ const profile = () => {
     if (session){
         return (
             <div>
-                <h1>{session.user?.email}</h1>
-                <button
-                    onClick={() => signOut()}
-                >Sign out</button>
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
+                    <Link href="/profile">
+                        <PersonCircle/>
+                    </Link>
+                    <button
+                        onClick={() => signOut()}
+                    >Sign out</button>
+                </ul> 
             </div>
         )
     }

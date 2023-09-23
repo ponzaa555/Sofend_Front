@@ -2,10 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head';
 import Profile from './profile';
+import CreateEvent from './createevent';
 import { useSession } from 'next-auth/react'
-
-
-
 
 const navbar = () => {
     const [navbar, setNavbar] = React.useState(false);
@@ -78,8 +76,11 @@ const navbar = () => {
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                 <li className="font-montserrat text-xl">
-                  <Link href="/" legacyBehavior>
-                    <a>Create Events</a>
+                  <CreateEvent/>
+                </li>
+                <li className="font-montserrat font-bold text-xl">
+                  <Link href="/myticket">
+                    <p>My Ticket</p>
                   </Link>
                 </li>
                 <li className="font-montserrat font-bold text-xl">
