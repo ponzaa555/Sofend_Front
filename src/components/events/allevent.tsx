@@ -44,30 +44,7 @@ const allevent = () => {
       });
   }, []);
 
-  const defaultcolorviewall = `text-xl text-gray-400 font-montserrat font-bold  ml-5 hover:text-black`
-  const disabledcolorviewall = `text-xl text-gray-400 font-montserrat font-bold  ml-5 `
-  const[colorveiwall,setColorviewall] = useState(defaultcolorviewall)
-  const [disabledv, setDisabledv] = useState(false);
-
-
-  //fetch all event from api
-  useEffect(() => {
-    getAllEvent()
-      .then(data => {
-        setFilteredEvents(data);
-        setData(data)
-        setDisabledv(data.length <= defultshow)
-        if(data.length <= defultshow){
-          setColorviewall(disabledcolorviewall)
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }, []);
-
   const alltag = ["Exhibition","Concert","Festival","Show"]
-
 
   const filteredbytag = () => {
     if(!selectedtag){

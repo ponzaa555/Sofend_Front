@@ -41,7 +41,7 @@ type ForListCount = {
     count: number;
 }
 
-const EventDetails = ({}{}) => {
+const EventDetails = ({}) => {
 
 
     const ref = useRef<null | HTMLDivElement>(null);
