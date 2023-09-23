@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import Head from "next/head";
 import type { TicketClass } from '~/components/events/eventitem';
 import { Console } from 'console';
+import Link from 'next/link';
 
 type EventDetail = {
     eventID: string;
@@ -40,7 +41,8 @@ type ForListCount = {
     count: number;
 }
 
-const EventDetails = () => {
+const EventDetails = ({}) => {
+
     const ref = useRef<null | HTMLDivElement>(null);
 
     const handleClick = () => {
@@ -165,6 +167,18 @@ const EventDetails = () => {
         }
         setPrice(prices)
       }
+    
+    const data = { 
+        eventName: eventDetail.eventName,
+        startDateTime: eventDetail.startDateTime,
+        endDateTime: eventDetail.endDateTime,
+        posterImage: eventDetail.posterImage,
+        location : eventDetail.location,
+        zone: Zone,
+        amount: Total,
+        price: Price,
+    }
+    const dataString = encodeURIComponent(JSON.stringify(data));
 
     return(
         <>
@@ -252,7 +266,9 @@ const EventDetails = () => {
                                 </div>
                             </div>
                             </div>
-                            <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                            <Link href={`/checkout?data=${dataString}`}>
+                                <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                            </Link>
                         </div>
                     </div>
             </div>
