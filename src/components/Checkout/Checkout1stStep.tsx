@@ -107,11 +107,11 @@ const Component1 = (props:any) => {
                     <div className='flex justify-around'>
                         <div className='flex'>
                             <div className='text-2xl font-bold pr-5 font-montserrat'>First Name</div>
-                            <div className='text-2xl font-montserrat'>Woohoo</div>
+                            <div className='text-2xl font-montserrat'>{eventData.Firstname}</div>
                         </div>
                         <div className='flex'>
                             <div className='text-2xl font-bold pr-5 font-montserrat'>Last Name</div>
-                            <div className='text-2xl font-montserrat'>Yeah</div>
+                            <div className='text-2xl font-montserrat'>{eventData.Lastname}</div>
                         </div>
                     </div>
                 </div>
