@@ -13,7 +13,7 @@ const profile = () => {
         return (
             <div>
                 <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
-                    <Link href="/profile">
+                    <Link href="/profilepage">
                         <PersonCircle/>
                     </Link>
                     <button
