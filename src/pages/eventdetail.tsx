@@ -174,6 +174,7 @@ const EventDetails = ({}) => {
         startDateTime: eventDetail.startDateTime,
         endDateTime: eventDetail.endDateTime,
         posterImage: eventDetail.posterImage,
+        location : eventDetail.location,
         zone: Zone,
         amount: Total,
         price: Price,
