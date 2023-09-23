@@ -65,21 +65,6 @@ const selectzonenseat = () => {
       </div>
       <div className=''>
         <div className='flex flex-row justify-center'>
-          <h1 className='font-montserrat font-bold text-2xl w-1/12  text-center'>Quantities</h1>
-          <div className='flex flex-row w-3/6 justify-center'>
-            <button className={`bg-black text-white border-2 border-black px-2.5 rounded-md py-3 disabled:bg-gray-400 disabled:border-gray-400`} disabled={isdisabled} onClick={decrement}>
-              <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line y1="1" x2="10" y2="1" stroke="#FFFFFF" stroke-width="2" className="icon" />
-              </svg>
-            </button>
-            <p className='mx-10 text-center pt-1 font-montserrat font-bold text-xl'>{quantity}</p>
-            <button className={`bg-black text-white border-2 border-black px-2.5 rounded-md`} onClick={increment}>
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">
-                <line x1="5" y1="4.37114e-08" x2="5" y2="10" stroke="#FFF" stroke-width="2" />
-                <line y1="5" x2="10" y2="5" stroke="#FFF" stroke-width="2" />
-              </svg>
-            </button>
-          </div>
           <h1 className='font-montserrat text-2xl w-1/12 text-center'>tickets</h1>
         </div>
       <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
