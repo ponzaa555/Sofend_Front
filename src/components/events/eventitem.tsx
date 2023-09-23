@@ -1,4 +1,4 @@
-export interface EventitemProps{
+export interface EventitemProps {
     name : string,
     place : string,
     datestart : string,
