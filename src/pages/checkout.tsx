@@ -34,7 +34,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
                     </div>
         case 3:
             return <div className='flex justify-center mx-auto lg:max-w-7xl md:items-center md:px-8'>
-                        <Link href='/main'>
+                        <Link href='/myticket'>
                             <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black py-2 mr-10'>
                                 My Ticket
                             </button>
@@ -68,14 +68,15 @@ const Checkout = ({}) => {
     // function to handle next button.
     const handleNext = () => {
         setStep(step + 1)
+
         window.scrollTo({
             top: 0,
             behavior: 'instant',
-          });
+        });
     }
     
-    // function to handle back button and cancel button.
-    // in case cancel button, it will go back to event detail.
+    /* function to handle back button and cancel button.
+        in case cancel button, it will go back to event detail. */
     const handleBack = () => {
         setStep(step - 1)
         if (step === 1) {
@@ -145,8 +146,10 @@ const Checkout = ({}) => {
                             Payment
                     step 3: Timeline 3
                             Congratulations*/}
+
                 {/* timeline steps and Ticket Summary*/}
                 {handleComponent(parsedData)}
+
                 {/*Button Cancel and Next*/}
                 {ButtonCheckout(step, handleNext, handleBack)}
             </div>

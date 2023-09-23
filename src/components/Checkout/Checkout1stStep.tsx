@@ -3,7 +3,7 @@ import React from "react";
 const Component1 = (props:any) => {
     const eventData = props
 
-    // function to convert date and time to format that we want.
+    // function to convert format date and time.
     const daystart = eventData.startDateTime.split(/[T-]/)[2] as string
     const dayend = eventData.endDateTime.split(/[T-]/)[2] as string
     const monthstart = eventData.startDateTime.split(/[T-]/)[1] as string
