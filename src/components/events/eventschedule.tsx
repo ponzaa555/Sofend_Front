@@ -12,7 +12,7 @@ const eventschedule = () => {
     useEffect(() => {
         if (session) {
             console.log(session)
-            getEventSchedule(session.user?.email?.split("@")[0] as string)
+            getEventSchedule(session.user?.userID)
                 .then(data => {
                     setEvents(data);
                     setgetfinish(true);
@@ -68,7 +68,6 @@ const eventschedule = () => {
     return (
         <div>
             <div className="mt-8 mx-4">
-                {session? <div className="text-4xl font-montserrat font-medium">{session.user?.email}</div>:<div/>}
                 {showeventschedule()}
             </div>
         </div>
