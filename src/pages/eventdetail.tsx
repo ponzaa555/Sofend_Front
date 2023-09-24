@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React from 'react';
 import Navbar from '../components/navbar'
 import Modal from '../components/modal/modal'
 import { useRef } from 'react';
@@ -44,6 +44,7 @@ type ForListCount = {
 }
 
 const EventDetails = ({}) => {
+
 
     const ref = useRef<null | HTMLDivElement>(null);
 
