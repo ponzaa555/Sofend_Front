@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import Navbar from '../components/navbar'
 import Modal from '../components/modal/modal'
 import { useRef } from 'react';
@@ -13,6 +13,8 @@ import Head from "next/head";
 import type { TicketClass } from '~/components/events/eventitem';
 import { Console } from 'console';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 type EventDetail = {
     eventID: string;
@@ -43,7 +45,6 @@ type ForListCount = {
 
 const EventDetails = ({}) => {
 
-
     const ref = useRef<null | HTMLDivElement>(null);
 
     const handleClick = () => {
@@ -52,6 +53,7 @@ const EventDetails = ({}) => {
 
     const router = useRouter();
     const { id } = router.query as { id: string };
+    const {data:session} = useSession();
 
     const [eventDetail, setEventDetail] = useState<EventDetail>({
         eventID: "",
@@ -272,9 +274,12 @@ const EventDetails = ({}) => {
                                     </div>
                                 </div>
                                 </div>
-                                <Link href={`/checkout?data=${dataString}`}>
-                                    <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
-                                </Link>
+                                {session ? 
+                                    <Link href={`/checkout?data=${dataString}`}>
+                                        <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                                    </Link>:
+                                    <button onClick={() => signIn()} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out sign in</button>
+                                }   
                             </div>
                         </div>
                 </div>
