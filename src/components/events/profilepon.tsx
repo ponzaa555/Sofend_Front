@@ -1,17 +1,27 @@
 import React , {use, useEffect, useState} from 'react'
 import user from '../../../public/images/events/user.png'
 import Editprofile from '../../components/eachprofileeiment/edit_profile'
+import edit_profile from '../../components/eachprofileeiment/edit_profile';
+import { Form } from 'react-bootstrap';
+import { set, useForm } from 'react-hook-form';
+import { clear } from 'console';
 
 
 
-
+interface edit_profile {
+    Firstname : string;
+    Lastname : string;
+    Email : string;
+    Phone : string;
+}
 
 
 
 const profilepage = (props:any) => {
     
     const Event = props
-    console.log(Event)
+    const [inputst,Setinputst] = useState('')
+    console.log("Event",Event)
     const [show1,Setshow1] = useState(true)
     const [show2,Setshow2] = useState(false)
     const [show3,Setshow3] = useState(false)
@@ -36,6 +46,19 @@ const profilepage = (props:any) => {
             console.log("show3")
         }
     }
+    const submitefromeditprofile = () => {
+        const inputfname = document.getElementById('inputFirstname').value;
+        const inputlname = document.getElementById('inputlastname').value;
+        const inputemail = document.getElementById('inputemail').value;
+        const inputmb = document.getElementById('inputmobile phone').value;
+        const Jsonedit:edit_profile = {
+            Firstname: inputfname.value,
+            Lastname: inputlname,
+            Email: inputemail,
+            Phone: inputmb,
+        }
+        console.log("Jsonedit: ",Jsonedit)
+    }
     return(
         <>
         <div className=' flex justify-center gap-10 '>
@@ -43,8 +66,8 @@ const profilepage = (props:any) => {
                     <div className=' grid justify-items-center h-1/2 bg-white rounded-2xl w-full grid-cols-1'>
                         <div className=' h-5'></div>
                         <img src=  {"images/events/user.png"}   className='  h-[120px] justify-center '/>
-                        <h1 className='text-3xl font-montserrat text-center mt-1 text-black font-bold'>{Event.Name}</h1> {/*ใช้ตรงนี้ */}
-                        <h2 className='text-xl font-montserrat text-center text-gray-400'>xxxxxx@gmail.com</h2>
+                        <h1 className='text-xl font-montserrat text-center mt-1 text-black font-bold'>{Event.Name}</h1> {/*ใช้ตรงนี้ */}
+                        <h2 className='text-xl font-montserrat text-center text-gray-400'>{Event.Gmail}</h2>
                         <div className='h-1 w-4/5 bg-slate-200 mt-4 rounded-2xl  mb-4'></div>
                     </div>
                     <div className=' h-1/2  rounded-2xl w-full'>
@@ -85,42 +108,45 @@ const profilepage = (props:any) => {
                     </div>
             </div>
             {/* edit profile */}
+
             {show1 &&
+            
                 <div className='justify-end  w-3/5 h-full bg-white mt-20 rounded-2xl shadow-xl'>
                 <div className=' mt-20  mx-14'>
                     <h1 className='text-4xl  font-montserrat  font-bold'>Edit Profile</h1>
-                    <div className='flex mt-5 '>
-                        <h1 className='text-2xl  font-montserrat  font-medium mt-1 '>First Name</h1>
-                        <h1 className='text-2xl  font-montserra text-red-600 font-bold ml-1'>*</h1>
-                        <h1 className='text-sm  font-montserrat text-gray-500 ml-10 pt-3'>as it appears on ID card or passport</h1>
-                        <h1 className='text-2xl  font-montserrat  font-medium ml-24 mt-1 '>Last Name</h1>
-                        <h1 className='text-2xl  font-montserra text-red-600 font-bold'>*</h1>
-                        <h1 className='text-sm  font-montserrat text-gray-500 ml-10 pt-3'>as it appears on ID card or passport</h1>
-                    </div>
-                    <div className='flex mt-2 gap-14'>
-                        <input type="text" className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
-                        <input type="text" className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
-                    </div>
-                    <div className='flex mt-5 '>
-                        <h1 className='text-2xl  font-montserrat  font-medium mt-1'>Email</h1>
-                        <h1 className='text-2xl  font-montserra text-red-600 font-bold ml-1 '> *</h1>
-                        <h1 className='text-2xl  font-montserrat  font-medium  mt-1 ml-[43%]'>Mobile Phone Number</h1>
-                    </div>
-                    <div className='flex mt-2 gap-14'>
-                        <input type="text" className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
-                        <input type="text" className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
-                    </div>
+                
+                        <div className='flex mt-5 '>
+                            <h1 className='text-2xl  font-montserrat  font-medium mt-1 '>First Name</h1>
+                            <h1 className='text-2xl  font-montserra text-red-600 font-bold ml-1'>*</h1>
+                            <h1 className='text-sm  font-montserrat text-gray-500 ml-10 pt-3'>as it appears on ID card or passport</h1>
+                            <h1 className='text-2xl  font-montserrat  font-medium ml-24 mt-1 '>Last Name</h1>
+                            <h1 className='text-2xl  font-montserra text-red-600 font-bold'>*</h1>
+                            <h1 className='text-sm  font-montserrat text-gray-500 ml-10 pt-3'>as it appears on ID card or passport</h1>
+                        </div>
+                        <div className='flex mt-2 gap-14'>
+                                <input type="text" id='inputFirstname' value={inputst}  className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
+                                <input type="text" id='inputlastname' className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
+                        </div>
+                        <div className='flex mt-5 '>
+                            <h1 className='text-2xl  font-montserrat  font-medium mt-1'>Email</h1>
+                            <h1 className='text-2xl  font-montserra text-red-600 font-bold ml-1 '> *</h1>
+                            <h1 className='text-2xl  font-montserrat  font-medium  mt-1 ml-[43%]'>Mobile Phone Number</h1>
+                        </div>
+                        <div className='flex mt-2 gap-14'>
+                            <input type="text" id='inputemail' className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
+                            <input type="tel" id='inputmobile phone' className=' border-gray-300 w-[46%]  h-12  border-2 rounded-lg pl-4 text-2xl  font-montserra pb-2' />
+                        </div>
                     <div className='flex justify-end w-full mb-10'>
-                        <button className=' items-end w-3/12 h-12 bg-black mt-10 rounded-2xl '>
+                        <button className=' items-end w-3/12 h-12 bg-black mt-10 rounded-2xl ' onClick={() => submitefromeditprofile()}>
                             <h1 className=' text-white text-xl  font-montserrat font-semibold '>Save</h1>
                         </button>
                     </div>
-                   
                 </div>
-            </div>
+                </div> 
             }
             {/* change password */}
             { show2 &&
+
                 <div className='justify-end  w-3/5 h-full  bg-white mt-20 rounded-2xl shadow-xl'>
                  <div className=' mt-20  mx-14'>
                     <h1 className='text-4xl  font-montserrat  font-bold'>Change Password</h1>
@@ -155,7 +181,8 @@ const profilepage = (props:any) => {
                     </div>
                    
                     </div>
-                </div>   
+                </div>     
+                
             }
             {/* Staff */}
             {
