@@ -14,6 +14,9 @@ import { useRouter } from 'next/router';
 import Head from "next/head";
 import type { TicketClass } from '~/components/events/eventitem';
 import { Console } from 'console';
+import GenTicketClass from './genTicketClass'
+
+
 
 type EventDetail = {
     eventID: string;
@@ -123,7 +126,7 @@ const EventDetail = ({}) => {
       }, [id]);
 
 
-    console.log(eventDetail.seatImage)
+    // console.log("seatImage",eventDetail.seatImage[0]?.imageURL)
 
     return(
         <>
@@ -164,48 +167,19 @@ const EventDetail = ({}) => {
                 <div className='font-kanit text-center'>
                     {eventDetail.info}
                 </div>
-                <img src={""}></img>
+                <img src={eventDetail.seatImage[0]?.imageURL}></img>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                 <h1 className=' text-black font-montserrat font-bold mb-5 text-2xl'>Ticket</h1>
                 {/* zone selction */}
                 <div className='grid grid-cols-3 gap-y-8'>
-                    <Link href='/' className='flex flex-row w-fit gap-2'>
-                        <svg height="50" width="50">
-                            <circle cx="25" cy="25" r="21" fill="red" />
-                        </svg>
-                        <div className='font-montserrat font-bold flex flex-col justify-start'>
-                            <h1 className={``}>Red Zone-6,500฿</h1>
-                            <h2 className={`text-green-500`}>Available</h2>
-                        </div>
-                    </Link>
-                    <Link href='/' className='flex flex-row w-fit gap-2'>
-                        <svg height="50" width="50">
-                            <circle cx="25" cy="25" r="21" fill="Blue" />
-                        </svg>
-                        <div className={`font-montserrat font-bold flex flex-col justify-start`}>
-                            <h1 className={``}>Deep Blue Zone-6,500฿</h1>
-                            <h2 className={`text-green-500`}>Available</h2>
-                        </div>
-                    </Link>
-                    <Link href='/' className='flex flex-row w-fit pointer-events-none gap-2'>
-                        <svg height="50" width="50">
-                            <circle cx="25" cy="25" r="21" fill="Lime" />
-                        </svg>
-                        <div className='font-montserrat font-bold flex flex-col justify-start'>
-                            <h1 className={``}>Green Zone-6,500฿</h1>
-                            <h2 className={`text-red-500`}>SOLD OUT</h2>
-                        </div>
-                    </Link>
-                    <Link href='/' className='flex flex-row w-fit pointer-events-none gap-2'>
-                        <svg height="50" width="50">
-                            <circle cx="25" cy="25" r="21" fill="Magenta" />
-                        </svg>
-                        <div className='font-montserrat font-bold flex flex-col justify-start'>
-                            <h1 className={``}>Pink-6,500฿</h1>
-                            <h2 className={`text-red-500`}>SOLD OUT</h2>
-                        </div>
-                    </Link>
+                    {eventDetail.ticketClass.map((ticketclass) => (
+                        <GenTicketClass
+                            nameOfZone={ticketclass.className}
+                            pricePerSeat={ticketclass.pricePerSeat}
+                            amountOfSeat={ticketclass.AmountOfSeat}
+                        ></GenTicketClass>
+                    ))}
                 </div>
             </div>
             <div className='flex justify-center font-montserrat mb-10'>
