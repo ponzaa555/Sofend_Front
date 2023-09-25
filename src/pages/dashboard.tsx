@@ -2,9 +2,22 @@ import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import NavbarEO from '../components/navbarEO';
 import Event from '../components/eventEO';
+import axios from 'axios';
 
+const dashboard = ({}) => {
 
-export const dashboard = () => {
+  const [event, setEvent] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://eventbud-jujiu2awda-uc.a.run.app/eo_event/{organizerID}')
+      .then((response) => {
+        setEvent(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <>
       <Head>
