@@ -2,8 +2,18 @@ import React from "react";
 import Navbar from '../components/navbar'
 import Head from "next/head";
 import Ticket from "../components/ticket/ticket";
+import { useSession } from "next-auth/react";
 
 const MyTicket = () => {
+
+    const {data: session} = useSession();
+
+    console.log(session?.user?.email)
+    console.log(session?.user?.name)
+
+    const Firstname = session?.user?.name?.split(/[' ']/)[0] as string;
+    const Lastname = session?.user?.name?.split(/[' ']/)[1] as string;
+
 
     return(
         <>
@@ -26,9 +36,9 @@ const MyTicket = () => {
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                     <div className ="flex flex-wrap gap-8">
-                    <Ticket />
-                    <Ticket />
-                    <Ticket />
+                    <Ticket firstname={Firstname} lastname={Lastname}/>
+                    {/* <Ticket />
+                    <Ticket /> */}
                 </div>
             </div>
             <div className='justify-center bg-white p-4'>

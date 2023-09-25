@@ -1,6 +1,10 @@
 import React from "react";
 
-const Ticket = () => {
+const Ticket = (props:any) => {
+
+    const eventTicket = props
+    console.log(eventTicket.firstname)
+
     return(
         <>
             <div className="flex flex-row-2">
@@ -45,11 +49,11 @@ const Ticket = () => {
                         <div className="flex flex-row-2 justify-items-start gap-20">
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">First Name</div>
-                                <div className="font-montserrat font-bold text-xl text-black">Woohoo</div>
+                                <div className="font-montserrat font-bold text-xl text-black">{eventTicket.firstname}</div>
                             </div>
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">Last Name</div>
-                                <div className="font-montserrat font-bold text-xl text-black">Yeah</div>
+                                <div className="font-montserrat font-bold text-xl text-black">{eventTicket.lastname}</div>
                             </div>
                         </div>
                     </div>
