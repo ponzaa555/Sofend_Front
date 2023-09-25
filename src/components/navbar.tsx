@@ -29,7 +29,7 @@ const navbar = () => {
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <a href="#">
+              <a href="/main">
                 <h2 className="text-3xl body-font font-montserrat font-bold">EventBud</h2>
               </a>
               <div className="md:hidden">
