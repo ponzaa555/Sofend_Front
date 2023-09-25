@@ -116,7 +116,7 @@ export const scan = () => {
                     <a href="/profile" className=''>
                         <MaterialSymbolsArrowBackIosNew />
                     </a>
-                    <a href="/profile" className=''>
+                    <a href="/profilepage" className=''>
                         <div className="text-4xl font-montserrat font-bold text-center">BACK</div>
                     </a>
                 </div>
