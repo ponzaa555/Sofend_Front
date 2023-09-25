@@ -3,6 +3,7 @@ import ScheduleCard from './schedulecard'
 import { getEventSchedule } from '../../service/api'
 import { useSession } from 'next-auth/react'
 
+
 const eventschedule = () => {
     const [events, setEvents] = React.useState([])
     const [getfinish, setgetfinish] = useState(false);
@@ -26,14 +27,30 @@ const eventschedule = () => {
         }
     }, []);
 
+    const showemtycard = () => {
+        const numberOfColumns = 4;
+        const numberOfEvents = showevents.length;
+        const remainder = numberOfEvents % numberOfColumns;
+        const emptyCardCount = remainder === 0 ? 0 : numberOfColumns - remainder;
+        const emptyCards = Array.from({ length: emptyCardCount }, (_, index) => (
+            <div key={`empty-${index}`} className="flex-1">
+              <div className="w-44">
+              </div>
+            </div>
+          ));
+        
+          return emptyCards;
+
+    }
+
     var showevents = events;
 
     const showeventschedule = () => {
         if (showevents.length > 0) {
             return (
-                <div className="grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 ">
+                <div className="flex flex-wrap flex-col-4 ">
                     {showevents.map((eventcard, index) => (
-                        <a key={index} className="flex flex-col items-center ">
+                        <a key={index} className="flex flex-col flex-1 items-center ">
                             <div className="flex-1">
                                 <ScheduleCard image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
                             </div>
@@ -42,6 +59,7 @@ const eventschedule = () => {
                             </a>
                         </a>
                     ))}
+                    {showemtycard()}
                 </div>
             )
         }
