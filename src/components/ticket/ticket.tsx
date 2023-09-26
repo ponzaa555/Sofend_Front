@@ -4,18 +4,23 @@ const Ticket = (props:any) => {
 
     const eventTicket = props
     console.log(eventTicket.firstname)
+    console.log(eventTicket.ticketID)
+    console.log(eventTicket.eventID)
 
     return(
         <>
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[200px] h-[400px] px-3">
-                    <div className="flex flex-col justify-items-center my-4">
-                    <img className="mt-10" src="../images/events/e1.png"></img>
-                        <button className="flex flex-row justify-center">
-                            <p className="font-montserrat font-bold text-sm text-white w-3/4">Send this ticket to your friend</p>
-                            <img className="w-auto h-6 mt-3" src="../images/tickets/sendIcon.png"></img>
-                        </button>
-                    </div>
+                    <div className="flex flex-col justify-items-center my-8 gap-2">
+                        <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div>
+                        <img className="" src="../images/events/e1.png"></img>
+                            <a href="/sendticket">
+                            <button className="flex flex-row justify-center">
+                                <p className="font-montserrat font-bold text-sm text-white w-3/4">Send this ticket to your friend</p>
+                                <img className="w-auto h-6 mt-3" src="../images/tickets/sendIcon.png"></img>
+                            </button>
+                            </a>
+                        </div>
                 </div>
                 <div className="bg-[#F9F9F9] w-[24.5rem] h-[400px] rounded-md px-8 py-2">
                     <div className="flex flex-col justify-between h-auto my-4">

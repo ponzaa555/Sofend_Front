@@ -4,6 +4,7 @@ import Head from "next/head";
 import TicketSend from "../components/ticket/ticketforsend";
 import ComponentSend1 from "~/components/ticket/com_send1";
 import ComponentSend2 from "~/components/ticket/com_send2";
+import { useState } from "react";
 
 const SendTicket = () => {
     
@@ -26,8 +27,7 @@ const SendTicket = () => {
                         <TicketSend/>
                     </div>
                     <div className="basis-2/4">
-                        {/* <ComponentSend1 /> */}
-                        <ComponentSend2 />
+                        <ComponentSend1 />
                     </div>
                 </div>
             </div>

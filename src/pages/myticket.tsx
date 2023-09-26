@@ -3,6 +3,10 @@ import Navbar from '../components/navbar'
 import Head from "next/head";
 import Ticket from "../components/ticket/ticket";
 import { useSession } from "next-auth/react";
+import { getTicket } from "../service/api";
+import { useState } from "react";
+import { useEffect } from "react";
+
 
 const MyTicket = () => {
 
@@ -10,10 +14,30 @@ const MyTicket = () => {
 
     console.log(session?.user?.email)
     console.log(session?.user?.name)
+    console.log(session?.user?.userID)
 
     const Firstname = session?.user?.name?.split(/[' ']/)[0] as string;
     const Lastname = session?.user?.name?.split(/[' ']/)[1] as string;
 
+    const[Data,setData] = useState([])
+    const [getfinish, setgetfinish] = useState(false);
+
+    useEffect(() => {
+        if (session) {
+            console.log(session)
+            getTicket(session.user?.userID)
+                .then(data => {
+                    setData(data);
+                    setgetfinish(true);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        else {
+            console.log("no session")
+        }
+    }, []);
 
     return(
         <>
@@ -36,9 +60,9 @@ const MyTicket = () => {
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                     <div className ="flex flex-wrap gap-8">
-                    <Ticket firstname={Firstname} lastname={Lastname}/>
-                    {/* <Ticket />
-                    <Ticket /> */}
+                        {Data.map((ticket,index) => (
+                            <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} firstname={Firstname} lastname={Lastname}/>   
+                        ))}
                 </div>
             </div>
             <div className='justify-center bg-white p-4'>
