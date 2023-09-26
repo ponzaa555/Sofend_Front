@@ -13,7 +13,7 @@ export const scan = () => {
     const router = useRouter();
     const [eventDetail, setEventDetail] = useState<any>({});
     const { id } = router.query;
-    const [scanResultWebCam, setScanResultWebCam] = useState('');
+    const [scanResultWebCam, setScanResultWebCam] = useState("");
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [checkin, setCheckin] = useState(false);
     const [getfinish, setgetfinish] = useState(false);
@@ -53,7 +53,7 @@ export const scan = () => {
                                 </div>
                                 <button onClick={() => {
                                     setPopupVisible(false)
-                                    setScanResultWebCam('')
+                                    setScanResultWebCam("")
                                     setpostfinish(false)
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
@@ -77,7 +77,7 @@ export const scan = () => {
                                 </div>
                                 <button onClick={() => {
                                     setPopupVisible(false)
-                                    setScanResultWebCam('')
+                                    setScanResultWebCam("")
                                     setpostfinish(false)
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
@@ -112,38 +112,31 @@ export const scan = () => {
             setScanResultWebCam(result.text);
             console.log("Qrcode:", result.text);
             qrReader.current.stop();
-        } else if (error) {
-            console.error(error);
         }
     };
 
     const postscanresult = async () => {
         const url = `https://eventbud-jujiu2awda-uc.a.run.app/scanner/${id}/${scanResultWebCam}`;
         console.log(url);
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-            const res = await response.json();
-            console.log(res);
-            setQrresponse(res.detail);
-            if (response.ok) {
-                setCheckin(true);
-            } else {
-                setCheckin(false);
-            }
-            setpostfinish(true);
-        } catch (error) {
-            console.error('An error occurred:', error);
+
+        const response = await fetch(url, {
+            method: 'POST',
+        });
+        const res = await response.json();
+        console.log(res);
+        setQrresponse(res.detail);
+        if (response.ok) {
+            setCheckin(true);
+        } else {
+            setCheckin(false);
         }
+        setpostfinish(true);
+
     }
 
 
     useEffect(() => {
-        if (scanResultWebCam != '') {
+        if (scanResultWebCam != "") {
             { postscanresult() }
             setPopupVisible(true);
         }
@@ -181,7 +174,7 @@ export const scan = () => {
                     <QrReader
                         constraints={{ facingMode: 'environment' }}
                         ref={qrReader}
-                        scanDelay={1000}
+                        scanDelay={500}
                         onResult={handleScanResult}
                         videoStyle={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%", objectFit: "cover" }}
                         videoContainerStyle={{ width: "100%", height: "50%" }}
