@@ -106,10 +106,9 @@ const EventDetail = ({}) => {
     const timestart = eventDetail.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[0] as string
     const timeend = eventDetail.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[0] as string
 
-
     const checktime = () => {
         return(
-            <div className="">{parseInt(timestart)+7}:{eventDetail.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)+7}:{eventDetail.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
+            <div className="">{parseInt(timestart)}:{eventDetail.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)}:{eventDetail.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
         )
     }
 
@@ -183,7 +182,7 @@ const EventDetail = ({}) => {
                 </div>
             </div>
             <div className='flex justify-center font-montserrat mb-10'>
-                <Link href='/eventdetailC2' className='group relative text-white font-bold text-xl inline-block focus:outline-none focus:ring' ref={ref} >
+                <Link href={'/selectzonenseats/'+id} className='group relative text-white font-bold text-xl inline-block focus:outline-none focus:ring' ref={ref} >
                 <span
                     className="absolute inset-0 border border-black group-active:border-black rounded-md"
                 ></span>

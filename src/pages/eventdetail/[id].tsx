@@ -14,18 +14,11 @@ const EventDetail = () => {
   const RenderPage = () => {
     if(ticketType === "02"){
       return <EventDetailsC></EventDetailsC>;
-    } else if(id === "d62af169"){
-      return <EventDetailsC></EventDetailsC>;
-    } else {
+    } 
+    else {
       return <EventDetails></EventDetails>;
     }
   };
-  
-
-  
-
-
-
 
   return (
     <div>

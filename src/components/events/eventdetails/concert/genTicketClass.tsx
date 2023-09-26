@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
+import {useRouter} from 'next/router'
+
 
 interface TicketClassProps {
     nameOfZone: string;
@@ -11,9 +13,11 @@ interface TicketClassProps {
 const genTicketClass:React.FC<TicketClassProps> = ({nameOfZone,pricePerSeat,amountOfSeat}) => {
     //logic for check available
     const isAvailable = true
+    const router = useRouter()
+    const {id} = router.query as {id:string}
 
     return (
-                <Link href='/' className='flex flex-row w-fit gap-2'>
+                <Link href={"/selectzonenseats/" + id} className='flex flex-row w-fit gap-2'>
                     <svg height="50" width="50">
                         <circle cx="25" cy="25" r="21" fill={isAvailable? "green":"red"} />
                     </svg>

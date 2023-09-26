@@ -4,6 +4,8 @@ import Home from '../pages/index';
 import Main from '../pages/main';
 import Eventdetail from '../pages/eventdetail';
 
+
+
 const AppRouter: React.FC = () => {
   return (
     <Router>
