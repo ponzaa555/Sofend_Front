@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from 'next/head'
 import Navbar from '../components/navbar'
 import { useState } from 'react'
@@ -8,6 +8,7 @@ import Checkout1stStep from '../components/Checkout/Checkout1stStep'
 import Checkout2ndStep from '../components/Checkout/Checkout2ndStep'
 import Checkout3rdStep from '../components/Checkout/Checkout3rdStep'
 import Link from 'next/link'
+import { type } from "os";
 
 function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
     switch (step) {
@@ -51,21 +52,22 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
     }
 }
 
-const Checkout = ({}) => {
+type EventData = {
+    eventName: string,
+    startDateTime: string,
+    endDateTime: string,
+    posterImage: string,
+    zone: string,
+    amount: number,
+    price: number,
+    location: string,
+}
+
+const Checkout: React.FC = ({}) => {
     const router = useRouter()
     const [step, setStep] = useState(1)
-    const { data } = router.query;
     const {data:session} = useSession();
-
-    // recieve data from event detail page.
-    let parsedData = null;
-    if (data) {
-        try {
-            parsedData = JSON.parse(decodeURIComponent(data as string));
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-        }
-    }
+    const [eventData, setEventData] = useState<EventData>()
  
     // function to handle next button.
     const handleNext = () => {
@@ -90,23 +92,32 @@ const Checkout = ({}) => {
             behavior: 'instant',
         });
     }
+    
+    // const eventData = JSON.parse(localStorage.getItem('data')!)
+    useEffect(() => {
+        setEventData(JSON.parse(localStorage.getItem('data')!))
+        console.log(JSON.parse(localStorage.getItem('data')!).eventName)
+    }, [])
 
     // function to handle component by step and pass data to component.
-    const handleComponent = (props:any, session:any) => {
-        const eventData = props
+    const handleComponent = (session:any) => {
+        // console.log(localStorage === window.localStorage)
+        // const data = localStorage.getItem('data')
+        // const eventData = JSON.parse(data!)
+        console.log(eventData)
 
         switch (step) {
             case 1:
                 return (
                     <Checkout1stStep
-                        eventName={eventData.eventName}
-                        startDateTime={eventData.startDateTime}
-                        endDateTime={eventData.endDateTime}
-                        posterImage={eventData.posterImage}
-                        zone={eventData.zone}
-                        amount={eventData.amount}
-                        price={eventData.price}
-                        location={eventData.location}
+                        eventName={eventData!.eventName}
+                        startDateTime={eventData!.startDateTime}
+                        endDateTime={eventData!.endDateTime}
+                        posterImage={eventData!.posterImage}
+                        zone={eventData!.zone}
+                        amount={eventData!.amount}
+                        price={eventData!.price}
+                        location={eventData!.location}
                         Firstname={session?.user?.name?.split(/[' ']/)[0] as string}
                         Lastname={session?.user?.name?.split(/[' ']/)[1] as string}
                     />
@@ -114,14 +125,14 @@ const Checkout = ({}) => {
             case 2:
                 return (
                     <Checkout2ndStep
-                        eventName={eventData.eventName}
-                        startDateTime={eventData.startDateTime}
-                        endDateTime={eventData.endDateTime}
-                        posterImage={eventData.posterImage}
-                        zone={eventData.zone}
-                        amount={eventData.amount}
-                        price={eventData.price}
-                        location={eventData.location}
+                        eventName={eventData!.eventName}
+                        startDateTime={eventData!.startDateTime}
+                        endDateTime={eventData!.endDateTime}
+                        posterImage={eventData!.posterImage}
+                        zone={eventData!.zone}
+                        amount={eventData!.amount}
+                        price={eventData!.price}
+                        location={eventData!.location}
                     />
                   );
             case 3:
@@ -152,8 +163,9 @@ const Checkout = ({}) => {
                             Congratulations*/}
 
                 {/* timeline steps and Ticket Summary*/}
-                {handleComponent(parsedData, session)}
-
+                {/* {handleComponent(parsedData!, session)} */}
+                {handleComponent(session)}
+                
                 {/*Button Cancel and Next*/}
                 {ButtonCheckout(step, handleNext, handleBack)}
             </div>

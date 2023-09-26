@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ComponentGenerateQR from "./CheckoutGen";
 
-const Component2 = (props:any) => {   
+const Component2 = (props:any) => {  
+    const [isChecked, setIsChecked] = useState(false); 
     const eventData = props
+
+
+    const toggleCheckbox = () => {
+        setIsChecked(!isChecked);
+    };
 
     // function to convert format date and time.
     const daystart = eventData.startDateTime.split(/[T-]/)[2] as string
@@ -54,7 +60,7 @@ const Component2 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >1
                         </span>
                     </li>
@@ -63,7 +69,7 @@ const Component2 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >2
                         </span>
                     </li>
@@ -72,7 +78,7 @@ const Component2 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >3
                         </span>
                     </li>
@@ -112,16 +118,28 @@ const Component2 = (props:any) => {
                                             <div className='text-black font-montserrat text-2xl font-bold pb-6'>Total</div>
                                             <div className='text-black font-montserrat text-2xl font-bold pb-8'>{eventData.price}</div>
                                             <div className='text-[#838383] font-montserrat text-lg font-bold'>scan QR code to pay</div>
+
                                         </div>
                                         <div className="">
                                             <div className='text-black font-montserrat text-lg pb-6'>({eventData.amount} items)</div>
-                                            <div className='text-black font-montserrat text-2xl font-bold'>฿</div>
+                                            <div className='text-black font-montserrat text-2xl font-bold pb-10'>฿</div>
+                                            <input type="checkbox" checked={isChecked} onChange={toggleCheckbox}/>
                                         </div>
+                                        { isChecked == false ?
                                         <div className="w-48 h-48">
                                             <ComponentGenerateQR
                                                 price={eventData.price}
                                             />
+                                        </div>: 
+                                        <div className="w-48 h-48 relative">
+                                            <ComponentGenerateQR
+                                                price={eventData.price}
+                                            />
+                                            <div className="absolute bottom-0 left-0 w-48 h-48 p-10">
+                                                <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" {...props}><path fill="#54d260" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"></path></svg>
+                                            </div>
                                         </div>
+                                        }
                                     </div>
                                     
                                 </div>

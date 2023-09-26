@@ -185,7 +185,10 @@ const EventDetails = ({}) => {
         amount: Total,
         price: Price,
     }
-    const dataString = encodeURIComponent(JSON.stringify(data));
+
+    const setDataToLocalStorage = () => {
+        localStorage.setItem('data', JSON.stringify(data));
+    }
 
     return(
         <>
@@ -276,8 +279,8 @@ const EventDetails = ({}) => {
                                 </div>
                                 </div>
                                 {session ? 
-                                    <Link href={`/checkout?data=${dataString}`}>
-                                        <button disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                                    <Link href={`/checkout`}>
+                                        <button disabled={Total===0} onClick={setDataToLocalStorage} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
                                     </Link>:
                                     <button onClick={() => signIn()} disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
                                 }   
