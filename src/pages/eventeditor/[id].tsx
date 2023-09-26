@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import MenubarEO from '~/components/menubarEO';
 import NavbarEO from '~/components/navbarEO'
 import ContentDashboard from '../../components/eventEditorContent/contentDashboard';
 import ContentEventSetting from '../../components/eventEditorContent/contentEventSetting';
