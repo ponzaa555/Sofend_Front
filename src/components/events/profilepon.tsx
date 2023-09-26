@@ -4,42 +4,70 @@ import Editprofile from '../../components/eachprofileeiment/edit_profile'
 import edit_profile from '../../components/eachprofileeiment/edit_profile';
 import { Form } from 'react-bootstrap';
 import { set, useForm } from 'react-hook-form';
-import { clear } from 'console';
 import { useSession } from 'next-auth/react';
-import { Session } from 'inspector';
 import { eventNames } from 'process';
+import axios, { Axios } from 'axios';
+import toast, {Toaster} from "react-hot-toast";
+
+
 
 // ใชั usesession แล้ว undefind คณะ usestae ทำให้ Editprofile ไม่ได้ !!!!!!!!
 
 
 
 interface edit_profile {
-    Firstname : string;
-    Lastname : string;
-    Email : string;
-    Phone : string;
+    userID : string;
+    newEmail : string;
+    newFirstName : string;
+    newLastName : string;
+    newTelephoneNumber : string;
 }
 interface changepass{
-    Email :string;
-    Newpass :string;
+    userID :string;
+    oldPassword :string;
+    newPassword: string;
 }
 
 
 
 const profilepage = (props:any) => {
 
+
     const Event = props
-    const name = Event.Name
-    console.log("name", name)
-    
+    const {data:session} = useSession()
     const [show1,Setshow1] = useState(true)
     const [show2,Setshow2] = useState(false)
     const [show3,Setshow3] = useState(false)
-    const [inputF,SetinputF] = useState("Napon")
-    const [inputL,SetinputL] = useState("Tansiri")
-    const [inputE,SetinputE] = useState("napon.ta@ku.th")
+    const [inputF,SetinputF] = useState()
+    const [inputL,SetinputL] = useState()
+    const [inputE,SetinputE] = useState()
+    const [inputtel,Setinputtel] = useState()
+    const [inputoldpas,Setinputoldpas] = useState()
+    const [inputnewpas,Setinputnewpas] = useState()
+    const [inputconpas,Setinputconpas] = useState()
+    const [data1,Setdata1] = useState({})
 
+    const userID = session?.user?.userID
+    
 
+    useEffect (() => {
+        if(userID!==undefined){
+        const url = `https://eventbud-jujiu2awda-uc.a.run.app/profile/${userID!}`
+        axios.get(url)
+            .then((res) =>{
+                Setdata1(res.data)
+                SetinputF(res.data.firstName)
+                SetinputL(res.data.lastName)
+                SetinputE(res.data.email)
+                Setinputtel(res.data.telephoneNumber)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    },[userID])
+    // get all events
+    
 
     const setshowfunc =(e) =>{
         console.log(e)
@@ -70,37 +98,93 @@ const profilepage = (props:any) => {
     const ChangeE = (e) =>{
         SetinputE(e.target.value)
     }
+    const Changetel = (e) =>{
+        Setinputtel(e.target.value)
+    }
+    const Changeoldp = (e) =>{
+        Setinputoldpas(e.target.value)
+    }
+    const ChangeNewp = (e) =>{
+        Setinputnewpas(e.target.value)
+    }
+    const Changeconp = (e) =>{
+        Setinputconpas(e.target.value)
+    }
     const submitefromeditprofile = () => {
         const inputfname = document.getElementById('inputFirstname').value;
         const inputlname = document.getElementById('inputlastname').value;
         const inputemail = document.getElementById('inputemail').value;
         const inputmb = document.getElementById('inputmobile phone').value;
         const Jsonedit:edit_profile = {
-            Firstname: inputfname,
-            Lastname: inputlname,
-            Email: inputemail,
-            Phone: inputmb,
+            userID:userID,
+            newFirstName: inputfname,
+            newLastName: inputlname,
+            newEmail: inputemail,
+            newTelephoneNumber: inputmb,
         }
         console.log("Jsonedit",Jsonedit)
+        if(inputemail.includes("@") === true){
+            fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile',{
+                method:'POST',
+                headers: {"Content-Type":"application/json"},
+                body:JSON.stringify(Jsonedit)
+            }).then(() =>{
+                console.log('change profile succes')
+                toast.success('Editprofile Success')
+            })
+        }else{
+            toast.error("Email worng format")
+            SetinputF(data1.firstName)
+            SetinputL(data1.lastName)
+            SetinputE(data1.email)
+            Setinputtel(data1.telephoneNumber)
+        }
     }
     const changepassbutton = () => {
         const inputoldpass = document.getElementById('currentpas').value
         const inputnewpass = document.getElementById('Newpass').value
         const inputconpass = document.getElementById('passwordcon').value
-        const JsonChangepass:changepass ={
-            Email:Event.Gmail,
-            Newpass:inputnewpass
+        if(inputnewpass === inputconpass){
+            const JsonChangepass:changepass ={
+                userID:userID,
+                oldPassword:inputoldpass,
+                newPassword:inputnewpass
+            }
+            console.log("JsonChangepass",JsonChangepass)
+            const urlchangeprofile = 'https://eventbud-jujiu2awda-uc.a.run.app/reset_password'
+            fetch(urlchangeprofile,{
+                method:'POST',
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(JsonChangepass)
+            }).then(response =>{
+                let statuscode = response.status
+                console.log("statuscode:" ,statuscode)
+                if(statuscode === 400){
+                    console.log("Current Password incorrect")
+                    toast.error("Current Password incorrect")
+                }
+                else{
+                    toast.success("change pass succes")
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }else{
+            toast.error("Password not match")
         }
-        console.log("JsonChangepass",JsonChangepass)
+        Setinputoldpas('')
+        Setinputnewpas('')
+        Setinputconpas('')
     }
     return(
         <>
+        <Toaster/>
         <div className=' flex justify-center gap-10 md:text-base lg:text-xl sm:text-sm h-1/2  '>
             <div className='  w-[18%] bg-white    h-full shadow-lg rounded-2xl '>
                     <div className=' grid justify-items-center h-1/2 bg-white rounded-2xl w-full grid-cols-1'>
                         <div className=' h-5'></div>
-                        <img src=  {"images/events/user.png"}   className='h-16 justify-center '/>
-                        <h1 className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{Event.Name}</h1>
+                        <img src=  {"images/events/user.png"}   className=' h-16 justify-center '/>
+                        <h1 className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{Event.Fname}</h1>
                         <h2 className='font-montserrat text-center text-gray-400 md:text-base sm:text-sm '>{Event.Gmail}</h2>
                         <div className='h-1 w-4/5 bg-slate-200 mt-2 rounded-2xl  '></div>
                     </div>
@@ -145,6 +229,7 @@ const profilepage = (props:any) => {
 
             {show1 &&
             <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
+            
                 <div className='pt-10 px-10'>
                     <h1 className=' font-montserrat  font-bold md:text-xl sm:text-base '>Edit Profile</h1>
                         <div className='flex  w-full gap-7'>
@@ -180,10 +265,10 @@ const profilepage = (props:any) => {
                            </div>
                             <div className='flex w-full gap-7 mt-2'>
                                 <div className='flex w-1/2'>
-                                    <input type="text" id='inputemail' value={inputE} onChange={(e) => ChangeE(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
+                                    <input type="email" id='inputemail' value={inputE} onChange={(e) => ChangeE(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
                                 </div>
                                 <div className='flex w-1/2'>
-                                    <input type="tel" id='inputmobile phone'  className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
+                                    <input type="tel" id='inputmobile phone' value={inputtel} onChange={(e) => Changetel(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
                                 </div>
                             </div>
                             <div className='flex  w-full mt-4 justify-end '>
@@ -193,10 +278,12 @@ const profilepage = (props:any) => {
                         </div>  
                 </div>
             </div> 
+            
             }
             {/* change password */}
             { show2 &&
                 <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
+               
                     <div className=' pt-10 px-10'>
                         <h1 className='font-montserrat  font-bold md:text-xl sm:text-base '>Change Password</h1>
                         <div className='flex w-full'>
@@ -209,6 +296,8 @@ const profilepage = (props:any) => {
                         <div className='flex w-1/2'>
                             <input type="text" 
                             placeholder='Enter Current Password'
+                            value={inputoldpas}
+                            onChange={(e) => Changeoldp(e)}
                             className='border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserra pb-1 sm:text-xs' 
                             id='currentpas'/>
                         </div >
@@ -230,12 +319,16 @@ const profilepage = (props:any) => {
                         <div className='flex w-1/2'>
                             <input type="text"
                             placeholder='Enter New Password' 
+                            value={inputnewpas}
+                            onChange={(e) => ChangeNewp(e)}
                             className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserra pb-1 sm:text-xs'
                             id='Newpass' />
                         </div>
                         <div className=' flex w-1/2'>
                             <input type="text" 
                             placeholder='Confirm Your New Password'
+                            value={inputconpas}
+                            onChange={(e) => Changeconp(e)}
                             className='border-gray-300 w-full  h-8  border-2 rounded-lg pl-4 md:text-base font-montserra pb-1 sm:text-xs'
                             id='passwordcon' />
                         </div>
@@ -247,8 +340,8 @@ const profilepage = (props:any) => {
                     </div>
                    
                     </div>
-                </div>     
-                
+             </div>          
+
             }
             {/* Staff */}
             {
