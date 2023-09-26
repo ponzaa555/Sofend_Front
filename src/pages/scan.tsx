@@ -52,9 +52,10 @@ export const scan = () => {
                                 <h2 className="font-montserrat"> Qr code result: {scanResultWebCam}</h2> */}
                                 </div>
                                 <button onClick={() => {
-                                    setPopupVisible(false)
-                                    setScanResultWebCam("")
-                                    setpostfinish(false)
+                                    // setPopupVisible(false)
+                                    // setScanResultWebCam("")
+                                    // setpostfinish(false)
+                                    window.location.reload();
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
                                 </button>
@@ -76,9 +77,10 @@ export const scan = () => {
                                     {/* <h2 className="font-montserrat"> Qr code result: {scanResultWebCam}</h2> */}
                                 </div>
                                 <button onClick={() => {
-                                    setPopupVisible(false)
-                                    setScanResultWebCam("")
-                                    setpostfinish(false)
+                                    // setPopupVisible(false)
+                                    // setScanResultWebCam("")
+                                    // setpostfinish(false)
+                                    window.location.reload();
                                 }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
                                 </button>
@@ -108,11 +110,13 @@ export const scan = () => {
 
 
     const handleScanResult = (result, error) => {
+        if (error) return;
         if (result) {
             setScanResultWebCam(result.text);
             console.log("Qrcode:", result.text);
-            qrReader.current.stop();
+            // qrReader.current.stop();
         }
+
     };
 
     const postscanresult = async () => {
@@ -173,15 +177,13 @@ export const scan = () => {
                 {isPopupVisible == false ?
                     <QrReader
                         constraints={{ facingMode: 'environment' }}
-                        ref={qrReader}
+                        // ref={qrReader}
                         scanDelay={500}
                         onResult={handleScanResult}
                         videoStyle={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%", objectFit: "cover" }}
-                        videoContainerStyle={{ width: "100%", height: "50%" }}
-                    /> : <div
-                    />}
+                    // videoContainerStyle={{ width: "100%", height: "50%" }}
+                    /> : popup()}
             </div>
-            {isPopupVisible && popup()}
 
 
         </>
