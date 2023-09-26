@@ -1,11 +1,23 @@
 import React from "react";
+import SVG from 'react-inlinesvg';
 
 const Ticket = (props:any) => {
 
     const eventTicket = props
+    const qrcode = require('qrcode') 
     console.log(eventTicket.firstname)
     console.log(eventTicket.ticketID)
     console.log(eventTicket.eventID)
+
+    // Convert payload(string) to SVG(qrcode)
+    var getSVG = ''
+    const payload = eventTicket.ticketID
+    const options = { type: 'svg', color: { dark: '#000', light: '#fff' } }
+    qrcode.toString(payload, options, (err:any, svg:any) => {
+        if (err) return console.log(err)
+        getSVG = svg as string
+        console.log("SVG: ", svg)
+    })
 
     return(
         <>
@@ -48,7 +60,9 @@ const Ticket = (props:any) => {
                                 </div>
                             </div>
                             <div className="mt-10">
-                                <img className="w-44" src="../images/tickets/qrcode.png"></img>
+                                {/* <img className="w-44" src="../images/tickets/qrcode.png"></img> */}
+                                <SVG className="w-44" src= {getSVG}/>
+
                             </div>
                         </div>
                         <div className="flex flex-row-2 justify-items-start gap-20">
