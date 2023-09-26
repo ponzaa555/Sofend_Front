@@ -68,8 +68,7 @@ const Checkout: React.FC = ({}) => {
     const {data:session} = useSession();
     const [eventData, setEventData] = useState<EventData>()
     const [loading, setLoading] = useState(false)
-    
- 
+
     // function to handle next button.
     const handleNext = () => {
         setStep(step + 1)
