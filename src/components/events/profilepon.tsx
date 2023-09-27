@@ -4,7 +4,7 @@ import Editprofile from '../../components/eachprofileeiment/edit_profile'
 import edit_profile from '../../components/eachprofileeiment/edit_profile';
 import { Form } from 'react-bootstrap';
 import { set, useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { eventNames } from 'process';
 import axios, { Axios } from 'axios';
 import toast, {Toaster} from "react-hot-toast";
@@ -129,7 +129,6 @@ const profilepage = (props:any) => {
                 headers: {"Content-Type":"application/json"},
                 body:JSON.stringify(Jsonedit)
             }).then(() =>{
-                console.log('change profile succes')
                 toast.success('Editprofile Success')
             })
         }else{
@@ -165,6 +164,12 @@ const profilepage = (props:any) => {
                 }
                 else{
                     toast.success("change pass succes")
+                    
+                    signOut()
+                    .then(() =>{
+                        signIn()
+                    })
+                    
                 }
             }).catch(err => {
                 console.log(err)
@@ -184,8 +189,8 @@ const profilepage = (props:any) => {
                     <div className=' grid justify-items-center h-1/2 bg-white rounded-2xl w-full grid-cols-1'>
                         <div className=' h-5'></div>
                         <img src=  {"images/events/user.png"}   className=' h-16 justify-center '/>
-                        <h1 className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{Event.Fname}</h1>
-                        <h2 className='font-montserrat text-center text-gray-400 md:text-base sm:text-sm '>{Event.Gmail}</h2>
+                        <h1 className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{data1.firstName} {data1.lastName}</h1>
+                        <h2 className='font-montserrat text-center text-gray-400 md:text-base sm:text-sm '>{data1.email}</h2>
                         <div className='h-1 w-4/5 bg-slate-200 mt-2 rounded-2xl  '></div>
                     </div>
                     <div className=' h-1/2  rounded-2xl w-full'>
@@ -229,7 +234,7 @@ const profilepage = (props:any) => {
 
             {show1 &&
             <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
-            
+                <form>
                 <div className='pt-10 px-10'>
                     <h1 className=' font-montserrat  font-bold md:text-xl sm:text-base '>Edit Profile</h1>
                         <div className='flex  w-full gap-7'>
@@ -277,6 +282,8 @@ const profilepage = (props:any) => {
                             </button>
                         </div>  
                 </div>
+                </form>
+ 
             </div> 
             
             }
