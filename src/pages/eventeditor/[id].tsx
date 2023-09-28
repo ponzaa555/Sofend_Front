@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import MenubarEO from '~/components/menubarEO';
+import MenubarEO from '~/components/MenubarEO';
 import NavbarEO from '~/components/navbarEO'
-import ContentDashboard from '../../components/eventEditorContent/contentDashboard';
-import ContentEventSetting from '../../components/eventEditorContent/contentEventSetting';
+import ContentDashboard from '../../components/eventEditorContent/ContentDashboard';
+import ContentEventSetting from '../../components/eventEditorContent/ContentEventSetting';
 import ContentTicketTypes from '../../components/eventEditorContent/ContentTicketTypes';
 import ContentStaff from '../../components/eventEditorContent/ContentStaff';
-import ContentPayment from '../../components/eventEditorContent/contentPayment';
+import ContentPayment from '../../components/eventEditorContent/ContentPayment';
 
 const EventEditor = () => {
 
