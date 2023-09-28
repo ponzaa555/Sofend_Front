@@ -124,12 +124,11 @@ const profilepage = (props:any) => {
         }
         console.log("Jsonedit",Jsonedit)
         if(inputemail.includes("@") === true){
+            toast.success('Editprofile Success')
             fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile',{
                 method:'POST',
                 headers: {"Content-Type":"application/json"},
                 body:JSON.stringify(Jsonedit)
-            }).then(() =>{
-                toast.success('Editprofile Success')
             })
         }else{
             toast.error("Email worng format")
@@ -159,11 +158,11 @@ const profilepage = (props:any) => {
                 let statuscode = response.status
                 console.log("statuscode:" ,statuscode)
                 if(statuscode === 400){
-                    console.log("Current Password incorrect")
-                    toast.error("Current Password incorrect")
+                    console.log("Current Password Incorrect")
+                    toast.error("Current Password Incorrect")
                 }
                 else{
-                    toast.success("change pass succes")
+                    toast.success("Change Password Succes")
                     
                     signOut()
                     .then(() =>{
