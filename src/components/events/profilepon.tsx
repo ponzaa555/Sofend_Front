@@ -133,11 +133,10 @@ const profilepage = (props: any) => {
                 body: JSON.stringify(Jsonedit)
             })
             if(data1.email != inputemail){
-                console.log(data1)
                 signOut()
-                        .then(() => {
-                            signIn()
-                        })
+                .then(() => {
+                    signIn()
+                })
             }
         } else {
             toast.error("Email worng format")
