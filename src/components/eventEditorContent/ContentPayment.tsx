@@ -4,7 +4,10 @@ import React from 'react'
 
 const ContentPayment = () => {
   return (
-    <div>ContentPayment</div>
+    <div>ContentPayment
+      <h1>wdawdwdadawd</h1>
+      <div>a</div>
+    </div>
   )
 }
 
