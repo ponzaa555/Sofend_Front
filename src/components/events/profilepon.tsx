@@ -13,7 +13,7 @@ import EventSchedule from '~/components/events/eventschedule';
 
 
 // ใชั usesession แล้ว undefind คณะ usestae ทำให้ Editprofile ไม่ได้ !!!!!!!!
-
+// e.preventDefualt() ใช้ยังไง
 
 
 interface edit_profile {
@@ -90,6 +90,7 @@ const profilepage = (props: any) => {
 
         }
     }
+    console.log("data1",data1)
     const ChangeF = (e) => {
         SetinputF(e.target.value)
     }
@@ -131,6 +132,13 @@ const profilepage = (props: any) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(Jsonedit)
             })
+            if(data1.email != inputemail){
+                console.log(data1)
+                signOut()
+                        .then(() => {
+                            signIn()
+                        })
+            }
         } else {
             toast.error("Email worng format")
             SetinputF(data1.firstName)
@@ -143,6 +151,7 @@ const profilepage = (props: any) => {
         const inputoldpass = document.getElementById('currentpas').value
         const inputnewpass = document.getElementById('Newpass').value
         const inputconpass = document.getElementById('passwordcon').value
+    if(inputnewpass.length >=8){
         if (inputnewpass === inputconpass) {
             const JsonChangepass: changepass = {
                 userID: userID,
@@ -159,8 +168,10 @@ const profilepage = (props: any) => {
                 let statuscode = response.status
                 console.log("statuscode:", statuscode)
                 if (statuscode === 400) {
-                    console.log("Current Password Incorrect")
                     toast.error("Current Password Incorrect")
+                    Setinputoldpas('')
+                    Setinputnewpas('')
+                    Setinputconpas('')
                 }
                 else {
                     toast.success("Change Password Succes")
@@ -176,10 +187,13 @@ const profilepage = (props: any) => {
             })
         } else {
             toast.error("Password not match")
+            Setinputoldpas('')
+            Setinputnewpas('')
+            Setinputconpas('')
         }
-        Setinputoldpas('')
-        Setinputnewpas('')
-        Setinputconpas('')
+    }else{
+        toast.error("Password must be at least 8 characters")
+    }
     }
     return (
         <>
@@ -277,7 +291,7 @@ const profilepage = (props: any) => {
                                     </div>
                                 </div>
                                 <div className='flex  w-full mt-4 justify-end '>
-                                    <button className=' items-end w-2/12 h-8  bg-black  rounded-lg ' onClick={() => submitefromeditprofile()}>
+                                    <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500  ' onClick={() => submitefromeditprofile()}>
                                         <h1 className=' text-white text-base  font-montserrat font-semibold '>Save</h1>
                                     </button>
                                 </div>
@@ -329,7 +343,11 @@ const profilepage = (props: any) => {
                                         value={inputnewpas}
                                         onChange={(e) => ChangeNewp(e)}
                                         className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserra pb-1 sm:text-xs'
-                                        id='Newpass' />
+                                        id='Newpass'
+                                        type="password"
+                                        minLength={8}
+                                        maxLength={20} 
+                                        required/>
                                 </div>
                                 <div className=' flex w-1/2'>
                                     <input type="text"
@@ -337,15 +355,18 @@ const profilepage = (props: any) => {
                                         value={inputconpas}
                                         onChange={(e) => Changeconp(e)}
                                         className='border-gray-300 w-full  h-8  border-2 rounded-lg pl-4 md:text-base font-montserra pb-1 sm:text-xs'
-                                        id='passwordcon' />
+                                        id='passwordcon' 
+                                        type="password"
+                                        minLength={8}
+                                        maxLength={20}
+                                        required/>
                                 </div>
                             </div>
                             <div className='flex w-full mt-4 justify-end'>
-                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg ' onClick={changepassbutton}>
+                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500' onClick={changepassbutton}>
                                     <h1 className='text-white text-base  font-montserrat font-semibold '>Save</h1>
                                 </button>
                             </div>
-
                         </div>
                     </div>
 
