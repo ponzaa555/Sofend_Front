@@ -12,10 +12,9 @@ const MyTicket = () => {
 
     const {data: session} = useSession();
 
-
-    console.log(session?.user?.email)
-    console.log(session?.user?.name)
-    console.log(session?.user?.userID)
+    // console.log(session?.user?.email)
+    // console.log(session?.user?.name)
+    // console.log(session?.user?.userID)
 
     const Firstname = session?.user?.name?.split(/[' ']/)[0] as string;
     const Lastname = session?.user?.name?.split(/[' ']/)[1] as string;
@@ -38,7 +37,7 @@ const MyTicket = () => {
         else {
             console.log("no session")
         }
-    }, []);
+    }, [session]);
 
     return(
         <>
@@ -61,9 +60,9 @@ const MyTicket = () => {
             </div>
             {getfinish == true ? 
                 <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
-                        <div className ="flex flex-wrap gap-8">
+                        <div className ="flex flex-wrap gap-4">
                             {Data.map((ticket,index) => (
-                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} firstname={Firstname} lastname={Lastname}/>   
+                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} firstname={Firstname} lastname={Lastname} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.class}/>   
                             ))}
                     </div>
                 </div>:

@@ -11,10 +11,6 @@ const ComponentSend1 = () => {
         setSend(true);
     }
 
-    const cancelHandle = () => {
-        <Link href="/myticket"></Link>
-    }
-
     return (
         <>
             {Send ? <ComponentSend2 /> :
