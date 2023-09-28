@@ -27,6 +27,7 @@ const MyTicket = () => {
             console.log(session)
             getTicket(session.user?.userID)
                 .then(data => {
+                    setFilteredEvents(data);
                     setData(data);
                     setgetfinish(true);
                 })
@@ -38,6 +39,50 @@ const MyTicket = () => {
             console.log("no session")
         }
     }, [session]);
+
+    const[selectedtag,setSelectedtag] = useState("available")
+    //set color button
+    const defaultcolor = `text-xl border border-black rounded-full px-3 py-2 hover:bg-black hover:text-white font-montserrat`
+    const changeColor = `text-xl border border-black rounded-full px-3 py-2 bg-black text-white font-montserrat font-bold`
+    const[colortag_available,setColortag_available] = useState(changeColor)
+    const[colortag_expired,setColortag_expired] = useState(defaultcolor)
+    const alltag = ["available","expired"]
+
+    const handleclicktag = (e:any) => {
+        const input_tag = String(e.target.value)
+        console.log("input",input_tag)
+        setSelectedtag(input_tag)
+        //set color tag to selected
+        alltag.filter((tag) => tag !== input_tag).map((tag) => {
+            eval("setColortag_"+tag)(defaultcolor)
+        })
+        eval("setColortag_"+input_tag)(changeColor)  
+    }
+
+    const[filteredEvents,setFilteredEvents] = useState([])
+    
+    let status_ticket = ""
+    const filteredbytag = () => {
+        const filteredE = Data.filter((E) => {
+          status_ticket = E.status
+          if (status_ticket === "scanned") {
+            status_ticket = "expired";
+          }
+          return status_ticket.includes(selectedtag);
+        });
+        return filteredE;
+    }
+    
+    var filteredE = filteredbytag()
+
+    useEffect(() => {
+        var filteredData = filteredbytag()
+        setFilteredEvents(filteredData)
+      },[selectedtag])
+
+    // console.log("filtered",filteredEvents)
+    // console.log("data",Data)
+    // console.log("filteredE",filteredE)
 
     return(
         <>
@@ -54,15 +99,15 @@ const MyTicket = () => {
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                 <div className="font-montserrat font-bold text-4xl mb-4">MY TICKET</div>
                 <div className="flex flex-row-2 justify-start gap-4">
-                    <button className="text-xl border border-black rounded-full px-2 py-1 hover:bg-black hover:text-white font-montserrat">Available</button>
-                    <button className="text-xl border border-black rounded-full px-3 py-2 hover:bg-black hover:text-white font-montserrat">Expired</button>
+                    <button className={colortag_available} value="available" onClick={handleclicktag}>Available</button>
+                    <button  className ={colortag_expired} value="expired" onClick={handleclicktag} >Expired</button>
                 </div>
             </div>
             {getfinish == true ? 
                 <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                         <div className ="flex flex-wrap gap-4">
-                            {Data.map((ticket,index) => (
-                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} firstname={Firstname} lastname={Lastname} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.class}/>   
+                            {filteredE.map((ticket,index) => (
+                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} firstname={Firstname} lastname={Lastname} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.class} status={ticket.status}/>   
                             ))}
                     </div>
                 </div>:

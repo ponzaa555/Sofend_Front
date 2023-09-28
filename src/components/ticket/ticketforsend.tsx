@@ -5,7 +5,10 @@ const TicketSend = () => {
         <>
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[20rem] h-[450px] px-3">
-                    <img className="my-6 p-6" src="../images/events/e1.png"></img>
+                    <div className="flex flex-col justify-items-center my-4">
+                        <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. 21425</div>
+                        <img className="rounded-md p-6" src="../images/events/e1.png"></img>
+                    </div>
                 </div>
                 <div className="bg-[#F9F9F9] w-[25rem] h-[450px] rounded-md px-8 py-2">
                     <div className="flex flex-col justify-between h-auto my-4 gap-4">

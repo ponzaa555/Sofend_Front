@@ -82,6 +82,36 @@ const Ticket = (props:any) => {
             // console.log(price)
         }
     }
+    // console.log(eventTicket.status)
+
+    const button = () => {
+        if(eventTicket.status=="available")
+        return(
+            <>
+            <button className="flex flex-row justify-center">
+                <p className="font-montserrat font-bold text-sm text-white w-3/4">Send this ticket to your friend</p>
+                <img className="w-auto h-6 mt-3" src="../images/tickets/sendIcon.png"></img>
+            </button>
+            </>
+        )
+        else{
+            return
+        }
+    }
+
+    const qr = () => {
+        if(eventTicket.status=="available")
+        return(
+            <SVG className="w-40" src= {getSVG}/>
+        )
+        else{
+            return(
+            <>
+                <SVG className="w-40 opacity-10 relative" src= {getSVG}/>
+            </>
+        )
+        }
+    }
     
     return(
         <>
@@ -91,14 +121,11 @@ const Ticket = (props:any) => {
                         <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div>
                         <img className="rounded-md" src={eventDetail?.posterImage}></img>
                             <a href="/sendticket">
-                            <button className="flex flex-row justify-center">
-                                <p className="font-montserrat font-bold text-sm text-white w-3/4">Send this ticket to your friend</p>
-                                <img className="w-auto h-6 mt-3" src="../images/tickets/sendIcon.png"></img>
-                            </button>
+                            {button()}
                             </a>
                         </div>
                 </div>
-                <div className="bg-[#F9F9F9] w-[24.5rem] h-[400px] rounded-md px-8 py-2">
+                <div className="bg-[#F9F9F9] w-[24.5rem] h-[400px] rounded-md px-8 py-2 shadow-lg">
                     <div className="flex flex-col justify-between mt-4">
                         <div className="flex flex-row-2 justify-items-start justify-between">
                             <div className="font-montserrat font-bold text-xl text-[#D40000]">{parsedate}</div>
@@ -124,8 +151,8 @@ const Ticket = (props:any) => {
                                 </div>
                             </div>
                             <div className="mt-4">
-                                <SVG className="w-40" src= {getSVG}/>
-
+                                {/* <SVG className="w-40" src= {getSVG}/> */}
+                                {qr()}
                             </div>
                         </div>
                         <div className="flex flex-row-2 justify-items-start gap-20 mt-3">
