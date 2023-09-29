@@ -1,8 +1,26 @@
 import React from 'react'
 
-// type Props = {}
+interface NewTicketTypesInfo {
+    name: string;
+    quantityAvailable: string;
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+    ticketPrice: string;
+}
 
 const ContentCreateNewTicketTypes = () => {
+    // const jsonNewTicketTypesInfo: NewTicketTypesInfo = {
+    //     name: ...;
+    //     quantityAvailable: ...;
+    //     startDate: ...;
+    //     endDate: ...;
+    //     startTime: ...;
+    //     endTime: ...;
+    //     ticketPrice: ...;
+    // }
+
     return (
         <div>
             <div className='text-xl font-bold pb-2'>
@@ -18,14 +36,14 @@ const ContentCreateNewTicketTypes = () => {
                         <p className='text-red-600'>*</p>
                     </div>
                     <div className='pb-2'>
-                        <input type="text" className='border border-black rounded-md w-full'/>
+                        <input type="text" className='border border-black rounded-md w-full px-4'/>
                     </div>
                     <div className='flex'>
                         <p>Quantity Available</p>
                         <p className='text-red-600'>*</p>
                     </div>
                     <div>
-                        <input type="text" className='border border-black rounded-md w-full'/>
+                        <input type="text" className='border border-black rounded-md w-full px-4'/>
                     </div>
                 </div>
                 <div className='w-1/3'>
@@ -44,14 +62,14 @@ const ContentCreateNewTicketTypes = () => {
                             <p className='text-red-600'>*</p>
                         </div>
                         <div className='pb-2'>
-                            <input type="text" className='border border-black rounded-md w-full'/>
+                            <input type="text" className='border border-black rounded-md w-full px-4'/>
                         </div>
                         <div className='flex'>
                             <p>End at date</p>
                             <p className='text-red-600'>*</p>
                         </div>
                         <div>
-                            <input type="text" className='border border-black rounded-md w-full'/>
+                            <input type="text" className='border border-black rounded-md w-full px-4'/>
                         </div>
                     </div>
                     <div className='w-1/3 pr-10'>
@@ -60,14 +78,14 @@ const ContentCreateNewTicketTypes = () => {
                             <p className='text-red-600'>*</p>
                         </div>
                         <div className='pb-2'>
-                            <input type="text" className='border border-black rounded-md w-full'/>
+                            <input type="text" className='border border-black rounded-md w-full px-4'/>
                         </div>
                         <div className='flex'>
                             <p>End time</p>
                             <p className='text-red-600'>*</p>
                         </div>
                         <div>
-                            <input type="text" className='border border-black rounded-md w-full'/>
+                            <input type="text" className='border border-black rounded-md w-full px-4'/>
                         </div>
                     </div>
                 </div>
@@ -86,13 +104,13 @@ const ContentCreateNewTicketTypes = () => {
                         <p className='text-red-600'>*</p>
                     </div>
                     <div className='pb-16'>
-                        <input type="text" className='border border-black rounded-md w-full'/>
+                        <input type="text" className='border border-black rounded-md w-full px-4'/>
                     </div>
                     <div className='flex justify-between'>
-                        <button className='border border-black rounded-lg text-l text-black bg-white hover:bg-black hover:text-white py-2 px-2'>
+                        <button className='border border-black rounded-lg text-l text-black bg-white hover:bg-black hover:text-white w-2/12 py-1'>
                             <h1 className='font-montserrat font-bold '>Cancel</h1>
                         </button>
-                        <button className='border border-black rounded-lg text-l text-white bg-black hover:bg-white hover:text-black py-2 px-2'>
+                        <button className='border border-black rounded-lg text-l text-white bg-black hover:bg-white hover:text-black w-3/12'>
                             <h1 className='font-montserrat font-bold '>Save</h1>
                         </button>
                     </div>
@@ -100,6 +118,14 @@ const ContentCreateNewTicketTypes = () => {
                 <div className='w-1/3'>
                     <p className='font-bold'>Pricing</p>
                     <p>The Ticket Pricing section offers potential attendees a clear understanding of the pricing structure.</p>
+                </div>
+            </div>
+            <div className='pb-1 pt-20'>
+                <div className='flex justify-center text-3xl font-bold font-montserrat'>
+                    EventBud
+                </div>
+                <div className='flex justify-center text-sm font-montserrat' >
+                    all right reserved
                 </div>
             </div>
         </div>
