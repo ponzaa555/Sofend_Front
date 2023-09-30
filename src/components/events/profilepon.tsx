@@ -112,7 +112,7 @@ const profilepage = (props: any) => {
     const Changeconp = (e) => {
         Setinputconpas(e.target.value)
     }
-    const submitefromeditprofile = () => {
+    const submitefromeditprofile = (e:React.FocusEvent) => {
         const inputfname = document.getElementById('inputFirstname').value;
         const inputlname = document.getElementById('inputlastname').value;
         const inputemail = document.getElementById('inputemail').value;
@@ -132,6 +132,9 @@ const profilepage = (props: any) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(Jsonedit)
             })
+            .catch((err) => {
+                console.log(err)
+            })
             if(data1.email != inputemail){
                 signOut()
                 .then(() => {
@@ -139,6 +142,7 @@ const profilepage = (props: any) => {
                 })
             }
         } else {
+            e.preventDefault();
             toast.error("Email worng format")
             SetinputF(data1.firstName)
             SetinputL(data1.lastName)
@@ -146,7 +150,8 @@ const profilepage = (props: any) => {
             Setinputtel(data1.telephoneNumber)
         }
     }
-    const changepassbutton = () => {
+    const changepassbutton = (e:React.FocusEvent) => {
+        e.preventDefault()
         const inputoldpass = document.getElementById('currentpas').value
         const inputnewpass = document.getElementById('Newpass').value
         const inputconpass = document.getElementById('passwordcon').value
@@ -246,8 +251,8 @@ const profilepage = (props: any) => {
                 {/* edit profile */}
 
                 {show1 &&
-                    <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
-                        <form>
+                <form onSubmit={submitefromeditprofile} className='w-3/5   bg-white  rounded-2xl shadow-xl'>
+                    <div >
                             <div className='pt-10 px-10'>
                                 <h1 className=' font-montserrat  font-bold md:text-xl sm:text-base '>Edit Profile</h1>
                                 <div className='flex  w-full gap-7'>
@@ -286,24 +291,23 @@ const profilepage = (props: any) => {
                                         <input type="email" id='inputemail' value={inputE} onChange={(e) => ChangeE(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
                                     </div>
                                     <div className='flex w-1/2'>
-                                        <input type="tel" id='inputmobile phone' value={inputtel} onChange={(e) => Changetel(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
+                                        <input type="text" inputMode='numeric' pattern='[0-9]+' id='inputmobile phone' value={inputtel} onChange={(e) => Changetel(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
                                     </div>
                                 </div>
                                 <div className='flex  w-full mt-4 justify-end '>
-                                    <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500  ' onClick={() => submitefromeditprofile()}>
+                                    <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500  ' type='submit'>
                                         <h1 className=' text-white text-base  font-montserrat font-semibold '>Save</h1>
                                     </button>
                                 </div>
                             </div>
-                        </form>
-
                     </div>
+                </form>
 
                 }
                 {/* change password */}
                 {show2 &&
-                    <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
-
+                <form onSubmit={changepassbutton} className='w-3/5   bg-white  rounded-2xl shadow-xl'>
+                    <div>
                         <div className=' pt-10 px-10'>
                             <h1 className='font-montserrat  font-bold md:text-xl sm:text-base '>Change Password</h1>
                             <div className='flex w-full'>
@@ -319,7 +323,9 @@ const profilepage = (props: any) => {
                                         value={inputoldpas}
                                         onChange={(e) => Changeoldp(e)}
                                         className='border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserra pb-1 sm:text-xs'
-                                        id='currentpas' />
+                                        type="password"
+                                        id='currentpas'
+                                        required />
                                 </div >
                                 <div className='flex w-1/2'>
                                     <div className='w-full'></div>
@@ -362,13 +368,13 @@ const profilepage = (props: any) => {
                                 </div>
                             </div>
                             <div className='flex w-full mt-4 justify-end'>
-                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500' onClick={changepassbutton}>
+                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500' type='submit'>
                                     <h1 className='text-white text-base  font-montserrat font-semibold '>Save</h1>
                                 </button>
                             </div>
                         </div>
                     </div>
-
+                </form>
                 }
                 {/* Staff */}
                 {
