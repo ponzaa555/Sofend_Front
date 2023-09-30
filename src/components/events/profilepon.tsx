@@ -125,30 +125,32 @@ const profilepage = (props: any) => {
             newTelephoneNumber: inputmb,
         }
         console.log("Jsonedit", Jsonedit)
-        if (inputemail.includes("@") === true) {
-            toast.success('Editprofile Success')
-            fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile', {
+        e.preventDefault()
+        fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(Jsonedit)
+            }).then(respone =>{
+                let responestatus =respone.status
+                if (responestatus === 400){
+                    toast.error("Duplicate Email")
+                    SetinputF(data1.firstName)
+                    SetinputL(data1.lastName)
+                    SetinputE(data1.email)
+                    Setinputtel(data1.telephoneNumber)
+                }else{
+                    if(data1.email != inputemail){
+                        signOut()
+                        .then(() => {
+                            signIn()
+                        })
+                    }else{
+                        toast.success('Editprofile Success')
+                        window.location.reload(false)
+                    }
+                }
             })
-            .catch((err) => {
-                console.log(err)
-            })
-            if(data1.email != inputemail){
-                signOut()
-                .then(() => {
-                    signIn()
-                })
-            }
-        } else {
-            e.preventDefault();
-            toast.error("Email worng format")
-            SetinputF(data1.firstName)
-            SetinputL(data1.lastName)
-            SetinputE(data1.email)
-            Setinputtel(data1.telephoneNumber)
-        }
+            
     }
     const changepassbutton = (e:React.FocusEvent) => {
         e.preventDefault()
