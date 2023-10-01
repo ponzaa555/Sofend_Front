@@ -1,9 +1,43 @@
 import React from 'react'
 
+interface jsonCreateNewTicketTypes {
+    Name : string;
+    QuantityAvailable : string;
+    StartDate : string;
+    StartTime : string;
+    EndDate : string;
+    EndTime : string;
+    TicketPrice : string;
+}
+
 const ContentCreateNewTicketTypes = () => {
+    const handleOnChange = (e:React.FocusEvent) => {
+        e.preventDefault()
+        const Name = document.getElementById('tt-name').value
+        const QuantityAvailable = document.getElementById('tt-qa').value
+        const StartDate = document.getElementById('tt-start-date').value
+        const StartTime = document.getElementById('tt-start-time').value
+        const EndDate = document.getElementById('tt-end-date').value
+        const EndTime = document.getElementById('tt-end-time').value
+        const TicketPrice = document.getElementById('tt-ticketprice').value
+        
+        const testoutput:jsonCreateNewTicketTypes = {
+            Name : Name,
+            QuantityAvailable : QuantityAvailable,
+            StartDate : StartDate,
+            StartTime : StartTime,
+            EndDate : EndDate,
+            EndTime : EndTime,
+            TicketPrice : TicketPrice
+        }
+        console.log(testoutput)
+    }
+
+
+
     return (
         <div>
-            <form action="">
+            <form onSubmit={handleOnChange} >
                 <h2 className='font-bold text-3xl mb-4'>Create New Ticket Type</h2>
                 {/* Details */}
                 <h2 className='font-bold text-3xl mb-4'>Details</h2>
