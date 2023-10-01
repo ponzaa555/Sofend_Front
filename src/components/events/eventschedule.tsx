@@ -65,9 +65,8 @@ const eventschedule = () => {
         }
         else {
             return (
-                <>
-                    <div className="h-32 mt-3 " />
-                    <div className="h-48 flex items-center justify-center ">
+                <div className="flex flex-col items-center justify-center h-full pb-8">
+                    <div>
                         {getfinish == true ? <div className="text-4xl font-montserrat font-medium">No Event</div> :
                             <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
                                 <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,17 +76,14 @@ const eventschedule = () => {
                                 <span className="font-montserrat">Loading...</span>
                             </div>}
                     </div>
-                    <div className="h-32 mt-3" />
-                </>
+                </div>
             )
         }
     }
 
     return (
-        <div>
-            <div className="mt-8 mx-4">
-                {showeventschedule()}
-            </div>
+        <div className="pt-8 px-4 h-full">
+            {showeventschedule()}
         </div>
     )
 }
