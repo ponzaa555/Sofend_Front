@@ -213,8 +213,8 @@ const profilepage = (props: any) => {
     return (
         <>
             <Toaster />
-            <div className=' flex justify-center gap-10 md:text-base lg:text-xl sm:text-sm h-1/2  '>
-                <div className='  w-[18%] bg-white    h-full shadow-lg rounded-2xl '>
+            <div className=' flex justify-center gap-10 md:text-base lg:text-xl sm:text-sm w-full'>
+                <div className='  w-[18%] bg-white    h-1/2  shadow-lg rounded-2xl '>
                     <div className=' grid justify-items-center h-1/2 bg-white rounded-2xl w-full grid-cols-1'>
                         <div className=' h-5'></div>
                         <img src={"images/events/user.png"} className=' h-16 justify-center ' />
@@ -379,7 +379,7 @@ const profilepage = (props: any) => {
                                 </div>
                             </div>
                             <div className='flex w-full mt-6 justify-end'>
-                                <button className=' items-end w-2/12 h-9  bg-black  rounded-lg  hover:bg-gray-500' type='submit'>
+                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500' type='submit'>
                                     <p className='text-white text-base  font-montserrat font-semibold '>Save</p>
                                 </button>
                             </div>
@@ -388,16 +388,15 @@ const profilepage = (props: any) => {
                 </form>
                 }
                 {/* Staff */}
+                
                 {
                     show3 &&
-                    <div className=' w-3/5 bg-white  rounded-2xl shadow-xl'>
+                    <div className='  w-3/5 bg-white  rounded-2xl shadow-xl '>
                         <EventSchedule />
                     </div>
                 }
             </div>
-
         </>
-
     )
 }
 export default profilepage
