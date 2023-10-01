@@ -75,16 +75,6 @@ const Ticket = (props:any) => {
     }
     checkseat()
 
-    let price = 0
-    console.log(eventTicket.class)
-    for (let i = 0; i < eventDetail?.ticketClass.length; i++) {
-        if (eventDetail?.ticketClass[i].className == eventTicket.class) {
-            price = eventDetail?.ticketClass[i].pricePerSeat
-            console.log(price)
-        }
-    }
-    // console.log(eventTicket.status)
-
     const button = () => {
         if(eventTicket.status=="available")
         return(
@@ -126,7 +116,6 @@ const Ticket = (props:any) => {
         row: row,
         gate: gate,
         seat: seat,
-        price : price,
     }
     const dataString = encodeURIComponent(JSON.stringify(data));
     
@@ -146,7 +135,6 @@ const Ticket = (props:any) => {
                     <div className="flex flex-col justify-between mt-4">
                         <div className="flex flex-row-2 justify-items-start justify-between">
                             <div className="font-montserrat font-bold text-xl text-[#D40000]">{parsedate}</div>
-                            <div className="font-montserrat font-bold text-xl text-black">{price}</div>
                         </div>
                         <div className="font-montserrat font-bold text-xl text-black h-20 mt-2">{eventDetail?.eventName}</div>
                         <div className="flex flex-row-2 justify-items-start">
