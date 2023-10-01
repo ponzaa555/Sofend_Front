@@ -47,7 +47,7 @@ const Ticket = (props:any) => {
           axios.get<EventDetail>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
             .then((res) => {
               setEventDetail(res.data);
-            //   console.log(id,res.data)
+              console.log(id,res.data)
             })
             .catch((err) => {
               console.error(err);
@@ -76,11 +76,11 @@ const Ticket = (props:any) => {
     checkseat()
 
     let price = 0
-    // console.log(eventTicket.class)
+    console.log(eventTicket.class)
     for (let i = 0; i < eventDetail?.ticketClass.length; i++) {
         if (eventDetail?.ticketClass[i].className == eventTicket.class) {
             price = eventDetail?.ticketClass[i].pricePerSeat
-            // console.log(price)
+            console.log(price)
         }
     }
     // console.log(eventTicket.status)
