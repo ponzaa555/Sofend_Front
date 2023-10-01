@@ -9,6 +9,8 @@ import { eventNames } from 'process';
 import axios, { Axios } from 'axios';
 import toast, { Toaster } from "react-hot-toast";
 import EventSchedule from '~/components/events/eventschedule';
+import { Session } from 'inspector';
+import { useRouter } from "next/router";
 
 
 
@@ -35,6 +37,7 @@ const profilepage = (props: any) => {
 
 
     const Event = props
+    const router = useRouter()
     const { data: session } = useSession()
     const [show1, Setshow1] = useState(true)
     const [show2, Setshow2] = useState(false)
@@ -49,8 +52,8 @@ const profilepage = (props: any) => {
     const [data1, Setdata1] = useState({})
 
     const userID = session?.user?.userID
-
-
+    let check = 0
+    console.log('check: ',check)
     useEffect(() => {
         if (userID !== undefined) {
             const url = `https://eventbud-jujiu2awda-uc.a.run.app/profile/${userID!}`
@@ -67,6 +70,9 @@ const profilepage = (props: any) => {
                 })
         }
     }, [userID])
+   if(session === null && check ===0){
+    router.push('/main')
+   }
     // get all events
 
 
@@ -140,6 +146,7 @@ const profilepage = (props: any) => {
                     Setinputtel(data1.telephoneNumber)
                 }else{
                     if(data1.email != inputemail){
+                        check = 1
                         signOut()
                         .then(() => {
                             signIn()
@@ -181,7 +188,7 @@ const profilepage = (props: any) => {
                 }
                 else {
                     toast.success("Change Password Succes")
-
+                    check = 1
                     signOut()
                         .then(() => {
                             signIn()
