@@ -13,16 +13,16 @@ const profile = () => {
         return (
             <div>
                 <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                    <a href="/myticket" className="font-montserrat font-bold text-xl">
-                        <p>My Ticket</p>
-                    </a>
+                    <Link href="/myticket" className="font-montserrat font-bold text-xl">
+                            <p>My Ticket</p>
+                    </Link>
                     <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
-                    <a href="/profilepage">
+                    <Link href="/profilepage">
                         <PersonCircle/>
-                    </a>
-                    <a href="/main">
-                        <button className='font-medium' onClick={() => signOut()}>Sign out</button>
-                    </a>
+                    </Link>
+                    <button className='font-medium'
+                        onClick={() => signOut()}
+                    >Sign out</button>
                     </ul>
                 </ul> 
             </div>
