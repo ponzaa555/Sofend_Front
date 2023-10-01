@@ -4,8 +4,8 @@ import React from 'react'
 
 const ContentPayment = () => {
   return (
-  <div className=' w-screen h-screen'>
-      <div className=' flex justify-center w-full h-1/2  gap-10'>
+  <div className=' h-screen'>
+      <div className=' flex justify-center  h-1/2  gap-10'>
         <form id='left' className=' relative w-3/6 h-full  font-montserrat '>
           <div className='text-2xl font-semibol'>
             Bank Accounts
@@ -70,13 +70,16 @@ const ContentPayment = () => {
           </div>
         </form>
        
-        <div id='right' className=' w-1/4 h-full  bg-blue-500'>
-          <div className='text-2xl font-semibol'>
-              
-          </div>
-          <div className='pt-2 text-base'>
+        <div id='right' className=' w-1/4 h-full '>
+          <div className='h-2'></div>
+          <div className='pt-2'>
             <div>
-              <h1 className=' font-semibold'>Bank Accounts</h1>
+              <h1 className=' font-semibold text-base '>Bank Accounts</h1>
+            </div>
+            <div className='text-xs '>
+              <h1 className='flex'>Bank Account will need to get verified</h1>
+              <h1 className='flex'>and approved before used on following</h1>
+              <h1 className='flex'>purpose.</h1>
             </div>
           </div>
         </div>
