@@ -54,6 +54,7 @@ const profilepage = (props: any) => {
     const userID = session?.user?.userID
     let check = 0
     console.log('check: ',check)
+   
     useEffect(() => {
         if (userID !== undefined) {
             const url = `https://eventbud-jujiu2awda-uc.a.run.app/profile/${userID!}`
@@ -70,9 +71,10 @@ const profilepage = (props: any) => {
                 })
         }
     }, [userID])
-   if(session === null && check ===0){
-    router.push('/main')
-   }
+    
+    if(session === null && check ===0){
+        router.push('/main')
+       }
     // get all events
 
 
