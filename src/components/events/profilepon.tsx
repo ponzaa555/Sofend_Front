@@ -271,10 +271,10 @@ const profilepage = (props: any) => {
                                 </div>
                                 <div className='flex mt-1 gap-7 w-full'>
                                     <div className='w-1/2'>
-                                        <input type="text" id='inputFirstname' value={inputF} onChange={(e) => ChangeF(e)} className=' border-gray-300 w-full h-9  border-2 rounded-lg pl-4 text-base  font-montserrat pb-1' />
+                                        <input type="text" id='inputFirstname' value={inputF} onChange={(e) => ChangeF(e)} className=' border-gray-300 w-full h-9  border-2 rounded-lg pl-4 text-base  font-montserrat pb-1 re' required />
                                     </div>
                                     <div className='w-1/2'>
-                                        <input type="text" id='inputlastname' value={inputL} onChange={(e) => ChangeL(e)} className=' border-gray-300 w-full  h-9  border-2 rounded-lg pl-4 text-base font-montserrat pb-1' />
+                                        <input type="text" id='inputlastname' value={inputL} onChange={(e) => ChangeL(e)} className=' border-gray-300 w-full  h-9  border-2 rounded-lg pl-4 text-base font-montserrat pb-1' required/>
                                     </div>
 
                                 </div>
