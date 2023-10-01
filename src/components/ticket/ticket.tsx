@@ -3,6 +3,7 @@ import SVG from 'react-inlinesvg';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { set } from "zod";
+import Link from "next/link";
 
 type EventDetail = {
     eventID: string;
@@ -59,7 +60,7 @@ const Ticket = (props:any) => {
     const month = date.split('-')[1] as string;
     const year = date.split('-')[0] as string;
     const month_list = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-    const parsedate = day + " " + month_list[parseInt(month)-1] + " " + year
+    const parsedate = day + " " + month_list[parseInt(month)-1] + " " + year as string;
     
     let zone = "-"
     let row = "-"
@@ -107,11 +108,27 @@ const Ticket = (props:any) => {
         else{
             return(
             <>
-                <SVG className="w-40 opacity-10 relative" src= {getSVG}/>
+                <SVG className="w-40 opacity-20 blur-sm" src= {getSVG}/>
             </>
         )
         }
     }
+
+    const data = {
+        ticketID : eventTicket.ticketID,
+        firstname: eventTicket.firstname,
+        lastname: eventTicket.lastname,
+        eventName: eventDetail?.eventName,
+        location: eventDetail?.location,
+        poster : eventDetail?.posterImage,
+        date: parsedate,
+        zone: zone,
+        row: row,
+        gate: gate,
+        seat: seat,
+        price : price,
+    }
+    const dataString = encodeURIComponent(JSON.stringify(data));
     
     return(
         <>
@@ -120,9 +137,9 @@ const Ticket = (props:any) => {
                     <div className="flex flex-col justify-items-center my-8 gap-2">
                         <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div>
                         <img className="rounded-md" src={eventDetail?.posterImage}></img>
-                            <a href="/sendticket">
+                            <Link href={`/sendticket?data=${dataString}`}>
                             {button()}
-                            </a>
+                            </Link>
                         </div>
                 </div>
                 <div className="bg-[#F9F9F9] w-[24.5rem] h-[400px] rounded-md px-8 py-2 shadow-lg">

@@ -5,8 +5,26 @@ import TicketSend from "../components/ticket/ticketforsend";
 import ComponentSend1 from "~/components/ticket/com_send1";
 import ComponentSend2 from "~/components/ticket/com_send2";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from 'next/router'
+import { useSession } from "next-auth/react";
 
 const SendTicket = () => {
+
+    const router = useRouter()
+    const { data } = router.query;
+    const {data:session} = useSession();
+    
+    // recieve data from myticket page.
+        let parsedData = null;
+        if (data) {
+            try {
+                parsedData = JSON.parse(decodeURIComponent(data as string));
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        }
+    console.log(parsedData)
     
     return (
         <>
@@ -24,7 +42,18 @@ const SendTicket = () => {
                 <div className="font-montserrat font-bold text-4xl mb-10">Send ticket to your friend</div>
                 <div className="flex flex-row gap-16">
                     <div className="basis-3/5">
-                        <TicketSend/>
+                        <TicketSend ticketID={parsedData.ticketID} 
+                        firstname= {parsedData.firstname}
+                        lastname= {parsedData.lastname}
+                        eventName= {parsedData.eventName}
+                        location= {parsedData.location}
+                        poster = {parsedData.poster}
+                        zone= {parsedData.zone}
+                        row= {parsedData.row}
+                        gate= {parsedData.gate}
+                        seat= {parsedData.seat}
+                        date={parsedData.date}
+                        price={parsedData.price}/>
                     </div>
                     <div className="basis-2/4">
                         <ComponentSend1 />

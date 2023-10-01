@@ -1,52 +1,68 @@
+import { get } from "http";
 import React from "react";
+import SVG from 'react-inlinesvg';
 
-const TicketSend = () => {
+const TicketSend = (props:any) => {
+
+    const eventTicket = props
+    // console.log(eventTicket.ticketID)
+
+    const qrcode = require('qrcode') 
+    var getSVG = ''
+    const payload = eventTicket.ticketID
+    const options = { type: 'svg', color: { dark: '#000', light: '#fff' } }
+    qrcode.toString(payload, options, (err:any, svg:any) => {
+        if (err) return console.log(err)
+        getSVG = svg as string
+        // console.log("SVG: ", svg)
+    })
+
     return(
         <>
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[20rem] h-[450px] px-3">
                     <div className="flex flex-col justify-items-center my-4">
-                        <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. 21425</div>
-                        <img className="rounded-md p-6" src="../images/events/e1.png"></img>
+                        <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. {eventTicket.ticketID}</div>
+                        <img className="rounded-md p-6" src={eventTicket.poster}></img>
                     </div>
                 </div>
                 <div className="bg-[#F9F9F9] w-[25rem] h-[450px] rounded-md px-8 py-2">
                     <div className="flex flex-col justify-between h-auto my-4 gap-4">
                         <div className="flex flex-row-2 justify-items-start justify-between">
-                            <div className="font-montserrat font-bold text-xl text-[#D40000]">2 Sep 2023</div>
-                            <div className="font-montserrat font-bold text-xl text-black">5,500</div>
+                            <div className="font-montserrat font-bold text-xl text-[#D40000]">{eventTicket.date}</div>
+                            <div className="font-montserrat font-bold text-xl text-black">{eventTicket.price}</div>
                         </div>
-                        <div className="font-montserrat font-bold text-xl text-black">หลักสูตร Administering Windows Server Hybrid Core Infrastructure (AZ-8…</div>
-                        <div className="flex flex-row-2 justify-items-start">
+                        <div className="font-montserrat font-bold text-xl text-black">{eventTicket.eventName}</div>
+                        <div className="flex flex-row-2 justify-items-start my-4">
                             <div className="">
-                                <div className="font-montserrat font-medium text-base text-black my-4">Thunder dome stadium, Muang Thong Thani</div>
+                                <div className="font-montserrat font-medium text-base text-black my-4">{eventTicket.location}</div>
                                 <div className="flex flex-row-2 justify-items-start gap-20">
                                     <div className="">
                                         <div className="font-montserrat font-bold text-base text-black">ZONE</div>
-                                        <div className="font-montserrat font-bold text-xl text-black">C1</div>
+                                        <div className="font-montserrat font-bold text-xl text-black">{eventTicket.zone}</div>
                                         <div className="font-montserrat font-bold text-base text-black">ROW</div>
-                                        <div className="font-montserrat font-bold text-xl text-black">A</div>
+                                        <div className="font-montserrat font-bold text-xl text-black">{eventTicket.row}</div>
                                     </div>
                                     <div className="">
                                         <div className="font-montserrat font-bold text-base text-black">GATE</div>
-                                        <div className="font-montserrat font-bold text-xl text-black">4</div>
+                                        <div className="font-montserrat font-bold text-xl text-black">{eventTicket.gate}</div>
                                         <div className="font-montserrat font-bold text-base text-black">SEAT</div>
-                                        <div className="font-montserrat font-bold text-xl text-black">A16</div>
+                                        <div className="font-montserrat font-bold text-xl text-black">{eventTicket.seat}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-10">
-                                <img className="w-44" src="../images/tickets/qrcode.png"></img>
+                            <div className="mt-10 ml-5">
+                                <SVG className="w-40" src= {getSVG}/>
                             </div>
                         </div>
                         <div className="flex flex-row-2 justify-items-start gap-20">
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">First Name</div>
-                                <div className="font-montserrat font-bold text-xl text-black">Woohoo</div>
+                                <div className="font-montserrat font-bold text-xl text-black">{eventTicket.firstname}</div>
                             </div>
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">Last Name</div>
-                                <div className="font-montserrat font-bold text-xl text-black">Yeah</div>
+                                <div className="font-montserrat font-bold text-xl text-black">{eventTicket.lastname}</div>
                             </div>
                         </div>
                     </div>
