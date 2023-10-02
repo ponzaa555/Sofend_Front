@@ -41,7 +41,7 @@ const handleremovestaff = async (removestaff: string) => {
   toast.loading('Removing staff...')
   {/**remove from database*/ }
   // setstaff(staff.filter((item) => item.email !== removestaff))
-  const remove_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_remove_staff/${eoid}/${eventid}/${inputemail}`;
+  const remove_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
   // const remove_url = `http://127.0.0.1:8000/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
     console.log(remove_url);
     const response = await fetch(remove_url, {
