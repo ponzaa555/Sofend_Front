@@ -21,7 +21,7 @@ const profile = () => {
                         <PersonCircle/>
                     </Link>
                     <button className='font-medium'
-                        onClick={() => signOut()}
+                        onClick={() => signOut({callbackUrl: '/main'})}
                     >Sign out</button>
                     </ul>
                 </ul> 
