@@ -4,9 +4,9 @@ import React from 'react'
 
 const ContentPayment = () => {
   return (
-  <div className=' h-screen'>
+  <div className=' h-full'>
       <div className=' flex justify-center  h-1/2  gap-10'>
-        <form id='left' className=' relative w-3/6 h-full  font-montserrat '>
+        <form id='left' className=' relative w-2/3 h-full  font-montserrat '>
           <div className='text-2xl font-semibol'>
             Bank Accounts
           </div>
@@ -65,12 +65,12 @@ const ContentPayment = () => {
               </div>
             </div>
           </div>
-          <div className='w-full flex justify-end  absolute bottom-0'>
+          <div className='w-full flex justify-end pt-2'>
             <button className='  bg-black w-1/5 h-8 rounded-md text-white text-sm' type='submit'> Save</button>
           </div>
         </form>
        
-        <div id='right' className=' w-1/4 h-full '>
+        <div id='right' className=' w-1/3 h-full '>
           <div className='h-2'></div>
           <div className='pt-2'>
             <div>
