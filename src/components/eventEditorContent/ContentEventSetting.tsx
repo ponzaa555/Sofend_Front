@@ -54,12 +54,12 @@ const ContentEventSetting = () => {
       {/* Event Details */}
 
       <h2 className='font-bold text-3xl mb-4'>Event Details</h2>
-      <form action="" method='post' onChange={handleOnChange} onSubmit={handleOnSubmit}>
+      <form action="" method='post' onChange={handleOnChange} onSubmit={handleOnSubmit} className='absolute h-4 w-1/5'>
         {/* <button className='upload-photo bg-slate-100 rounded w-1/3 border border-gray-400 flex flex-col justify-center items-center mt-3 h-2/3'>
           <p className='text-center font-bold'><span className='text-5xl'>+</span><br/>Upload Your Poster</p>
         </button> */}
         <p>
-          <input type="file" name="img-file" id="img-file" />
+          <input type="file" name="img-file" id="img-file" className='w-full'/>
         </p>
         <Image src={imageSrc} alt="text-uploading" width={100} height={100}/>
         {
@@ -78,6 +78,7 @@ const ContentEventSetting = () => {
       <form action="">
         <div className='flex flex-row gap-10'>
           <div className='w-2/3 flex flex-row gap-9'>
+            <div className='w-1/3 h-2/3'></div>
             <div className='flex flex-col justify-start w-2/3'>
               <label htmlFor="es-event-name" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Event Name</label>
               <input type="text" id='es-event-name' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' required/>

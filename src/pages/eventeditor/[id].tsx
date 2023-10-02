@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import MenubarEO from '~/components/menubarEO';
 import NavbarEO from '~/components/navbarEO'
 import ContentDashboard from '../../components/eventEditorContent/contentDashboard';
-import ContentEventSetting from '../../components/eventEditorContent/contentEventSetting';
+import ContentEventSetting from '../../components/eventEditorContent/ContentEventSetting';
 import ContentTicketTypes from '../../components/eventEditorContent/ContentTicketTypes';
 import ContentStaff from '../../components/eventEditorContent/ContentStaff';
 import ContentPayment from '../../components/eventEditorContent/contentPayment';
