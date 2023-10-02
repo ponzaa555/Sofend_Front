@@ -124,8 +124,8 @@ const allevent = () => {
       return (
         <div id='2row5col' className='grid  grid-cols-5 grid-row-2 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 '>
           {filteredEvent1.map((eventcard, index) => (
-              <a key = {index} href= {"/eventdetail/"+eventcard.eventID} className="col-span-1 w-52">
-              <Card image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
+            <a key = {index} href= {`/eventdetail/${eventcard.ticketType}/${eventcard.eventID}`} className="w-52">
+            <Card image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
               </a>        
             ))}
           {/* all emty grid */}
