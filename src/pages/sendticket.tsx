@@ -25,6 +25,7 @@ const SendTicket = () => {
             }
         }
     console.log(parsedData)
+    console.log(parsedData.posterImage)
     
     return (
         <>
@@ -52,8 +53,7 @@ const SendTicket = () => {
                         row= {parsedData.row}
                         gate= {parsedData.gate}
                         seat= {parsedData.seat}
-                        date={parsedData.date}
-                        price={parsedData.price}/>
+                        date={parsedData.date}/>
                     </div>
                     <div className="basis-2/4">
                         <ComponentSend1 />
