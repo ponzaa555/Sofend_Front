@@ -124,7 +124,7 @@ const Ticket = (props:any) => {
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[200px] h-[400px] px-3">
                     <div className="flex flex-col justify-items-center my-8 gap-2">
-                        <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div>
+                        {/* <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div> */}
                         <img className="rounded-md" src={eventDetail?.posterImage}></img>
                             <Link href={`/sendticket?data=${dataString}`}>
                             {button()}

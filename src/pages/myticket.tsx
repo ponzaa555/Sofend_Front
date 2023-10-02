@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { getTicket } from "../service/api";
 import { useState } from "react";
 import { useEffect } from "react";
+import { set } from "zod";
 
 
 const MyTicket = () => {
@@ -46,10 +47,22 @@ const MyTicket = () => {
     const changeColor = `text-xl border border-black rounded-full px-3 py-2 bg-black text-white font-montserrat font-bold`
     const[colortag_available,setColortag_available] = useState(changeColor)
     const[colortag_expired,setColortag_expired] = useState(defaultcolor)
+    const [checkdisableAvailable, setCheckdisableAvailable] = useState(true);
+    const [checkdisableExpired, setCheckdisableExpired] = useState(false);
     const alltag = ["available","expired"]
 
     const handleclicktag = (e:any) => {
+
+        setgetfinish(false)
         const input_tag = String(e.target.value)
+        if (input_tag === "available") {
+            setCheckdisableAvailable(true)
+            setCheckdisableExpired(false)
+        }
+        else {
+            setCheckdisableAvailable(false)
+            setCheckdisableExpired(true)
+        }
         console.log("input",input_tag)
         setSelectedtag(input_tag)
         //set color tag to selected
@@ -78,6 +91,7 @@ const MyTicket = () => {
     useEffect(() => {
         var filteredData = filteredbytag()
         setFilteredEvents(filteredData)
+        setgetfinish(true)
       },[selectedtag])
 
     // console.log("filtered",filteredEvents)
@@ -99,8 +113,8 @@ const MyTicket = () => {
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                 <div className="font-montserrat font-bold text-4xl mb-4">MY TICKET</div>
                 <div className="flex flex-row-2 justify-start gap-4">
-                    <button className={colortag_available} value="available" onClick={handleclicktag}>Available</button>
-                    <button  className ={colortag_expired} value="expired" onClick={handleclicktag} >Expired</button>
+                    <button disabled={checkdisableAvailable} className={colortag_available} value="available" onClick={handleclicktag}>Available</button>
+                    <button  disabled={checkdisableExpired} className ={colortag_expired} value="expired" onClick={handleclicktag} >Expired</button>
                 </div>
             </div>
             {getfinish == true ? 
