@@ -50,6 +50,7 @@ const profilepage = (props: any) => {
     const [inputnewpas, Setinputnewpas] = useState()
     const [inputconpas, Setinputconpas] = useState()
     const [data1, Setdata1] = useState({})
+    const [getSessionFinish, setgetSessionFinish] = useState(false)
 
     const userID = session?.user?.userID
     let check = 0
@@ -65,6 +66,7 @@ const profilepage = (props: any) => {
                     SetinputL(res.data.lastName)
                     SetinputE(res.data.email)
                     Setinputtel(res.data.telephoneNumber)
+                    setgetSessionFinish(true)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -218,9 +220,13 @@ const profilepage = (props: any) => {
                     <div className=' grid justify-items-center h-1/2 bg-white rounded-2xl w-full grid-cols-1'>
                         <div className=' h-5'></div>
                         <img src={"images/events/user.png"} className=' h-16 justify-center ' />
+                        { getSessionFinish == true ?
                         <p className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{data1.firstName} {data1.lastName}</p>
                         <h2 className='font-montserrat text-center text-gray-400 md:text-base sm:text-sm '>{data1.email}</h2>
+                        : 
+                    }
                         <div className='h-1 w-4/5 bg-slate-200 mt-2 rounded-2xl  '></div>
+                    
                     </div>
                     <div className=' h-1/2  rounded-2xl w-full'>
                         <button className=' flex h-1/3 bg-white hover:bg-slate-50 shadow-2xl cursor-pointer w-full ' value="show1" onClick={() => { setshowfunc("show1") }}  >
