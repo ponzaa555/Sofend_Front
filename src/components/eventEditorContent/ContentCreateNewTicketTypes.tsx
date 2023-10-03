@@ -1,5 +1,6 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import ContentTicketTypes  from './ContentTicketTypes'
 interface jsonCreateNewTicketTypes {
     Name : string;
     QuantityAvailable : string;
@@ -11,6 +12,9 @@ interface jsonCreateNewTicketTypes {
 }
 
 const ContentCreateNewTicketTypes = () => {
+    const router = useRouter()
+    const [cancelButton, setcancelButton] = useState(false)
+
     const handleOnChange = (e:React.FocusEvent) => {
         e.preventDefault()
         const Name = document.getElementById('tt-name').value
@@ -33,7 +37,13 @@ const ContentCreateNewTicketTypes = () => {
         console.log(testoutput)
     }
 
-
+    const handleCancel = () => {
+        setcancelButton(true)
+        console.log(cancelButton)
+        if (cancelButton) {
+            return <ContentTicketTypes/>
+        }
+    }
 
     return (
         <div>
@@ -108,7 +118,7 @@ const ContentCreateNewTicketTypes = () => {
                     </div>
                 </div> 
                 <div className='flex flew-row justify-between w-2/3 mt-16'>
-                    <button type='button' className='text-black border-2 border-black font-bold text-lg w-52 h-10 bg-white rounded mr-7 hover:text-white hover:bg-black'>Cancel</button>
+                    <button type='button' onClick={handleCancel} className='text-black border-2 border-black font-bold text-lg w-52 h-10 bg-white rounded mr-7 hover:text-white hover:bg-black'>Cancel</button>
                     <button type='submit' className='text-white font-bold text-lg w-52 h-10 border-2 border-black bg-black rounded mr-7 hover:text-black hover:bg-white'>Save</button>
                 </div>
             </form>    
