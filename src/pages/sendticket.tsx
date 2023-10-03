@@ -9,24 +9,45 @@ import { useEffect } from "react";
 import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react";
 
+type sendData = {
+    ticketID : string,
+    firstname: string,
+    lastname: string,
+    eventName: string,
+    location: string,
+    poster : string,
+    date: string,
+    zone: string,
+    row: string,
+    gate: string,
+    seat: string,
+}
+
 const SendTicket = () => {
 
-    const router = useRouter()
-    const { data } = router.query;
-    const {data:session} = useSession();
-    
-    // recieve data from myticket page.
-        let parsedData = null;
-        if (data) {
-            try {
-                parsedData = JSON.parse(decodeURIComponent(data as string));
-            } catch (error) {
-                console.error('Error parsing JSON:', error);
-            }
-        }
-    console.log(parsedData)
-    console.log(parsedData.posterImage)
-    
+    // const router = useRouter()
+    // const { data } = router.query;
+    // const {data:session} = useSession();
+
+    const [ticket, setTicket] = useState<sendData>({
+        ticketID: "",
+        firstname: "",
+        lastname: "",
+        eventName: "",
+        location: "",
+        poster: "",
+        date: "",
+        zone: "",
+        row: "",
+        gate: "",
+        seat: ""
+    });
+
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('data') || '{}'); // Provide an empty object as a default
+        setTicket(data);
+    }, []);
+
     return (
         <>
             <Head>
@@ -43,17 +64,17 @@ const SendTicket = () => {
                 <div className="font-montserrat font-bold text-4xl mb-10">Send ticket to your friend</div>
                 <div className="flex flex-row gap-16">
                     <div className="basis-3/5">
-                        <TicketSend ticketID={parsedData.ticketID} 
-                        firstname= {parsedData.firstname}
-                        lastname= {parsedData.lastname}
-                        eventName= {parsedData.eventName}
-                        location= {parsedData.location}
-                        poster = {parsedData.poster}
-                        zone= {parsedData.zone}
-                        row= {parsedData.row}
-                        gate= {parsedData.gate}
-                        seat= {parsedData.seat}
-                        date={parsedData.date}/>
+                        <TicketSend ticketID={ticket.ticketID} 
+                        firstname= {ticket.firstname}
+                        lastname= {ticket.lastname}
+                        eventName= {ticket.eventName}
+                        location= {ticket.location}
+                        poster = {ticket.poster}
+                        zone= {ticket.zone}
+                        row= {ticket.row}
+                        gate= {ticket.gate}
+                        seat= {ticket.seat}
+                        date={ticket.date}/>
                     </div>
                     <div className="basis-2/4">
                         <ComponentSend1 />

@@ -12,7 +12,6 @@ import { set } from "zod";
 const MyTicket = () => {
 
     const {data: session} = useSession();
-
     // console.log(session?.user?.email)
     // console.log(session?.user?.name)
     // console.log(session?.user?.userID)

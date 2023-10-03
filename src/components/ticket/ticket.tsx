@@ -57,7 +57,7 @@ const Ticket = (props:any) => {
         if(eventTicket.status=="available")
         return(
             <>
-            <button className="flex flex-row justify-center">
+            <button className="flex flex-row justify-center" onClick={setDataToLocalStorage}>
                 <p className="font-montserrat font-bold text-sm text-white w-3/4">Send this ticket to your friend</p>
                 <img className="w-auto h-6 mt-3" src="../images/tickets/sendIcon.png"></img>
             </button>
@@ -104,7 +104,11 @@ const Ticket = (props:any) => {
         gate: gate,
         seat: seat,
     }
-    const dataString = encodeURIComponent(JSON.stringify(data));
+    // const dataString = encodeURIComponent(JSON.stringify(data));
+
+    const setDataToLocalStorage = () => {
+        localStorage.setItem('data', JSON.stringify(data));
+    }
     
     return(
         <>
@@ -113,7 +117,7 @@ const Ticket = (props:any) => {
                     <div className="flex flex-col justify-items-center my-12 gap-2">
                         {/* <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div> */}
                         <img className="rounded-md" src={eventTicket.eventImage}></img>
-                            <Link href={`/sendticket?data=${dataString}`}>
+                            <Link href={`/sendticket`}>
                             {button()}
                             </Link>
                         </div>
