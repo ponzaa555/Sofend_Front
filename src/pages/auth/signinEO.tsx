@@ -26,8 +26,8 @@ export const loginEO: NextPage = (props): JSX.Element => {
             toast.error('Sign in failed , please check your email and password')
         }
         else{
-            toast.success('Sign in success')
-            router.push('/main')
+            toast.success('Sign in success go to Event Organizer page')
+            router.push('/mainEO')
 
         }
 
