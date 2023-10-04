@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head';
 import Profile from './profile';
 import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react';
 
 const navbarEO = () => {
     const [navbar, setNavbar] = React.useState(false);
@@ -77,9 +78,14 @@ const navbarEO = () => {
               }`}
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="font-montserrat font-bold text-xl text-white">
-                  Welcome, Woohoo
-                </li>
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
+                    
+                    <a href="/main">
+                        <button className='font-medium text-white'
+                            onClick={() => signOut()}
+                        >Sign out</button>
+                    </a>
+                </ul>
               </ul>
             </div>
           </div>

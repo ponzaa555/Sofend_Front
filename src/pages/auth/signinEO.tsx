@@ -27,7 +27,7 @@ export const loginEO: NextPage = (props): JSX.Element => {
         }
         else{
             toast.success('Sign in success go to Event Organizer page')
-            router.push('/mainEO')
+            router.push('/dashboard')
 
         }
 
