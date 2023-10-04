@@ -14,7 +14,7 @@ export const loginEO: NextPage = (props): JSX.Element => {
         e.preventDefault();
 
 
-        const res = await signIn('credentials', {
+        const res = await signIn('eventorganizer', {
             "email": info.email,
             "password": info.password,
             redirect: false,
@@ -86,7 +86,7 @@ export const loginEO: NextPage = (props): JSX.Element => {
                             </div>
                             <div className="flex flex-row justify-between w-full">
                                 <p className="font-montserrat text-white">Don&apos;t have an account?</p>
-                                <a className="font-montserrat text-gray-500 pl-2 font-bold" href="/signup">Sign up</a>
+                                <a className="font-montserrat text-gray-500 pl-2 font-bold" href="/signupEO">Sign up</a>
                             </div>
                         </div>
                     </div>

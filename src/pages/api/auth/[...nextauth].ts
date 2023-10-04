@@ -8,6 +8,7 @@ const options: NextAuthOptions = {
     },
     providers: [
         CredentialsProvider({
+            id: "user",
             type: "credentials",
             credentials: {},
             async authorize(credentials,req){
@@ -15,6 +16,28 @@ const options: NextAuthOptions = {
                 //perform login logic
                 //find user in database
                 const res = await fetch("https://eventbud-jujiu2awda-uc.a.run.app/signin",{
+                    method:"POST",
+                    body:JSON.stringify(credentials),
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                });
+                const user = await res.json();
+                // console.log(user);
+                if (res.ok && user) {
+                    return user;
+                }
+                return null;
+            },}),
+        CredentialsProvider({
+            id: "eventorganizer",
+            type: "credentials",
+            credentials: {},
+            async authorize(credentials,req){
+                // const {email,password} = credentials as {email:string,password:string};
+                //perform login logic
+                //find user in database
+                const res = await fetch("https://eventbud-jujiu2awda-uc.a.run.app/eo_signin",{
                     method:"POST",
                     body:JSON.stringify(credentials),
                     headers:{

@@ -21,10 +21,10 @@ const SignupEO = () => {
         }
         else {
             toast.loading('Signing up...')
-            const sendInfo = {email: info.email, password: info.password, organizationName: info.organization_name, phoneNumber: info.phone_number}
+            const sendInfo = {email: info.email, password: info.password, organizerName: info.organization_name, organizerPhone: info.phone_number}
             console.log(sendInfo)
             try{
-                const res = await fetch('https://eventbud-jujiu2awda-uc.a.run.app/signup',{
+                const res = await fetch('https://eventbud-jujiu2awda-uc.a.run.app/eo_signup',{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ const SignupEO = () => {
                 else{
                     toast.remove()
                     toast.success('Sign up success')
-                    router.push('/auth/signin')
+                    router.push('/auth/signinEO')
                 }
             }
             catch(err){
