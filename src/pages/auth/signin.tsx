@@ -27,7 +27,7 @@ export const login: NextPage = (props): JSX.Element => {
         }
         else{
             toast.success('Sign in success')
-            router.push('/main')
+            router.back();
 
         }
 
