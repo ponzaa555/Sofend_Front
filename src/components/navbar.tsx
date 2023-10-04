@@ -2,14 +2,10 @@ import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head';
 import Profile from './profile';
-import { useSession } from 'next-auth/react'
-
-
-
+import CreateEvent from './createevent';
 
 const navbar = () => {
     const [navbar, setNavbar] = React.useState(false);
-    const {data:session} = useSession();
 
     return (
     <>
@@ -25,11 +21,11 @@ const navbar = () => {
             <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
         </Head>
 
-      <nav className="w-full bg-white">
+      <nav className="w-full bg-white shadow-md">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <a href="#">
+              <a href="/main">
                 <h2 className="text-3xl body-font font-montserrat font-bold">EventBud</h2>
               </a>
               <div className="md:hidden">
@@ -78,9 +74,7 @@ const navbar = () => {
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                 <li className="font-montserrat text-xl">
-                  <Link href="/" legacyBehavior>
-                    <a>Create Events</a>
-                  </Link>
+                  <CreateEvent/>
                 </li>
                 <li className="font-montserrat font-bold text-xl">
                   <Profile/>
