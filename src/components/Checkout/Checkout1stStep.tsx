@@ -53,7 +53,7 @@ const Component1 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >1
                         </span>
                     </li>
@@ -62,7 +62,7 @@ const Component1 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >2
                         </span>
                     </li>
@@ -71,7 +71,7 @@ const Component1 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >3
                         </span>
                     </li>

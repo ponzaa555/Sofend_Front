@@ -77,7 +77,18 @@ const ContentOverview = () => {
         });
     }
   }, [id]);
-
+  
+  const data = {
+    name : listTicket.map(item => item.name),
+    price : listTicket.map(item => item.price),
+    sold : listTicket.map(item => item.sold),
+    quota : listTicket.map(item => item.quota),
+  }
+  
+  const setDataToLocalStorage = () => {
+    localStorage.setItem('dataOverViewToTicketType', JSON.stringify(data));
+  }
+  
   return (
     <>
       {/* overview */}
@@ -140,6 +151,7 @@ const ContentOverview = () => {
           <div className='w-2/12'>{item.quota}</div>
           <div className='w-2/12'>{item.revenue}</div>
         </div>
+        {setDataToLocalStorage()}
         </div>)) :
         <div role="status" className='flex flex-row items-center justify-center h-10'>
           <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
