@@ -79,14 +79,14 @@ const navbarEO = () => {
                 navbar ? 'block' : 'hidden'
               }`}
             >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                  <PersonCircleWhite/>
-                  <Link href="/main">
-                      <button className='font-medium text-white'
-                          onClick={() => signOut()}
-                      >Sign out</button>
-                  </Link>
-              </ul>
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 text-white font-montserrat text-xl">
+                    <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
+                        <PersonCircleWhite/>
+                        <button className='font-medium'
+                            onClick={() => signOut({callbackUrl: '/main'})}
+                        >Sign out</button>
+                    </ul>
+                </ul>
             </div>
           </div>
         </div>
