@@ -34,3 +34,13 @@ export async function getEventSchedule(userid: string) {
     throw error; 
   }
 };
+
+export async function getTicket(userid: string) {
+  try {
+    const response = await axios.get(`${BASE_URL}/user_ticket/${userid}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error; 
+  }
+}
