@@ -288,7 +288,7 @@ const EventDetails = ({}) => {
                     <div className='flex justify-between items-center border-2 border-gray-300 rounded-md'>
                         <div className='flex'>
                             <div className="w-20 h-20 overflow-hidden rounded-full border border-gray-300 mb-2 mt-2 ml-5">
-                                <img src='../images/events/profile.png'/>
+                                <img src='../images/events/profileblack.png'/>
                             </div>
                             <div className='flex flex-col'>
                                 <div className='text-black font-montserrat ml-5 mt-5 '>Organized by</div>
