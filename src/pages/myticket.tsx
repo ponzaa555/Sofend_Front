@@ -12,7 +12,6 @@ import { set } from "zod";
 const MyTicket = () => {
 
     const {data: session} = useSession();
-
     // console.log(session?.user?.email)
     // console.log(session?.user?.name)
     // console.log(session?.user?.userID)
@@ -40,6 +39,7 @@ const MyTicket = () => {
             console.log("no session")
         }
     }, [session]);
+    console.log(Data)
 
     const[selectedtag,setSelectedtag] = useState("available")
     //set color button
@@ -121,7 +121,7 @@ const MyTicket = () => {
                 <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                         <div className ="flex flex-wrap gap-4">
                             {filteredE.map((ticket,index) => (
-                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} firstname={Firstname} lastname={Lastname} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status}/>   
+                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location}/>   
                             ))}
                     </div>
                 </div>:

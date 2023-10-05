@@ -5,6 +5,7 @@ import SVG from 'react-inlinesvg';
 const TicketSend = (props:any) => {
 
     const eventTicket = props
+    console.log(eventTicket)
     // console.log(eventTicket.ticketID)
 
     const qrcode = require('qrcode') 
@@ -22,7 +23,7 @@ const TicketSend = (props:any) => {
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[20rem] h-[450px] px-3">
                     <div className="flex flex-col justify-items-center my-4">
-                        <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. {eventTicket.ticketID}</div>
+                        {/* <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. {eventTicket.ticketID}</div> */}
                         <img className="rounded-md p-6" src={eventTicket.poster}></img>
                     </div>
                 </div>
@@ -30,12 +31,11 @@ const TicketSend = (props:any) => {
                     <div className="flex flex-col justify-between h-auto my-4 gap-4">
                         <div className="flex flex-row-2 justify-items-start justify-between">
                             <div className="font-montserrat font-bold text-xl text-[#D40000]">{eventTicket.date}</div>
-                            <div className="font-montserrat font-bold text-xl text-black">{eventTicket.price}</div>
                         </div>
-                        <div className="font-montserrat font-bold text-xl text-black">{eventTicket.eventName}</div>
-                        <div className="flex flex-row-2 justify-items-start my-4">
+                        <div className="font-montserrat font-bold text-xl text-black w-96 h-20">{eventTicket.eventName}</div>
+                        <div className="flex flex-row-2 justify-items-start my-2">
                             <div className="">
-                                <div className="font-montserrat font-medium text-base text-black my-4">{eventTicket.location}</div>
+                                <div className="font-montserrat font-medium text-base text-black my-2">{eventTicket.location}</div>
                                 <div className="flex flex-row-2 justify-items-start gap-20">
                                     <div className="">
                                         <div className="font-montserrat font-bold text-base text-black">ZONE</div>
@@ -51,7 +51,7 @@ const TicketSend = (props:any) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-10 ml-5">
+                            <div className="mt-5 ml-5">
                                 <SVG className="w-40" src= {getSVG}/>
                             </div>
                         </div>
