@@ -61,7 +61,7 @@ const ContentTicketTypes = () => {
                                         <li>{ticketData!.price[index]}</li>
                                         <li>{ticketData!.sold[index]}</li>
                                         <li>{ticketData!.quota[index]}</li>
-                                        <button>remove</button>
+                                        <button className='text-red-600 font-bold'>remove</button>
                                     </ul>
                                     </div>
                                     ))}
