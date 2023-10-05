@@ -9,6 +9,8 @@ import { eventNames } from 'process';
 import axios, { Axios } from 'axios';
 import toast, { Toaster } from "react-hot-toast";
 import EventSchedule from '~/components/events/eventschedule';
+import { Session } from 'inspector';
+import { useRouter } from "next/router";
 
 
 
@@ -35,6 +37,7 @@ const profilepage = (props: any) => {
 
 
     const Event = props
+    const router = useRouter()
     const { data: session } = useSession()
     const [show1, Setshow1] = useState(true)
     const [show2, Setshow2] = useState(false)
@@ -49,8 +52,9 @@ const profilepage = (props: any) => {
     const [data1, Setdata1] = useState({})
 
     const userID = session?.user?.userID
-
-
+    let check = 0
+    console.log('check: ',check)
+   
     useEffect(() => {
         if (userID !== undefined) {
             const url = `https://eventbud-jujiu2awda-uc.a.run.app/profile/${userID!}`
@@ -67,6 +71,10 @@ const profilepage = (props: any) => {
                 })
         }
     }, [userID])
+    
+    if(session === null && check ===0){
+        router.push('/main')
+       }
     // get all events
 
 
@@ -112,7 +120,7 @@ const profilepage = (props: any) => {
     const Changeconp = (e) => {
         Setinputconpas(e.target.value)
     }
-    const submitefromeditprofile = () => {
+    const submitefromeditprofile = (e:React.FocusEvent) => {
         const inputfname = document.getElementById('inputFirstname').value;
         const inputlname = document.getElementById('inputlastname').value;
         const inputemail = document.getElementById('inputemail').value;
@@ -125,28 +133,36 @@ const profilepage = (props: any) => {
             newTelephoneNumber: inputmb,
         }
         console.log("Jsonedit", Jsonedit)
-        if (inputemail.includes("@") === true) {
-            toast.success('Editprofile Success')
-            fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile', {
+        e.preventDefault()
+        fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(Jsonedit)
+            }).then(respone =>{
+                let responestatus =respone.status
+                if (responestatus === 400){
+                    toast.error("Duplicate Email")
+                    SetinputF(data1.firstName)
+                    SetinputL(data1.lastName)
+                    SetinputE(data1.email)
+                    Setinputtel(data1.telephoneNumber)
+                }else{
+                    if(data1.email != inputemail){
+                        check = 1
+                        signOut()
+                        .then(() => {
+                            signIn()
+                        })
+                    }else{
+                        toast.success('Editprofile Success')
+                        window.location.reload(false)
+                    }
+                }
             })
-            if(data1.email != inputemail){
-                signOut()
-                .then(() => {
-                    signIn()
-                })
-            }
-        } else {
-            toast.error("Email worng format")
-            SetinputF(data1.firstName)
-            SetinputL(data1.lastName)
-            SetinputE(data1.email)
-            Setinputtel(data1.telephoneNumber)
-        }
+            
     }
-    const changepassbutton = () => {
+    const changepassbutton = (e:React.FocusEvent) => {
+        e.preventDefault()
         const inputoldpass = document.getElementById('currentpas').value
         const inputnewpass = document.getElementById('Newpass').value
         const inputconpass = document.getElementById('passwordcon').value
@@ -174,7 +190,7 @@ const profilepage = (props: any) => {
                 }
                 else {
                     toast.success("Change Password Succes")
-
+                    check = 1
                     signOut()
                         .then(() => {
                             signIn()
@@ -197,12 +213,12 @@ const profilepage = (props: any) => {
     return (
         <>
             <Toaster />
-            <div className=' flex justify-center gap-10 md:text-base lg:text-xl sm:text-sm h-1/2  '>
-                <div className='  w-[18%] bg-white    h-full shadow-lg rounded-2xl '>
+            <div className=' flex justify-center gap-10 md:text-base lg:text-xl sm:text-sm w-full'>
+                <div className='  w-[18%] bg-white    h-1/2  shadow-lg rounded-2xl '>
                     <div className=' grid justify-items-center h-1/2 bg-white rounded-2xl w-full grid-cols-1'>
                         <div className=' h-5'></div>
                         <img src={"images/events/user.png"} className=' h-16 justify-center ' />
-                        <h1 className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{data1.firstName} {data1.lastName}</h1>
+                        <p className='font-montserrat text-center mt-1 text-black font-bold md:text-base sm:text-sm'>{data1.firstName} {data1.lastName}</p>
                         <h2 className='font-montserrat text-center text-gray-400 md:text-base sm:text-sm '>{data1.email}</h2>
                         <div className='h-1 w-4/5 bg-slate-200 mt-2 rounded-2xl  '></div>
                     </div>
@@ -212,10 +228,10 @@ const profilepage = (props: any) => {
                                 show1 && <div className=' w-2 h-8 mt-2 bg-black' ></div>
                             }
                             {
-                                show1 && <h1 className=' py-4 pl-2 font-montserrat  font-bold md:text-base sm:text-xs '>Edit Profile</h1>
+                                show1 && <p className=' py-4 pl-2 font-montserrat  font-bold md:text-base sm:text-xs '>Edit Profile</p>
                             }
                             {
-                                !show1 && <h1 className=' py-4 pl-3 font-montserrat md:text-base sm:text-xs'>Edit Profile</h1>
+                                !show1 && <p className=' py-4 pl-3 font-montserrat md:text-base sm:text-xs'>Edit Profile</p>
                             }
                         </button>
 
@@ -224,10 +240,10 @@ const profilepage = (props: any) => {
                                 show2 && <div className=' w-2 h-8 bg-black mt-2 '></div>
                             }
                             {
-                                !show2 && <h1 className=' py-4  pl-3 font-montserrat md:text-base  sm:text-xs' >Change Password</h1>
+                                !show2 && <p className=' py-4  pl-3 font-montserrat md:text-base  sm:text-xs' >Change Password</p>
                             }
                             {
-                                show2 && <h1 className='py-4 pl-2 font-montserrat font-bold md:text-base sm: text-xs'>Change Password</h1>
+                                show2 && <p className='py-4 pl-2 font-montserrat font-bold md:text-base sm: text-xs'>Change Password</p>
                             }
                         </button>
                         <button className=' flex h-1/3 bg-white hover:bg-slate-50  rounded-b-2xl cursor-pointer w-full' value="show3" onClick={() => { setshowfunc("show3") }}>
@@ -235,10 +251,10 @@ const profilepage = (props: any) => {
                                 show3 && <div className=' w-2 h-8 bg-black mt-2 '></div>
                             }
                             {
-                                !show3 && <h1 className='  py-4 pl-3 font-montserrat md:text-base  sm:text-xs '>Staff</h1>
+                                !show3 && <p className='  py-4 pl-3 font-montserrat md:text-base  sm:text-xs '>Staff</p>
                             }
                             {
-                                show3 && <h1 className='  py-4 pl-2 font-montserrat font-bold md:text-base  sm:text-xs '>Staff</h1>
+                                show3 && <p className='  py-4 pl-2 font-montserrat font-bold md:text-base  sm:text-xs '>Staff</p>
                             }
                         </button>
                     </div>
@@ -246,102 +262,103 @@ const profilepage = (props: any) => {
                 {/* edit profile */}
 
                 {show1 &&
-                    <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
-                        <form>
+                <form onSubmit={submitefromeditprofile} className='w-3/5   bg-white  rounded-2xl shadow-xl'>
+                    <div >
                             <div className='pt-10 px-10'>
-                                <h1 className=' font-montserrat  font-bold md:text-xl sm:text-base '>Edit Profile</h1>
+                                <h2 className=' font-montserrat  font-bold md:text-xl sm:text-base mb-4'>Edit Profile</h2>
                                 <div className='flex  w-full gap-7'>
                                     <div className='flex w-1/2 '>
                                         <div className='font-montserrat mt-1 md:text-base  sm:text-xs '>First Name</div>
-                                        <h1 className='text-base  font-montserrat text-red-600 font-bold  '>*</h1>
-                                        <h1 className='font-montserrat text-gray-500  md:text-xs lg:text-xs sm:text-xs pt-2 pl-1'>as it appears on ID card or passport</h1>
+                                        <p className='text-base  font-montserrat text-red-600 font-bold  '>*</p>
+                                        <p className='font-montserrat text-gray-500  md:text-xs lg:text-xs sm:text-xs pt-2 pl-1'>as it appears on ID card or passport</p>
                                     </div>
                                     <div className='flex w-1/2 '>
-                                        <h1 className='font-montserrat mt-1 md:text-base  sm:text-sm  '>Last Name</h1>
-                                        <h1 className='text-base  font-montserrat text-red-600 font-bold '>*</h1>
-                                        <h1 className='font-montserrat text-gray-500  md:text-xs lg:text-xs sm:text-xs pt-2 pl-1'>as it appears on ID card or passport</h1>
+                                        <p className='font-montserrat mt-1 md:text-base  sm:text-sm  '>Last Name</p>
+                                        <p className='text-base  font-montserrat text-red-600 font-bold '>*</p>
+                                        <p className='font-montserrat text-gray-500  md:text-xs lg:text-xs sm:text-xs pt-2 pl-1'>as it appears on ID card or passport</p>
                                     </div>
                                 </div>
-                                <div className='flex mt-2 gap-7 w-full'>
+                                <div className='flex mt-1 gap-7 w-full'>
                                     <div className='w-1/2'>
-                                        <input type="text" id='inputFirstname' value={inputF} onChange={(e) => ChangeF(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
+                                        <input type="text" id='inputFirstname' value={inputF} onChange={(e) => ChangeF(e)} className=' border-gray-300 w-full h-9  border-2 rounded-lg pl-4 text-base  font-montserrat pb-1 re' required />
                                     </div>
                                     <div className='w-1/2'>
-                                        <input type="text" id='inputlastname' value={inputL} onChange={(e) => ChangeL(e)} className=' border-gray-300 w-full  h-8  border-2 rounded-lg pl-4 text-base font-montserra pb-1' />
+                                        <input type="text" id='inputlastname' value={inputL} onChange={(e) => ChangeL(e)} className=' border-gray-300 w-full  h-9  border-2 rounded-lg pl-4 text-base font-montserrat pb-1' required/>
                                     </div>
 
                                 </div>
-                                <div className='flex w-full gap-7'>
+                                <div className='flex w-full gap-7 mt-3'>
                                     <div className='flex w-full'>
-                                        <h1 className='font-montserrat mt-1 md:text-base  sm:text-sm  '>Email</h1>
-                                        <h1 className='text-base  font-montserrat text-red-600 font-bold '>*</h1>
+                                        <p className='font-montserrat mt-1 md:text-base  sm:text-sm  '>Email</p>
+                                        <p className='text-base  font-montserrat text-red-600 font-bold '>*</p>
                                     </div>
                                     <div className='flex w-full'>
-                                        <h1 className='font-montserrat mt-1 md:text-base  sm:text-sm '>Mobile Phone Number</h1>
+                                        <p className='font-montserrat mt-1 md:text-base  sm:text-sm '>Mobile Phone Number</p>
                                     </div>
 
                                 </div>
-                                <div className='flex w-full gap-7 mt-2'>
+                                <div className='flex w-full gap-7 mt-1'>
                                     <div className='flex w-1/2'>
-                                        <input type="email" id='inputemail' value={inputE} onChange={(e) => ChangeE(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
+                                        <input type="email" id='inputemail' value={inputE} onChange={(e) => ChangeE(e)} className=' border-gray-300 w-full h-9  border-2 rounded-lg pl-4 text-base  font-montserrat pb-1' />
                                     </div>
                                     <div className='flex w-1/2'>
-                                        <input type="tel" id='inputmobile phone' value={inputtel} onChange={(e) => Changetel(e)} className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 text-base  font-montserra pb-1' />
+                                        <input type="text" inputMode='numeric' pattern='[0-9]+' id='inputmobile phone' value={inputtel} onChange={(e) => Changetel(e)} className=' border-gray-300 w-full h-9  border-2 rounded-lg pl-4 text-base  font-montserrat pb-1' />
                                     </div>
                                 </div>
-                                <div className='flex  w-full mt-4 justify-end '>
-                                    <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500  ' onClick={() => submitefromeditprofile()}>
-                                        <h1 className=' text-white text-base  font-montserrat font-semibold '>Save</h1>
+                                <div className='flex  w-full mt-6 justify-end '>
+                                    <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500  ' type='submit'>
+                                        <p className=' text-white text-base  font-montserrat font-semibold '>Save</p>
                                     </button>
                                 </div>
                             </div>
-                        </form>
-
                     </div>
+                </form>
 
                 }
                 {/* change password */}
                 {show2 &&
-                    <div className=' w-3/5   bg-white  rounded-2xl shadow-xl'>
-
+                <form onSubmit={changepassbutton} className='w-3/5   bg-white  rounded-2xl shadow-xl'>
+                    <div>
                         <div className=' pt-10 px-10'>
-                            <h1 className='font-montserrat  font-bold md:text-xl sm:text-base '>Change Password</h1>
+                            <p className='font-montserrat  font-bold md:text-xl sm:text-base mb-4'>Change Password</p>
                             <div className='flex w-full'>
                                 <div className='flex w-1/2'>
-                                    <h1 className='font-montserrat mt-1 md:text-base  sm:text-sm '>Current Password</h1>
-                                    <h1 className='text-base  font-montserrat text-red-600 font-bold '>*</h1>
+                                    <p className='font-montserrat mt-1 md:text-base  sm:text-sm '>Current Password</p>
+                                    <p className='text-base  font-montserrat text-red-600 font-bold '>*</p>
                                 </div>
                             </div>
-                            <div className='flex w-full gap-7 pt-2'>
+                            <div className='flex w-full gap-7 pt-1'>
                                 <div className='flex w-1/2'>
                                     <input type="text"
                                         placeholder='Enter Current Password'
                                         value={inputoldpas}
                                         onChange={(e) => Changeoldp(e)}
-                                        className='border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserra pb-1 sm:text-xs'
-                                        id='currentpas' />
+                                        className='border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserrat pb-1 sm:text-xs'
+                                        type="password"
+                                        id='currentpas'
+                                        required />
                                 </div >
                                 <div className='flex w-1/2'>
                                     <div className='w-full'></div>
                                 </div>
                             </div>
-                            <div className='flex w-full gap-7'>
+                            <div className='flex w-full gap-7 mt-3'>
                                 <div className='flex w-1/2'>
-                                    <h1 className='font-montserrat mt-1 md:text-base  sm:text-sm'>New Password</h1>
-                                    <h1 className='text-base  font-montserrat text-red-600 font-bold '>*</h1>
+                                    <p className='font-montserrat mt-1 md:text-base  sm:text-sm'>New Password</p>
+                                    <p className='text-base  font-montserrat text-red-600 font-bold '>*</p>
                                 </div>
                                 <div className='flex w-1/2'>
-                                    <h1 className='font-montserrat mt-1 md:text-base  sm:text-sm'>Password Confirmation</h1>
-                                    <h1 className='text-base  font-montserrat text-red-600 font-bold'> *</h1>
+                                    <p className='font-montserrat mt-1 md:text-base  sm:text-sm'>Password Confirmation</p>
+                                    <p className='text-base  font-montserrat text-red-600 font-bold'> *</p>
                                 </div>
                             </div>
-                            <div className='flex w-full gap-7 pt-2'>
+                            <div className='flex w-full gap-7 pt-1'>
                                 <div className='flex w-1/2'>
                                     <input type="text"
                                         placeholder='Enter New Password'
                                         value={inputnewpas}
                                         onChange={(e) => ChangeNewp(e)}
-                                        className=' border-gray-300 w-full h-8  border-2 rounded-lg pl-4 md:text-base  font-montserra pb-1 sm:text-xs'
+                                        className=' border-gray-300 w-full h-9  border-2 rounded-lg pl-4 md:text-base  font-montserrat pb-1 sm:text-xs'
                                         id='Newpass'
                                         type="password"
                                         minLength={8}
@@ -353,7 +370,7 @@ const profilepage = (props: any) => {
                                         placeholder='Confirm Your New Password'
                                         value={inputconpas}
                                         onChange={(e) => Changeconp(e)}
-                                        className='border-gray-300 w-full  h-8  border-2 rounded-lg pl-4 md:text-base font-montserra pb-1 sm:text-xs'
+                                        className='border-gray-300 w-full  h-9  border-2 rounded-lg pl-4 md:text-base font-montserrat pb-1 sm:text-xs'
                                         id='passwordcon' 
                                         type="password"
                                         minLength={8}
@@ -361,28 +378,25 @@ const profilepage = (props: any) => {
                                         required/>
                                 </div>
                             </div>
-                            <div className='flex w-full mt-4 justify-end'>
-                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500' onClick={changepassbutton}>
-                                    <h1 className='text-white text-base  font-montserrat font-semibold '>Save</h1>
+                            <div className='flex w-full mt-6 justify-end'>
+                                <button className=' items-end w-2/12 h-8  bg-black  rounded-lg  hover:bg-gray-500' type='submit'>
+                                    <p className='text-white text-base  font-montserrat font-semibold '>Save</p>
                                 </button>
                             </div>
                         </div>
                     </div>
-
+                </form>
                 }
                 {/* Staff */}
+                
                 {
                     show3 &&
-                    <div className=' w-3/5 bg-white  rounded-2xl shadow-xl'>
-                        <div className='items-center'>
-                            <EventSchedule />
-                        </div>
+                    <div className='  w-3/5 bg-white  rounded-2xl shadow-xl '>
+                        <EventSchedule />
                     </div>
                 }
             </div>
-
         </>
-
     )
 }
 export default profilepage

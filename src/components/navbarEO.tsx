@@ -1,8 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head';
-import Profile from './profile';
+import PersonCircleWhite from './icon/PersonCircleWhite';
 import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react';
+import Profile from './profile';
+import CreateEvent from './createevent';
 
 const navbarEO = () => {
     const [navbar, setNavbar] = React.useState(false);
@@ -76,11 +79,14 @@ const navbarEO = () => {
                 navbar ? 'block' : 'hidden'
               }`}
             >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="font-montserrat font-bold text-xl text-white">
-                  Welcome, Woohoo
-                </li>
-              </ul>
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 text-white font-montserrat text-xl">
+                    <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
+                        <PersonCircleWhite/>
+                        <button className='font-medium'
+                            onClick={() => signOut({callbackUrl: '/main'})}
+                        >Sign out</button>
+                    </ul>
+                </ul>
             </div>
           </div>
         </div>

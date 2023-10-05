@@ -24,7 +24,7 @@ const profilepage = ({}) => {
     // console.log("data1: ",data1)
    
     return(
-        <div className= 'bg-slate-100 h-screen relative'>
+        <div className= 'bg-slate-100 h-full relative'>
             <div className='h-16'>
                 <Navbar/>
             </div>
@@ -44,7 +44,7 @@ const profilepage = ({}) => {
                 Lname = {session?.user?.name?.split(" ")[1] as string}
                 Id = {session?.user.userID as string }
             />
-            <div className=' absolute bottom-0 inset-x-24 pb-3 '>
+            <div className='mt-10'>
                 <div className='flex justify-center text-3xl font-bold font-montserrat'>
                     EventBud
                 </div>
