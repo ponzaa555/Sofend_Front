@@ -45,10 +45,10 @@ const ContentTicketTypes = () => {
                                   <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
                                   <div className='flex font-montserrat text-xl font-bold mb-5 text-2xl'>
                                     <div className='pl-5 w-4/12'>Name</div>
-                                    <div className='w-2/12'>Price</div>
+                                    <div className='w-3/12'>Price</div>
                                     <div className='w-2/12'>Sold</div>
                                     <div className='w-2/12'>Quota</div>
-                                    <div className='w-2/12'></div>
+                                    <div className='w-1/12'></div>
                                   </div>
                                   <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
                                 <div>
@@ -56,10 +56,10 @@ const ContentTicketTypes = () => {
                                     <div key={name}>
                                     <div className='flex font-montserrat text-lg mb-5 text-2xl'>
                                         <div className='pl-5 w-4/12'>{name}</div>
-                                        <div className='w-2/12'>{ticketData!.price[index]}</div>
+                                        <div className='w-3/12'>{ticketData!.price[index]}</div>
                                         <div className='w-2/12'>{ticketData!.sold[index]}</div>
                                         <div className='w-2/12'>{ticketData!.quota[index]}</div> 
-                                        <button className='text-red-600 font-bold w-2/12'>remove</button>
+                                        <button className='text-red-600 font-bold w-1/12'>remove</button>
                                     </div>
                                     </div>
                                     ))}
