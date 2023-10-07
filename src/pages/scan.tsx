@@ -45,8 +45,8 @@ export const scan = () => {
 
     const getticket = async () => {
         console.log("getticket")
-        // const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/ticket/${scanResultWebCam}`;
-        const BASE_URL = `http://127.0.0.1:8000/ticket/${scanResultWebCam}`;
+        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/ticket/${scanResultWebCam}`;
+        // const BASE_URL = `http://127.0.0.1:8000/ticket/${scanResultWebCam}`;
         console.log(BASE_URL)
         try {
             const response = await axios.get(`${BASE_URL}`);
