@@ -52,7 +52,12 @@ const options: NextAuthOptions = {
                 const user = await res.json();
                 // console.log(user);
                 if (res.ok && user) {
-                    return user;
+                    const signupuser = {
+                        name: user.name,
+                        email: user.email,
+                        id: user.organizerID,
+                    }
+                    return signupuser;
                 }
                 return null;
             },}),
