@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { get } from 'http';
-import { type } from 'os';
-
-// type Props = {}
 
 const ContentOverview = () => {
 
+  const router = useRouter();
+  const { id } = router.query as { id: string };
+
   type Event = {
-    totalRevenue: string,
-    ticketSold: string,
-    ticketLeft: string
+    totalRevenue: number,
+    ticketSold: number,
+    ticketTotal: number
   }
 
   type Ticket = {
@@ -28,7 +27,7 @@ const ContentOverview = () => {
     revenue: number;
   }
 
-  const [event, setEvent] = useState<Event>({ totalRevenue: '', ticketSold: '', ticketLeft: '' });
+  const [event, setEvent] = useState<Event>({ totalRevenue: 0, ticketSold: 0, ticketTotal: 0 });
   const [getEventFinish, setgetEventFinish] = useState(false);
   const [ticket, setTicket] = useState<Ticket>({
     eventID: "",
@@ -45,22 +44,12 @@ const ContentOverview = () => {
 }]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_ticket_sold/rajadamnern/0189a3dfcc');
-      const data = await response.json();
-      console.log(data);
-      setEvent(data);
-      setgetEventFinish(true)
-    }
-    fetchData();
-  },[])
-
-  const router = useRouter();
-  const { id } = router.query as { id: string };
+    
+  },[id])
 
   useEffect(() => {
     if (id) {
-      axios.get<Ticket>('https://eventbud-jujiu2awda-uc.a.run.app/event/0189a3dfcc')
+      axios.get<Ticket>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
         .then((res) => {
           setTicket(res.data);
           setgetTicketFinish(true)
@@ -72,9 +61,14 @@ const ContentOverview = () => {
             revenue : item.ticketSold * item.price
           })))
         })
-        .catch((err) => {
-          console.error(err);
-        });
+      axios.get<Event>(`https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_ticket_sold/${id}`)
+      .then((res) => {
+        setEvent(res.data);
+        setgetEventFinish(true)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     }
   }, [id]);
   
@@ -117,7 +111,7 @@ const ContentOverview = () => {
           </div>
           <div className='flex flex-col items-center gap-7'>
             <div className='font-bold text-2xl'>Tickets Left</div>
-            {getEventFinish ? <div className='font-bold text-4xl h-10'>{event.ticketLeft}</div> :
+            {getEventFinish ? <div className='font-bold text-4xl h-10'>{event.ticketTotal - event.ticketSold}</div> :
               <div role="status" className='flex flex-row items-center justify-center h-10'>
                 <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -142,7 +136,7 @@ const ContentOverview = () => {
       <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
 
       {/*Ticket Sales Table Content*/}
-      {getTicketFinish ? listTicket.map((item,index) => (
+      {getTicketFinish ? listTicket.length > 0 ? listTicket.map((item,index) => (
         <div key={index}>
         <div className='flex font-montserrat text-base mb-3 text-2xl'>
           <div className='pl-5 w-4/12'>{item.name}</div>
@@ -153,6 +147,7 @@ const ContentOverview = () => {
         </div>
         {setDataToLocalStorage()}
         </div>)) :
+        <div className='font-montserrat text-xl font-medium my-8 text-gray-400 flex justify-center'>No Ticket Type, Please Create A New Ticket Type</div> :
         <div role="status" className='flex flex-row items-center justify-center h-10'>
           <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
