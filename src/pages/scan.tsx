@@ -6,7 +6,9 @@ import { getEventDetail } from '~/service/api';
 import Head from 'next/head';
 import ScheduleCard from '~/components/events/schedulecard';
 import MaterialSymbolsArrowBackIosNew from '../components/icon/PreButton'
-import { set } from 'zod';
+import axios from 'axios';
+import Ticket from '../components/ticket/ticket';
+import { get } from 'http';
 
 
 export const scan = () => {
@@ -20,6 +22,10 @@ export const scan = () => {
     const qrReader = useRef(null);
     const [qrresponse, setQrresponse] = useState("");
     const [postfinish, setpostfinish] = useState(false);
+    const [ticket, setTicket] = useState<any>({});
+    const [getTicketFinish, setgetTicketFinish] = useState(false);
+    const [userInfo, setuserInfo] = useState<any>({});
+    const [getUserInfo, setgetUserInfo] = useState(false);
 
     useEffect(() => {
         console.log(id);
@@ -36,29 +42,74 @@ export const scan = () => {
         };
     }, [id]);
 
+
+    const getticket = async () => {
+        console.log("getticket")
+        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/ticket/${scanResultWebCam}`;
+        // const BASE_URL = `http://127.0.0.1:8000/ticket/${scanResultWebCam}`;
+        console.log(BASE_URL)
+        try {
+            const response = await axios.get(`${BASE_URL}`);
+            const data = response.data;
+            setTicket(data);
+            setgetTicketFinish(true);
+            console.log("getticket success : ", data)
+            getuserInfo(data.userID)
+        } catch (error) {
+            console.log("getticket error : ", error)
+            setgetUserInfo(true);
+        }
+    }
+
+    const getuserInfo = async (userID: string) => {
+        console.log("getuserInfo")
+        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/profile/${userID}`;
+        console.log(BASE_URL)
+        try {
+            const response = await axios.get(`${BASE_URL}`);
+            const data = response.data;
+            setuserInfo(data);
+            console.log("getuserInfo success : ", data)
+        } catch (error) {
+            console.log("getuserInfo error : ", error)
+        }
+        setgetUserInfo(true);
+
+    }
+
+
+
+    const showticket = () => {
+        if (getTicketFinish && getUserInfo) {
+        return (
+            <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} firstname={userInfo.firstName} lastname={userInfo.lastName} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status="scanned" location={ticket.location}/>
+        )
+        }
+    }
+
     const popup = () => {
-        if (postfinish) {
+        if (getUserInfo && postfinish) {
             if (checkin) {
                 return (
                     <div className="fixed inset-0 flex items-center justify-center z-50 ">
-                        <div className="flex w-auto shadow-lg rounded-lg">
-                            <div className="bg-green-600 py-4 px-6 rounded-l-lg flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="text-white fill-current" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>
-                            </div>
-                            <div className="px-4 py-6 bg-white rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
-                                <div className="flex flex-col">
-                                    <p className="text-xl font-medium font-montserrat mr-3">Check-in success!</p>
-                                    {/* <h2 className="font-montserrat">{qrresponse}</h2>
-                                <h2 className="font-montserrat"> Qr code result: {scanResultWebCam}</h2> */}
+                        <div className="flex flex-col">
+                            <div className="flex w-auto shadow-lg rounded-lg">
+                                <div className="bg-green-600 py-4 px-6 rounded-l-lg flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-white fill-current" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>
                                 </div>
-                                <button onClick={() => {
-                                    // setPopupVisible(false)
-                                    // setScanResultWebCam("")
-                                    // setpostfinish(false)
-                                    window.location.reload();
-                                }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
-                                </button>
+                                <div className="px-4 py-6 bg-white rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
+                                    <div className="flex flex-col">
+                                        <p className="text-xl font-medium font-montserrat mr-3">Check-in success!</p>
+                                    </div>
+                                    <button onClick={() => {
+                                        window.location.reload();
+                                    }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div className='flex mt-3'>
+                                {showticket()}
                             </div>
                         </div>
                     </div>
@@ -66,24 +117,25 @@ export const scan = () => {
             } else {
                 return (
                     <div className="fixed inset-0 flex items-center justify-center z-50 ">
-                        <div className="flex w-auto shadow-lg rounded-lg">
-                            <div className="bg-red-600 py-4 px-6 rounded-l-lg flex items-center ">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="fill-current text-white" width="20" height="20"><path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path></svg>
-                            </div>
-                            <div className="px-4 py-6 bg-white rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
-                                <div className="flex flex-col">
-                                    <p className="text-xl font-medium font-montserrat mr-3">Check-in fail!</p>
-                                    <h2 className="font-montserrat mr-3">{qrresponse}</h2>
-                                    {/* <h2 className="font-montserrat"> Qr code result: {scanResultWebCam}</h2> */}
+                        <div className="flex flex-col">
+                            <div className="flex w-auto shadow-lg rounded-lg">
+                                <div className="bg-red-600 py-4 px-6 rounded-l-lg flex items-center ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="fill-current text-white" width="20" height="20"><path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path></svg>
                                 </div>
-                                <button onClick={() => {
-                                    // setPopupVisible(false)
-                                    // setScanResultWebCam("")
-                                    // setpostfinish(false)
-                                    window.location.reload();
-                                }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
-                                </button>
+                                <div className="px-4 py-6 bg-white rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
+                                    <div className="flex flex-col">
+                                        <p className="text-xl font-medium font-montserrat mr-3">Check-in fail!</p>
+                                        <h2 className="font-montserrat mr-3">{qrresponse}</h2>
+                                    </div>
+                                    <button onClick={() => {
+                                        window.location.reload();
+                                    }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div className='flex mt-3'>
+                                {showticket()}
                             </div>
                         </div>
                     </div>
@@ -114,7 +166,6 @@ export const scan = () => {
         if (result) {
             setScanResultWebCam(result.text);
             console.log("Qrcode:", result.text);
-            // qrReader.current.stop();
         }
 
     };
@@ -141,7 +192,8 @@ export const scan = () => {
 
     useEffect(() => {
         if (scanResultWebCam != "") {
-            { postscanresult() }
+            postscanresult()
+            getticket()
             setPopupVisible(true);
         }
     }, [scanResultWebCam]);
