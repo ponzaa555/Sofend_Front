@@ -36,6 +36,7 @@ type EventDetail = {
     ticketType: string;
     ticketClass: TicketClass[];
     organizerName: string;
+    organizerEmail: string;
 }
 
 type ForListCount = {
@@ -76,6 +77,7 @@ const EventDetails = ({ }) => {
         ticketType: "",
         ticketClass: [],
         organizerName: "",
+        organizerEmail: "",
     })
 
     const daystart = eventDetail.startDateTime.split(/[T-]/)[2] as string
@@ -321,7 +323,7 @@ const EventDetails = ({ }) => {
                                     <div className='text-black font-montserrat font-bold text-xl ml-5 mb-5'>{eventDetail.organizerName}</div>
                                 </div>
                             </div>
-                            <Modal organizerName={eventDetail.organizerName}></Modal>
+                            <Modal organizerName={eventDetail.organizerName} organizerEmail={eventDetail.organizerEmail}></Modal>
                         </div>
                     </div>
                     <div className='justify-center bg-white p-4'>
