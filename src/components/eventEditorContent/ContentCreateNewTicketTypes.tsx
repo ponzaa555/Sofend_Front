@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
 import ContentTicketTypes  from './ContentTicketTypes'
-interface jsonCreateNewTicketTypes {
+import { useRouter } from 'next/router'
+
+interface createNewTicketTypes {
     Name : string;
     QuantityAvailable : string;
     NumberOfRows : string;
     NumberOfCols : string;
-    StartDate : string;
-    StartTime : string;
-    EndDate : string;
-    EndTime : string;
     TicketPrice : string;
 }
 
 const ContentCreateNewTicketTypes = () => {
     const [handleCancelButton, sethandleCancelButton] = useState(false)
     const [handleTicketType, sethandleTicketType] = useState(0)
+    const eoid = "rajadamnern"
+    const eventid = "011f18a228"
+    // const router = useRouter()
+    // const { id } = router.query;
+    // const eventid = id as string
+
+
 
     const handleButton = () => {
         sethandleCancelButton(true)
@@ -25,19 +30,15 @@ const ContentCreateNewTicketTypes = () => {
     //     sethandleTicketType(1)
     // }
 
-    const handleOnChange = (e:React.FocusEvent) => {
-        e.preventDefault()
-        // const organizerID = ...
-        // const eventID = ...
+    const handleCreateNewTicketType = async (e:React.FormEvent) => {
+        const createURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_create_ticket_type/${eoid}/${eventid}`;
+        console.log('createURL', createURL);
+
         const Name = document.getElementById('tt-name').value
+        const TicketPrice = document.getElementById('tt-ticketprice').value
         let QuantityAvailable = ''
         let NumberOfRows = ''
         let NumberOfCols = ''
-        const StartDate = document.getElementById('tt-start-date').value
-        const StartTime = document.getElementById('tt-start-time').value
-        const EndDate = document.getElementById('tt-end-date').value
-        const EndTime = document.getElementById('tt-end-time').value
-        const TicketPrice = document.getElementById('tt-ticketprice').value
         
         // 0 = zone, 1 = seat
         if (handleTicketType == 0) {
@@ -48,25 +49,36 @@ const ContentCreateNewTicketTypes = () => {
             NumberOfCols = document.getElementById('tt-num-col').value
         }
         
-        const testoutput:jsonCreateNewTicketTypes = {
+        const jsonCreateNewTicketTypes:createNewTicketTypes = {
             Name : Name,
             QuantityAvailable : QuantityAvailable,
             NumberOfRows : NumberOfRows,
             NumberOfCols : NumberOfCols,
-            StartDate : StartDate,
-            StartTime : StartTime,
-            EndDate : EndDate,
-            EndTime : EndTime,
             TicketPrice : TicketPrice
         }
-        console.log(testoutput)
+        console.log('jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
+
+        e.preventDefault()
+        const response = await fetch(createURL, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonCreateNewTicketTypes)
+        });
+        const res = await response.json();
+        console.log('res', res);
+        if (response.ok) {
+            console.log('OK!')
+        }
+        else {
+            console.log('FAIL!')
+        }
     }
 
     return (
         <>
             { handleCancelButton == false ?
                 <div>
-                    <form onSubmit={handleOnChange} >
+                    <form onSubmit={handleCreateNewTicketType} >
                         <h2 className='font-bold text-3xl mb-4'>Create New Ticket Type</h2>
                         {/* Details */}
                         <h2 className='font-bold text-3xl mb-4'>Details</h2>
