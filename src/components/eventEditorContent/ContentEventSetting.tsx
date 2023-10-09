@@ -66,7 +66,7 @@ const ContentEventSetting = () => {
           throw new Error("You are not the organizer of this event")
         }
         setEventDetail(eventData)
-        if (eventData.posterImage) {
+        if (eventData.posterImage !== "") {
           setImageSrc(eventData.posterImage)
         }
         const dropdown = document.getElementById("es-event-type") as HTMLSelectElement;
@@ -104,7 +104,7 @@ const ContentEventSetting = () => {
       endSaleDateTime: (e.currentTarget.elements[6] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[7] as HTMLInputElement).value,
       startDateTime: (e.currentTarget.elements[8] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[9] as HTMLInputElement).value,
       endDateTime: (e.currentTarget.elements[10] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[11] as HTMLInputElement).value,
-      location: (e.currentTarget.elements[12] as HTMLInputElement).value,
+      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
       posterImage: imageSrc,
     })
   }
@@ -120,7 +120,7 @@ const ContentEventSetting = () => {
       endSaleDateTime: (e.currentTarget.elements[6] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[7] as HTMLInputElement).value,
       startDateTime: (e.currentTarget.elements[8] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[9] as HTMLInputElement).value,
       endDateTime: (e.currentTarget.elements[10] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[11] as HTMLInputElement).value,
-      location: (e.currentTarget.elements[12] as HTMLInputElement).value,
+      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
       posterImage: imageSrc,
     }
     console.log(changedData)
@@ -369,10 +369,10 @@ const ContentEventSetting = () => {
         <h2 className='font-bold text-3xl mb-4 mt-16'>Location</h2>
         <div className='flex flex-row gap-10'>
           <div className='flex flex-col justify-start w-2/3'>
-            <label htmlFor="es-event-name" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Event Location (Name of Venue)</label>
-            <input type="text" id='es-event-name' className='border border-gray-500 rounded h-9 mb-3 font-kanit font-regular px-2' value={eventDetail?.location} required/>
-            <label htmlFor="es-category" className="text-xl mb-1">Room/Floor/Hall/etc.</label>
-            <input type="text" id='es-category' className='border border-gray-500 rounded h-9 mb-3 font-kanit px-2'/>
+            <label htmlFor="es-location" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Event Location (Name of Venue)</label>
+            <input type="text" id='es-location' className='border border-gray-500 rounded h-9 mb-3 font-kanit font-regular px-2' value={eventDetail?.location} required/>
+            <label htmlFor="es-room" className="text-xl mb-1">Room/Floor/Hall/etc.</label>
+            <input type="text" id='es-room' className='border border-gray-500 rounded h-9 mb-3 font-kanit px-2'/>
           </div>
           <div className='flex flex-col w-1/3 justify-start'>
             <div>
