@@ -43,7 +43,6 @@ const ContentTicketTypes = () => {
 
         {/**remove from database*/ }
         const removeURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_ticket_type/${eoid}/${eventid}/${className}`;
-          console.log('removeURL', removeURL);
           const response = await fetch(removeURL, {
             method: 'POST',
           });
@@ -107,7 +106,7 @@ const ContentTicketTypes = () => {
                                     <div className='w-3/12'>{ticketData!.price[index]}</div>
                                     <div className='w-2/12'>{ticketData!.sold[index]}</div>
                                     <div className='w-2/12'>{ticketData!.quota[index]}</div> 
-                                    <button onClick={() => handleremovestaff(item.email)} className='text-red-600 font-bold w-1/12'>remove</button>
+                                    <button onClick={() => handleremovestaff(name)} className='text-red-600 font-bold w-1/12'>remove</button>
                                 </div>
                                 </div>
                                 ))}
