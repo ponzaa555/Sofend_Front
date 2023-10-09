@@ -8,6 +8,7 @@ const options: NextAuthOptions = {
     },
     providers: [
         CredentialsProvider({
+            id: "user",
             type: "credentials",
             credentials: {},
             async authorize(credentials,req){
@@ -24,7 +25,39 @@ const options: NextAuthOptions = {
                 const user = await res.json();
                 // console.log(user);
                 if (res.ok && user) {
-                    return user;
+                    const signupuser = {
+                        name: user.name,
+                        email: user.email,
+                        id: user.userID,
+                    }
+                    return signupuser;
+                }
+                return null;
+            },}),
+        CredentialsProvider({
+            id: "eventorganizer",
+            type: "credentials",
+            credentials: {},
+            async authorize(credentials,req){
+                // const {email,password} = credentials as {email:string,password:string};
+                //perform login logic
+                //find user in database
+                const res = await fetch("https://eventbud-jujiu2awda-uc.a.run.app/eo_signin",{
+                    method:"POST",
+                    body:JSON.stringify(credentials),
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                });
+                const user = await res.json();
+                // console.log(user);
+                if (res.ok && user) {
+                    const signupuser = {
+                        name: user.name,
+                        email: user.email,
+                        id: user.organizerID,
+                    }
+                    return signupuser;
                 }
                 return null;
             },}),
@@ -33,12 +66,21 @@ const options: NextAuthOptions = {
         signIn: "/auth/signin",
     },
 
-    // callbacks: {
-    //     async session({session,token,user}) {
-    //         session.user.email = token.email;
-    //         session.user.firstName = token.firstName;
-    //     }
-    // },
+    callbacks: {
+        async jwt({token,user,account,profile,isNewUser}) {
+            if(user){
+                token.accessToken = user.id;
+            }
+            return token;
+        },
+
+        async session({session,token,user}) {
+            if(token){
+                session.user.userID = token.accessToken;
+            }
+            return session;
+        }
+    },
 };
 
 

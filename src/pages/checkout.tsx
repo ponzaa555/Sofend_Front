@@ -95,7 +95,7 @@ const Checkout: React.FC = ({}) => {
     
     useEffect(() => {
         setLoading(false)
-        setEventData(JSON.parse(localStorage.getItem('data')!))
+        setEventData(JSON.parse(localStorage.getItem('dataEventDetailToCheckOut')!))
         setLoading(true)
     }, [])
 
