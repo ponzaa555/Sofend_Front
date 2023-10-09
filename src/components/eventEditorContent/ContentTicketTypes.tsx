@@ -50,7 +50,7 @@ const ContentTicketTypes = () => {
             const response = await axios.get(`${BASE_URL}`);
             const data = response.data;
             setTicketData(data)
-            console.log('######ticketData', ticketData.zoneRevenue)
+            // console.log('######ticketData', ticketData.zoneRevenue)
             setLoading(true)
             toast.remove()
             if (typefetch === "remove") {
