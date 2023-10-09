@@ -106,8 +106,6 @@ const ContentEventSetting = () => {
   const [imageSrc, setImageSrc] = useState<string>("/images/blank_poster.png");
   const [uploadData, setUploadData] = useState<string | undefined>();
   const {data:session} = useSession()
-  console.log("session: ",session)
-  // const eoId = session?.user?.userID as string
   const router = useRouter()
   const eventId = router.query.id as string;
   const [eventDetail, setEventDetail] = useState<EventDetail>({
@@ -157,7 +155,6 @@ const ContentEventSetting = () => {
         else {
           dropdown.selectedIndex = 0;
         }
-        // console.log(startDateTimeParsed.to)
         console.log("Fetching event detail success : ", eventData)
       } catch (error) {
         console.error('Error fetching events:', error);
@@ -171,10 +168,9 @@ const ContentEventSetting = () => {
     .catch((error) => {
       console.error('Error fetching events:', error);
     });
-  }, [eventId])
+  }, [eventId, session?.user?.name])
 
   const handleOnChange: React.FormEventHandler<HTMLFormElement> = (e) => {
-    // console.log(e.currentTarget.elements)
     setEventDetail({
       ...eventDetail,
       eventName: (e.currentTarget.elements[0] as HTMLTextAreaElement).value,
