@@ -41,6 +41,7 @@ const ContentTicketTypes = () => {
     const handleremovestaff = async (className: string) => {
         toast.loading('Removing Ticket Type...')
 
+        console.log('eoid:', eoid)
         {/**remove from database*/ }
         const removeURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_ticket_type/${eoid}/${eventid}/${className}`;
           const response = await fetch(removeURL, {
