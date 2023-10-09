@@ -15,7 +15,7 @@ const ComponentGenerateQR = (props:any) => {
     /* Generate payload
         First parameter : mobileNumber or IDCardNumber*/
     const payload = generatePayload(mobileNumber, { amount })
-    console.log("PAYLOAD: ", payload)
+    // console.log("PAYLOAD: ", payload)
 
     // Convert payload(string) to SVG(qrcode)
     var getSVG = ''
@@ -23,7 +23,7 @@ const ComponentGenerateQR = (props:any) => {
     qrcode.toString(payload, options, (err:any, svg:any) => {
         if (err) return console.log(err)
         getSVG = svg as string
-        console.log("SVG: ", svg)
+        // console.log("SVG: ", svg)
     })
 
     return (
