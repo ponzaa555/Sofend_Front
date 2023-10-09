@@ -23,8 +23,7 @@ const ContentCreateNewTicketTypes = () => {
     const eventid = id as string
     const {data:session} = useSession()
     console.log("session: ",session)
-    // const eoid = session?.user?.userID as string
-    const eoid = "swanlake"
+    const eoid = session?.user?.userID as string
 
 
     const handleButton = () => {

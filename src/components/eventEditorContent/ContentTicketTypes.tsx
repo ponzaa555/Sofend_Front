@@ -5,17 +5,10 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
-type TicketData = {
-    name : string[],
-    price : number[],
-    sold : number[],
-    quota : number[],
-}
-
 const ContentTicketTypes = () => {
     const [loading, setLoading] = useState(false)
     const [handleCreateNewTicketType, sethandleCreateNewTicketType] = useState(false)
-    const [ticketData, setTicketData] = useState<TicketData>()
+    const [ticketData, setTicketData] = useState([])
     const router = useRouter()
     const { id } = router.query;
     const eventid = id as string
@@ -23,15 +16,8 @@ const ContentTicketTypes = () => {
     console.log("session: ",session)
     const eoid = session?.user?.userID as string
 
-    // useEffect(() => {
-    //     setLoading(false)
-    //     setTicketData(JSON.parse(localStorage.getItem('dataOverViewToTicketType')!))
-    //     setLoading(true)
-    // }, [])
-    // console.log(ticketData)
-    
     useEffect(() => {
-        fetchStaff("")
+        fetchTicketType("")
     }, [])
     
     const handleButton = () => {
@@ -41,7 +27,6 @@ const ContentTicketTypes = () => {
     const handleremovestaff = async (className: string) => {
         toast.loading('Removing Ticket Type...')
 
-        console.log('eoid:', eoid)
         {/**remove from database*/ }
         const removeURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_ticket_type/${eoid}/${eventid}/${className}`;
           const response = await fetch(removeURL, {
@@ -50,30 +35,29 @@ const ContentTicketTypes = () => {
           const res = await response.json();
           console.log(res);
           if (response.ok) {
-            fetchStaff("remove")
+            fetchTicketType("remove")
           } else {
             toast.remove()
             toast.error(`Remove Failed`)
           }
     }
 
-    {/**fetch staff*/ }
-    const fetchStaff = async (typefetch: string) => {
-        console.log("fetching staff")
-        // const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_staff/${eoid}/${eventid}`;
-        // const BASE_URL = `http://127.0.0.1:8000/eo_get_all_staff/${eoid}/${eventid}`;
+    {/**fetch TicketType*/ }
+    const fetchTicketType = async (typefetch: string) => {
+        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventid}`;
+        
         try {
-        // const response = await axios.get(`${BASE_URL}`);
-        // const data = response.data;
-        setTicketData(JSON.parse(localStorage.getItem('dataOverViewToTicketType')!))
-        setLoading(true)
-        // console.log("fetching staff success : ", data)
-        toast.remove()
-        if (typefetch === "remove") {
-            toast.success(`Remove Success`)
-        }
-        } catch (error) {
-        console.error('Error fetching events:', error);
+            const response = await axios.get(`${BASE_URL}`);
+            const data = response.data;
+            setTicketData(data)
+            console.log('######ticketData', ticketData.zoneRevenue)
+            setLoading(true)
+            toast.remove()
+            if (typefetch === "remove") {
+                toast.success(`Remove Success`)
+            }
+            } catch (error) {
+            console.error('Error fetching events:', error);
         }
     }
 
@@ -100,14 +84,15 @@ const ContentTicketTypes = () => {
                             </div>
                             <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
                             <div>
-                                {ticketData!.name.map((name,index) => (
-                                <div key={name}>
+                                {/* {ticketData} */}
+                                {ticketData.zoneRevenue.map((item,index) => (
+                                <div key={index}>
                                 <div className='flex font-montserrat text-lg mb-5 text-2xl'>
-                                    <div className='pl-5 w-4/12'>{name}</div>
-                                    <div className='w-3/12'>{ticketData!.price[index]}</div>
-                                    <div className='w-2/12'>{ticketData!.sold[index]}</div>
-                                    <div className='w-2/12'>{ticketData!.quota[index]}</div> 
-                                    <button onClick={() => handleremovestaff(name)} className='text-red-600 font-bold w-1/12'>remove</button>
+                                    <div className='pl-5 w-4/12'>{item.className}</div>
+                                    <div className='w-3/12'>{item.price}</div>
+                                    <div className='w-2/12'>{item.ticketSold}</div>
+                                    <div className='w-2/12'>{item.quota}</div> 
+                                    <button onClick={() => handleremovestaff(item.className)} className='font-bold text-gray-400 hover:text-red-500  w-1/12'>remove</button>
                                 </div>
                                 </div>
                                 ))}
