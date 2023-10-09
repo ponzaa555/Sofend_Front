@@ -11,6 +11,8 @@ interface createNewTicketTypes {
     rowNo : number;
     columnNo : number;
     pricePerSeat : number;
+    // validDatetime : string;
+    // expiredDatetime : string;
 }
 
 const ContentCreateNewTicketTypes = () => {
@@ -23,8 +25,7 @@ const ContentCreateNewTicketTypes = () => {
     const eventid = id as string
     const {data:session} = useSession()
     console.log("session: ",session)
-    // const eoid = session?.user?.userID as string
-    const eoid = "swanlake"
+    const eoid = session?.user?.userID as string
 
 
     const handleButton = () => {
@@ -61,6 +62,10 @@ const ContentCreateNewTicketTypes = () => {
 
         const Name = document.getElementById('tt-name').value
         const TicketPrice = document.getElementById('tt-ticketprice').value
+        const validDatetime = document.getElementById('tt-on-sale-date').value + 'T' + document.getElementById('tt-on-sale-time').value
+        const expiredDatetime = document.getElementById('tt-end-sale-date').value + 'T' + document.getElementById('tt-end-sale-time').value
+        console.log('validDatetime', validDatetime);
+        console.log('expiredDatetime', expiredDatetime);
         let QuantityAvailable = 0
         let NumberOfRows = 0
         let NumberOfCols = 0
@@ -80,7 +85,9 @@ const ContentCreateNewTicketTypes = () => {
             amountOfSeat : QuantityAvailable,
             rowNo : NumberOfRows,
             columnNo : NumberOfCols,
-            pricePerSeat : TicketPrice
+            pricePerSeat : TicketPrice,
+            // validDatetime : validDatetime,
+            // expiredDatetime : expiredDatetime
         }
         console.log('jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
 
@@ -147,7 +154,41 @@ const ContentCreateNewTicketTypes = () => {
                                     </div>
                                 }
                                 </div>
-                            </div>                   
+                            </div>    
+
+                            {/* Sales Period */}
+                            <h2 className='font-bold text-3xl mb-4 mt-16'>Sales Period</h2>
+                            <div className='flex flex-row gap-10'>
+                            <div className='flex flex-col justify-start w-2/3'>
+                                <div className='flex flex-row justify-start gap-7'>
+                                <div className='flex flex-col justify-start w-7/12'>
+                                    <label htmlFor="tt-on-sale-date" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Start at date</label>
+                                    <input type="date" id='tt-on-sale-date' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' required/>
+                                </div>
+                                <div className='flex flex-col justify-start w-5/12'>
+                                    <label htmlFor="tt-on-sale-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Start time</label>
+                                    <input type="time" id='tt-on-sale-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' required/>
+                                </div>
+                                </div>
+                                <div className='flex flex-row justify-start gap-7'>
+                                <div className='flex flex-col justify-start w-7/12'>
+                                    <label htmlFor="tt-end-sale-date" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">End at Date</label>
+                                    <input type="date" id='tt-end-sale-date' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' required/>
+                                </div>
+                                <div className='flex flex-col justify-start w-5/12'>
+                                    <label htmlFor="tt-end-sale-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">End Time</label>
+                                    <input type="time" id='tt-end-sale-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' required/>
+                                </div>
+                                </div>
+                            </div>
+                            <div className='flex flex-col w-1/3 justify-start'>
+                                <div>
+                                <h3 className='font-bold text-lg mb-2'>Sales Period</h3>
+                                <p>Providing accurate date and time of sales period is crucial.12:00 PM - Midday12:00 AM - Midnight</p>
+                                </div>
+                            </div>
+                            </div>
+               
 
                             {/* Pricing */}
                             <h2 className='font-bold text-3xl mb-4 mt-16'>Pricing</h2>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 // type Props = {}
 
@@ -12,13 +13,16 @@ const ContentStaff = () => {
   const [staff, setstaff] = useState([])
   const router = useRouter()
   const { id } = router.query;
-  const eoid = "rajadamnern"
   const eventid = id as string
+  const {data:session} = useSession()
+  console.log("session: ",session)
+  const eoid = session?.user?.userID as string
+
 
   const handleaddstaff = async (e: React.FormEvent) => {
     e.preventDefault()
     setInputmail("")
-    toast.loading(`Adding ${inputemail}`)
+    toast.loading(`Adding ${inputemail}...`)
     {/**add to database*/ }
     const add_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
     // const add_url = `http://127.0.0.1:8000/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
@@ -29,7 +33,7 @@ const ContentStaff = () => {
     const res = await response.json();
     console.log(res);
     if (response.ok) {
-      fetchStaff("add")
+      fetchStaff("add", inputemail)
     } else {
       console.log(res.detail)
       toast.remove()
@@ -38,7 +42,7 @@ const ContentStaff = () => {
   }
 
 const handleremovestaff = async (removestaff: string) => {
-  toast.loading('Removing staff...')
+  toast.loading(`Removing ${removestaff}...`)
   {/**remove from database*/ }
   // setstaff(staff.filter((item) => item.email !== removestaff))
   const remove_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
@@ -50,7 +54,7 @@ const handleremovestaff = async (removestaff: string) => {
     const res = await response.json();
     console.log(res);
     if (response.ok) {
-      fetchStaff("remove")
+      fetchStaff("remove", removestaff)
     } else {
       console.log(res.detail)
       toast.remove()
@@ -59,11 +63,11 @@ const handleremovestaff = async (removestaff: string) => {
 }
 
 useEffect(() => {
-  fetchStaff("")
+  fetchStaff("","")
 }, [])
 
 {/**fetch staff*/ }
-const fetchStaff = async (typefetch: string) => {
+const fetchStaff = async (typefetch: string, showmail: string) => {
   console.log("fetching staff")
   const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_staff/${eoid}/${eventid}`;
   // const BASE_URL = `http://127.0.0.1:8000/eo_get_all_staff/${eoid}/${eventid}`;
@@ -75,10 +79,10 @@ const fetchStaff = async (typefetch: string) => {
     console.log("fetching staff success : ", data)
     toast.remove()
     if (typefetch === "add") {
-      toast.success(`Add ${inputemail} success`)
+      toast.success(`Add ${showmail} success`)
     }
     else if (typefetch === "remove") {
-      toast.success(`Remove ${inputemail} success`)
+      toast.success(`Remove ${showmail} success`)
     }
   } catch (error) {
     console.error('Error fetching events:', error);
