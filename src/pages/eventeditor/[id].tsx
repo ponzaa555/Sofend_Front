@@ -10,8 +10,8 @@ import ContentPayment from '../../components/eventEditorContent/ContentPayment';
 
 const EventEditor = () => {
 
-  const [contentId, setContentId] = React.useState("menubar-dashboard")
-  const [content, setContent] = React.useState(<ContentDashboard />)
+  const [contentId, setContentId] = React.useState("menubar-event-setting")
+  const [content, setContent] = React.useState(<ContentEventSetting />)
 
   useEffect(() => {
     if(contentId === 'menubar-dashboard') {
