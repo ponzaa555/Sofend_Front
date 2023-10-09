@@ -2,14 +2,17 @@ import React from "react";
 import ComponentSend2 from "./com_send2";
 import { useState } from "react";
 import Link from "next/link";
+import TicketSend from "./ticketforsend";
 
-const ComponentSend1 = () => {
+const ComponentSend1 = (props:any) => {
 
     const [Send, setSend] = useState(false);
 
     const onSubmit = () => {
         setSend(true);
     }
+
+    const eventTicket = props
 
     return (
         <>
