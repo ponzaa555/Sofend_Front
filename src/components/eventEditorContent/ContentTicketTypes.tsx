@@ -1,80 +1,109 @@
 import React, {useEffect, useState} from 'react';
 import ContentCreateNewTicketTypes from './ContentCreateNewTicketTypes';
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast'
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
-
-type TicketData = {
-    name : string[],
-    price : number[],
-    sold : number[],
-    quota : number[],
-}
 
 const ContentTicketTypes = () => {
     const [loading, setLoading] = useState(false)
     const [handleCreateNewTicketType, sethandleCreateNewTicketType] = useState(false)
-    const [ticketData, setTicketData] = useState<TicketData>()
+    const [ticketData, setTicketData] = useState([])
+    const router = useRouter()
+    const { id } = router.query;
+    const eventid = id as string
+    const {data:session} = useSession()
+    console.log("session: ",session)
+    const eoid = session?.user?.userID as string
 
     useEffect(() => {
-        setLoading(false)
-        setTicketData(JSON.parse(localStorage.getItem('dataOverViewToTicketType')!))
-        setLoading(true)
+        fetchTicketType("")
     }, [])
-    console.log(ticketData)
     
     const handleButton = () => {
         sethandleCreateNewTicketType(true)
     }
 
-    const {data: session} = useSession();
+    const handleremovestaff = async (className: string) => {
+        toast.loading('Removing Ticket Type...')
+
+        {/**remove from database*/ }
+        const removeURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_ticket_type/${eoid}/${eventid}/${className}`;
+          const response = await fetch(removeURL, {
+            method: 'POST',
+          });
+          const res = await response.json();
+          console.log(res);
+          if (response.ok) {
+            fetchTicketType("remove")
+          } else {
+            toast.remove()
+            toast.error(`Remove Failed`)
+          }
+    }
+
+    {/**fetch TicketType*/ }
+    const fetchTicketType = async (typefetch: string) => {
+        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventid}`;
+        
+        try {
+            const response = await axios.get(`${BASE_URL}`);
+            const data = response.data;
+            setTicketData(data)
+            // console.log('######ticketData', ticketData.zoneRevenue)
+            setLoading(true)
+            toast.remove()
+            if (typefetch === "remove") {
+                toast.success(`Remove Success`)
+            }
+            } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    }
 
     return (
         <>
             { loading == true ? 
-                <>
-                    { handleCreateNewTicketType == false ?
+                    handleCreateNewTicketType == false ?
                         <>
-                            <div className="divide-y-2">
-                                <div className="flex justify-between my-5">
-                                    <div className="font-bold text-4xl">Ticket Types</div>
-                                    <button className="bg-black text-white border-2 border-black hover:bg-white hover:text-black font-bold text-base py-2 px-4 rounded-lg"
-                                        onClick={handleButton}>
-                                        create new ticket type
-                                    </button>
-                                </div>
-                                <div>
-                                    <ul className="flex flex-row justify-between my-5 mx-20 font-bold text-xl">
-                                        <li>Name</li>
-                                        <li></li>
-                                        <li>Price</li>
-                                        <li>Sold</li>
-                                        <li>Quota</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    {ticketData!.name.map((name,index) => (
-                                    <div key={name}>
-                                    <ul className="flex flex-row justify-between my-5 mx-20 text-base">   
-                                        <li>{name}</li>
-                                        <li></li>
-                                        <li>{ticketData!.price[index]}</li>
-                                        <li>{ticketData!.sold[index]}</li>
-                                        <li>{ticketData!.quota[index]}</li>
-                                        <button className='text-red-600 font-bold'>remove</button>
-                                    </ul>
-                                    </div>
-                                    ))}
-                                </div>
+                            <Toaster />
+                            <div className="flex justify-between my-5">
+                            <div className='text-3xl font-bold'>Ticket Types</div>
+                            <button className="bg-black text-white border-2 border-black hover:bg-white hover:text-black font-bold text-base py-2 px-4 rounded-lg"
+                                onClick={handleButton}>
+                                create new ticket type
+                            </button>
                             </div>
-                            <div className="flex flex-grow flex-col text-center my-5">
-                                <div className="font-bold text-4xl">EventBud</div>
-                                <div className="">all right reserved</div>
+                            <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
+                            <div className='flex font-montserrat text-xl font-bold mb-5 text-2xl'>
+                            <div className='pl-5 w-4/12'>Name</div>
+                            <div className='w-3/12'>Price</div>
+                            <div className='w-2/12'>Sold</div>
+                            <div className='w-2/12'>Quota</div>
+                            <div className='w-1/12'></div>
                             </div>
+                            <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
+                            <div>
+                                {/* {ticketData} */}
+                                {ticketData.zoneRevenue.map((item,index) => (
+                                <div key={index}>
+                                <div className='flex font-montserrat text-lg mb-5 text-2xl'>
+                                    <div className='pl-5 w-4/12'>{item.className}</div>
+                                    <div className='w-3/12'>{item.price}</div>
+                                    <div className='w-2/12'>{item.ticketSold}</div>
+                                    <div className='w-2/12'>{item.quota}</div> 
+                                    <button onClick={() => handleremovestaff(item.className)} className='font-bold text-gray-400 hover:text-red-500  w-1/12'>remove</button>
+                                </div>
+                                </div>
+                                ))}
+                            </div>
+                          {/*Footer*/}
+                          <div className='justify-center bg-white p-4 mt-10'>
+                                <h1 className='text-center text-black font-montserrat font-bold text-2xl'>EventBud</h1>
+                                <h1 className='text-center text-black font-montserrat'>all right reserved</h1>
+                          </div>
                         </>
-                        : <ContentCreateNewTicketTypes/>
-                    } 
-                </>
+                    : <ContentCreateNewTicketTypes/>
                 : 
                 <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
                     <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

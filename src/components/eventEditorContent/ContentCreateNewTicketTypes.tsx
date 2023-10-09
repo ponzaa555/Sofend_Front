@@ -107,7 +107,7 @@ const ContentCreateNewTicketTypes = () => {
             toast.remove()
             toast.error(`Fail!`)
         }
-        
+        sethandleCancelButton(true)
     }
 
     return (
