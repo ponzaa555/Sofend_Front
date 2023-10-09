@@ -1,7 +1,7 @@
 import React from 'react';
 import Close from '../icon/Close';
 
-export default function Mymodal({visible,onClose,organizerName}) {
+export default function Mymodal({visible,onClose,organizerName,organizerEmail}) {
     if(!visible) return null;
 
     return (
@@ -13,13 +13,13 @@ export default function Mymodal({visible,onClose,organizerName}) {
                 </div>
                 <div className='grid grid-rows-2 place-items-center'>
                     <div className="w-20 h-20 overflow-hidden rounded-full border border-gray-300 mb-2 mt-2 ml-5">
-                        <img src='../images/events/profile.png'/>
+                        <img src='../images/events/profileblack.png'/>
                     </div>
                     <div className="font-montserrat font-bold">{organizerName}</div>
                 </div>
                 <div className='flex flex-cols-2 justify-evenly gap-4'>
                     <div className="font-montserrat font-bold">Email</div>
-                    <p className="font-montserrat">info@livenation.co.th</p>
+                    <p className="font-montserrat">{organizerEmail}</p>
                 </div>
                 </div>
             </div>
