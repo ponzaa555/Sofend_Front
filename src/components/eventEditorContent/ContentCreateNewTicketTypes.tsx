@@ -11,8 +11,8 @@ interface createNewTicketTypes {
     rowNo : number;
     columnNo : number;
     pricePerSeat : number;
-    startDateTime : string;
-    endDateTime : string;
+    validDatetime : string;
+    expiredDatetime : string;
 }
 
 const ContentCreateNewTicketTypes = () => {
@@ -86,8 +86,8 @@ const ContentCreateNewTicketTypes = () => {
             rowNo : NumberOfRows,
             columnNo : NumberOfCols,
             pricePerSeat : TicketPrice,
-            startDateTime : validDatetime,
-            endDateTime : expiredDatetime
+            validDatetime : validDatetime,
+            expiredDatetime : expiredDatetime
         }
         console.log('jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
 
