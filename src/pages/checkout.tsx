@@ -8,8 +8,16 @@ import Checkout1stStep from '../components/Checkout/Checkout1stStep'
 import Checkout2ndStep from '../components/Checkout/Checkout2ndStep'
 import Checkout3rdStep from '../components/Checkout/Checkout3rdStep'
 import Link from 'next/link'
+import toast, { Toaster } from 'react-hot-toast'
 
-function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
+interface postNewTicket {
+    eventID : string;
+    userID : string;
+    className : string;
+    seatNo : string[];
+}
+
+function ButtonCheckout(step:Number, handleNext:any, handleBack:any, handlePostNewTicketType:any) {
     switch (step) {
         case 1: 
             return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8'>
@@ -29,7 +37,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
                             Back
                         </button>
                         <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black py-2'
-                        onClick={handleNext}>
+                        onClick={handlePostNewTicketType}>
                             Proceed
                         </button>
                     </div>
@@ -52,6 +60,7 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any) {
 }
 
 type EventData = {
+    eventID: string,
     eventName: string,
     startDateTime: string,
     endDateTime: string,
@@ -69,9 +78,70 @@ const Checkout: React.FC = ({}) => {
     const [eventData, setEventData] = useState<EventData>()
     const [loading, setLoading] = useState(false)
 
+    useEffect(() => {
+        setLoading(false)
+        setEventData(JSON.parse(localStorage.getItem('dataEventDetailToCheckout')!))
+        setLoading(true)
+    }, [])
+
+    const handlePostNewTicketType = async (e:React.FormEvent) => {
+        toast.loading(`Creating New Ticket...`)
+        const postURL = `https://eventbud-jujiu2awda-uc.a.run.app/post_ticket`;
+        console.log('postURL', postURL);
+
+        const eventID = eventData?.eventID
+        const userID = session?.user?.userID as string
+        const className = eventData?.zone
+        const amount = eventData?.amount
+        const seatNo = [""]
+        
+        for (let i = 1; i < amount!; i++) {
+            seatNo.push("");
+        }
+
+        console.log(seatNo)
+        // 0 = zone, 1 = seat
+        // if (handleTicketType == 0) {
+        //     QuantityAvailable = document.getElementById('tt-qa').value
+        // }
+        // else {
+        //     NumberOfRows = document.getElementById('tt-num-row').value
+        //     NumberOfCols = document.getElementById('tt-num-col').value
+        //     QuantityAvailable = NumberOfRows * NumberOfCols
+        // }
+        
+        const jsonPostNewTicket:postNewTicket = {
+            eventID : eventID,
+            userID : userID,
+            className : className,
+            seatNo : seatNo,
+        }
+        console.log('jsonPostNewTicket: ', jsonPostNewTicket)
+
+        e.preventDefault()
+        const response = await fetch(postURL, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonPostNewTicket)
+        });
+        const res = await response.json();
+        console.log('res', res);
+        if (response.ok) {
+            toast.remove()
+            toast.success(`Success!`)
+        }
+        else {
+            toast.remove()
+            toast.error(`Fail!`)
+        }
+        setStep(step + 1)
+    }
+
+
     // function to handle next button.
     const handleNext = () => {
         setStep(step + 1)
+        console.log(step)
 
         window.scrollTo({
             top: 0,
@@ -92,12 +162,6 @@ const Checkout: React.FC = ({}) => {
             behavior: 'instant',
         });
     }
-    
-    useEffect(() => {
-        setLoading(false)
-        setEventData(JSON.parse(localStorage.getItem('dataEventDetailToCheckOut')!))
-        setLoading(true)
-    }, [])
 
     // function to handle component by step and pass data to component.
     const handleComponent = (session:any) => {
@@ -121,6 +185,7 @@ const Checkout: React.FC = ({}) => {
             case 2:
                 return (
                     <Checkout2ndStep
+                        eventID={eventData!.eventID}
                         eventName={eventData!.eventName}
                         startDateTime={eventData!.startDateTime}
                         endDateTime={eventData!.endDateTime}
@@ -152,6 +217,7 @@ const Checkout: React.FC = ({}) => {
             <Navbar/>
             { loading == true ?
             <div className='bg-[#F9F9F9] h-full min-h-full pb-10'>  
+                <Toaster/>
                 {/* step 1: Timeline 1
                             Review Ticket Information
                     step 2: Timeline 2
@@ -164,7 +230,7 @@ const Checkout: React.FC = ({}) => {
                 {handleComponent(session)}
                 
                 {/*Button Cancel and Next*/}
-                {ButtonCheckout(step, handleNext, handleBack)}
+                {ButtonCheckout(step, handleNext, handleBack, handlePostNewTicketType)}
             </div>:
             <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
                 <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -178,7 +178,8 @@ const EventDetails = ({ }) => {
         setPrice(prices)
     }
 
-    const data = {
+    const dataEventDetailToCheckout = {
+        eventID: eventDetail.eventID,
         eventName: eventDetail.eventName,
         startDateTime: eventDetail.startDateTime,
         endDateTime: eventDetail.endDateTime,
@@ -188,9 +189,37 @@ const EventDetails = ({ }) => {
         amount: Total,
         price: Price,
     }
-    const dataString = encodeURIComponent(JSON.stringify(data));
 
-    return(
+    {/* check ticket left */ }
+    const handleCheckout = async () => {
+        console.log("getTicketSold")
+        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`;
+        console.log(BASE_URL)
+        try {
+            const response = await axios.get(`${BASE_URL}`);
+            const data = response.data;
+            console.log("getTicketSold success : ", data)
+            const ticketZone = data.zoneRevenue.filter(zone => zone.className === Zone && zone.price === Price/Total)[0];
+            console.log("ticketZone : ", ticketZone);
+            const ticketLeft = ticketZone.quota - ticketZone.ticketSold;
+            console.log("ticketLeft : ", ticketLeft);
+            if (Total > ticketLeft) {
+                alert(`${Zone} only ${ticketLeft} tickets left, please select again.`);
+            }
+            else {
+                // router.push(`/checkout?data=${dataString}`);
+                localStorage.setItem('dataEventDetailToCheckout', JSON.stringify(dataEventDetailToCheckout));
+                router.push(`/checkout`);
+            }
+        } catch (error) {
+            console.log("getTicketSold error : ", error);
+        }
+    }
+    
+        
+
+
+    return (
         <>
             <Head>
                 {/* import font to page */}
@@ -278,12 +307,10 @@ const EventDetails = ({ }) => {
                                         </div>
                                     </div>
                                 </div>
-                                {session ? 
-                                    <Link href={`/checkout`}>
-                                        <button disabled={Total===0} onClick={setDataToLocalStorage} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
-                                    </Link>:
-                                    <button onClick={() => signIn()} disabled={Total===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
-                                }   
+                                {session ?
+                                    <button onClick={() => handleCheckout()} disabled={Total === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                                    : <button onClick={() => signIn()} disabled={Total === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+                                }
                             </div>
                         </div>
                     </div>
