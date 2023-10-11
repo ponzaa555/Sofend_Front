@@ -36,11 +36,11 @@ const MenubarEO = ({setContentId}: MenubarEOProps) => {
       <ul className='flex flex-row justify-between items-center h-14'>
         <li>
           <input type="radio" name="menubar" id="menubar-dashboard" className='appearance-none' onChange={(e) => selectMenu(e)}/>
-          <label htmlFor="menubar-dashboard" className='font-montserrat font-bold'>Dashboard</label>
+          <label htmlFor="menubar-dashboard" className='font-montserrat'>Dashboard</label>
         </li>
         <li>
           <input type="radio" name="menubar" id="menubar-event-setting" className='appearance-none' onChange={(e) => selectMenu(e)}/>
-          <label htmlFor="menubar-event-setting" className='font-montserrat'>Event Setting</label>
+          <label htmlFor="menubar-event-setting" className='font-montserrat font-bold'>Event Setting</label>
         </li>
         <li>
           <input type="radio" name="menubar" id="menubar-ticket-types" className='appearance-none' onChange={(e) => selectMenu(e)}/>
