@@ -93,6 +93,7 @@ const Ticket = (props:any) => {
 
     const data = {
         ticketID : eventTicket.ticketID,
+        userID: eventTicket.userID,
         firstname: eventTicket.firstname,
         lastname: eventTicket.lastname,
         eventName: eventName_ch,

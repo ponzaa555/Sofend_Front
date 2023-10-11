@@ -5,7 +5,7 @@ import SVG from 'react-inlinesvg';
 const TicketSend = (props:any) => {
 
     const eventTicket = props
-    console.log(eventTicket)
+    // console.log(eventTicket)
     // console.log(eventTicket.ticketID)
 
     const qrcode = require('qrcode') 
@@ -55,7 +55,7 @@ const TicketSend = (props:any) => {
                                 <SVG className="w-40" src= {getSVG}/>
                             </div>
                         </div>
-                        <div className="flex flex-row-2 justify-items-start gap-20">
+                        <div className="flex flex-row-2 justify-items-start gap-10">
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">First Name</div>
                                 <div className="font-montserrat font-bold text-xl text-black">{eventTicket.firstname}</div>
