@@ -17,7 +17,7 @@ interface postNewTicket {
     seatNo : string[];
 }
 
-function ButtonCheckout(step:Number, handleNext:any, handleBack:any, handlePostNewTicketType:any) {
+function ButtonCheckout(step:Number, handleNext:any, handleBack:any, handlePostNewTicketType:any, disableProceedButton:boolean) {
     switch (step) {
         case 1: 
             return <div className='flex justify-between mx-auto lg:max-w-7xl md:items-center md:px-8'>
@@ -36,8 +36,8 @@ function ButtonCheckout(step:Number, handleNext:any, handleBack:any, handlePostN
                         onClick={handleBack}>
                             Back
                         </button>
-                        <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black py-2'
-                        onClick={handlePostNewTicketType}>
+                        <button className='border-2 border-black rounded-md text-2xl text-white bg-black px-32 hover:bg-white hover:text-black py-2 disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none'
+                        onClick={handlePostNewTicketType} disabled={disableProceedButton == true}>
                             Proceed
                         </button>
                     </div>
@@ -77,6 +77,7 @@ const Checkout: React.FC = ({}) => {
     const {data:session} = useSession();
     const [eventData, setEventData] = useState<EventData>()
     const [loading, setLoading] = useState(false)
+    const [disableProceedButton, setDisableProceedButton] = useState(false)
 
     useEffect(() => {
         setLoading(false)
@@ -85,6 +86,7 @@ const Checkout: React.FC = ({}) => {
     }, [])
 
     const handlePostNewTicketType = async (e:React.FormEvent) => {
+        setDisableProceedButton(true)
         toast.loading(`Creating New Ticket...`)
         const postURL = `https://eventbud-jujiu2awda-uc.a.run.app/post_ticket`;
         console.log('postURL', postURL);
@@ -230,7 +232,7 @@ const Checkout: React.FC = ({}) => {
                 {handleComponent(session)}
                 
                 {/*Button Cancel and Next*/}
-                {ButtonCheckout(step, handleNext, handleBack, handlePostNewTicketType)}
+                {ButtonCheckout(step, handleNext, handleBack, handlePostNewTicketType, disableProceedButton)}
             </div>:
             <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
                 <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
