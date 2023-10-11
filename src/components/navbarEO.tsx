@@ -1,11 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head';
+import PersonCircleWhite from './icon/PersonCircleWhite';
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react';
 import Profile from './profile';
 import CreateEvent from './createevent';
 
-const navbar = () => {
+const navbarEO = () => {
     const [navbar, setNavbar] = React.useState(false);
+    const {data:session} = useSession();
 
     return (
     <>
@@ -21,12 +25,15 @@ const navbar = () => {
             <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
         </Head>
 
-      <nav className="w-full bg-white shadow-md">
+      <nav className="w-full bg-black">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <a href="/main">
-                <h2 className="text-3xl body-font font-montserrat font-bold">EventBud</h2>
+              <a href="#">
+                <div className="flex">
+                    <h2 className="text-3xl body-font font-montserrat font-bold text-white">EventBud</h2>
+                    <p className='text-base body-font font-montserrat font-medium text-white'>creator</p>
+                </div>
               </a>
               <div className="md:hidden">
                 <button
@@ -72,14 +79,14 @@ const navbar = () => {
                 navbar ? 'block' : 'hidden'
               }`}
             >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="font-montserrat text-xl">
-                  <CreateEvent/>
-                </li>
-                <li className="font-montserrat font-bold text-xl">
-                  <Profile/>
-                </li>
-              </ul>
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 text-white font-montserrat text-xl">
+                    <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
+                        <PersonCircleWhite/>
+                        <button className='font-medium'
+                            onClick={() => signOut({callbackUrl: '/main'})}
+                        >Sign out</button>
+                    </ul>
+                </ul>
             </div>
           </div>
         </div>
@@ -88,4 +95,4 @@ const navbar = () => {
   );
 }
 
-export default navbar
+export default navbarEO

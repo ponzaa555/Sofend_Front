@@ -3,6 +3,7 @@ import ScheduleCard from './schedulecard'
 import { getEventSchedule } from '../../service/api'
 import { useSession } from 'next-auth/react'
 
+
 const eventschedule = () => {
     const [events, setEvents] = React.useState([])
     const [getfinish, setgetfinish] = useState(false);
@@ -26,14 +27,30 @@ const eventschedule = () => {
         }
     }, []);
 
+    const showemtycard = () => {
+        const numberOfColumns = 4;
+        const numberOfEvents = showevents.length;
+        const remainder = numberOfEvents % numberOfColumns;
+        const emptyCardCount = remainder === 0 ? 0 : numberOfColumns - remainder;
+        const emptyCards = Array.from({ length: emptyCardCount }, (_, index) => (
+            <div key={`empty-${index}`} className="flex-1">
+              <div className="w-44">
+              </div>
+            </div>
+          ));
+        
+          return emptyCards;
+
+    }
+
     var showevents = events;
 
     const showeventschedule = () => {
         if (showevents.length > 0) {
             return (
-                <div className="grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 ">
+                <div className="flex flex-wrap flex-col-4 ">
                     {showevents.map((eventcard, index) => (
-                        <a key={index} className="flex flex-col items-center ">
+                        <a key={index} className="flex flex-col flex-1 items-center ">
                             <div className="flex-1">
                                 <ScheduleCard image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
                             </div>
@@ -42,14 +59,14 @@ const eventschedule = () => {
                             </a>
                         </a>
                     ))}
+                    {showemtycard()}
                 </div>
             )
         }
         else {
             return (
-                <>
-                    <div className="h-32 mt-3 " />
-                    <div className="h-48 flex items-center justify-center ">
+                <div className="flex flex-col items-center justify-center h-full pb-8">
+                    <div>
                         {getfinish == true ? <div className="text-4xl font-montserrat font-medium">No Event</div> :
                             <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
                                 <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,17 +76,14 @@ const eventschedule = () => {
                                 <span className="font-montserrat">Loading...</span>
                             </div>}
                     </div>
-                    <div className="h-32 mt-3" />
-                </>
+                </div>
             )
         }
     }
 
     return (
-        <div>
-            <div className="mt-8 mx-4">
-                {showeventschedule()}
-            </div>
+        <div className="pt-8 px-4 h-full">
+            {showeventschedule()}
         </div>
     )
 }
