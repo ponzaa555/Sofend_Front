@@ -38,7 +38,7 @@ const ContentTicketTypes = () => {
             fetchTicketType("remove")
           } else {
             toast.remove()
-            toast.error(`Remove Failed`)
+            toast.error(`Remove Failed (${res.detail})`)
           }
     }
 
@@ -52,8 +52,8 @@ const ContentTicketTypes = () => {
             setTicketData(data)
             // console.log('######ticketData', ticketData.zoneRevenue)
             setLoading(true)
-            toast.remove()
             if (typefetch === "remove") {
+                toast.remove()
                 toast.success(`Remove Success`)
             }
             } catch (error) {
@@ -63,9 +63,9 @@ const ContentTicketTypes = () => {
 
     return (
         <>
+            <Toaster />
             {handleCreateNewTicketType == false ?
-                <>
-                    <Toaster />
+                <>               
                     <div className="flex justify-between my-5">
                     <div className='text-3xl font-bold'>Ticket Types</div>
                     <button className="bg-black text-white border-2 border-black hover:bg-white hover:text-black font-bold text-base py-2 px-4 rounded-lg"
