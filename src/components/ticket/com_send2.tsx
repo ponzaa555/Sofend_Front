@@ -10,8 +10,8 @@ const ComponentSend2 = (props:any) => {
             <div className="flex flex-row gap-16">
             <div className="basis-3/5">
                     <TicketSend ticketID={ticket.ticketID} 
-                    firstname= "Chalisa"
-                    lastname= "Sakulwichitsinthu"
+                    firstname= {ticket.firstname}
+                    lastname= {ticket.lastname}
                     eventName= {ticket.eventName}
                     location= {ticket.location}
                     poster = {ticket.poster}

@@ -10,6 +10,8 @@ const ComponentSend1 = (props:any) => {
 
     const [Send, setSend] = useState(false);
     const [Email, setEmail] = useState("");
+    const [newfirstname, setnewfirstname] = useState("");
+    const [newlastname, setnewlastname] = useState("");
 
     const onSubmit = async () => {
         setSend(true);
@@ -20,9 +22,11 @@ const ComponentSend1 = (props:any) => {
         postTicket(ticket.userID,ticket.ticketID,Email)
         .then(data => {
             console.log(data);
+            setnewfirstname(data.firstName);
+            setnewlastname(data.lastName);
         })
     };
- 
+    
     const ticket = props
     console.log(Email)
     // console.log(ticket)
@@ -31,8 +35,8 @@ const ComponentSend1 = (props:any) => {
         <>
         {Send ? <ComponentSend2 ticketID={ticket.ticketID}
                     userID={ticket.userID}
-                    firstname= {ticket.firstname}
-                    lastname= {ticket.lastname}
+                    firstname= {newfirstname}
+                    lastname= {newlastname}
                     eventName= {ticket.eventName}
                     location= {ticket.location}
                     poster = {ticket.poster}
