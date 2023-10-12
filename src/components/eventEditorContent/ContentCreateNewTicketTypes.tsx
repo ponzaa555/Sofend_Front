@@ -101,13 +101,13 @@ const ContentCreateNewTicketTypes = () => {
         console.log('res', res);
         if (response.ok) {
             toast.remove()
-            toast.success(`Success!`)
+            toast.success(`Create Success`)
+            sethandleCancelButton(true)
         }
         else {
             toast.remove()
-            toast.error(`Fail!`)
+            toast.error(`Failed (${res.detail})`)
         }
-        sethandleCancelButton(true)
     }
 
     return (
