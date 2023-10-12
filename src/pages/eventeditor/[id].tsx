@@ -1,17 +1,17 @@
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import MenubarEO from '~/components/menubarEO';
-import NavbarEO from '~/components/navbarEO'
-import ContentDashboard from '../../components/eventEditorContent/contentDashboard';
-import ContentEventSetting from '../../components/eventEditorContent/contentEventSetting';
+import MenubarEO from '~/components/MenubarEO';
+import NavbarEO from '~/components/navbarEO';
+import ContentDashboard from '../../components/eventEditorContent/ContentDashboard';
+import ContentEventSetting from '../../components/eventEditorContent/ContentEventSetting';
 import ContentTicketTypes from '../../components/eventEditorContent/ContentTicketTypes';
 import ContentStaff from '../../components/eventEditorContent/ContentStaff';
 import ContentPayment from '../../components/eventEditorContent/ContentPayment';
 
 const EventEditor = () => {
 
-  const [contentId, setContentId] = React.useState("menubar-dashboard")
-  const [content, setContent] = React.useState(<ContentDashboard />)
+  const [contentId, setContentId] = React.useState("menubar-event-setting")
+  const [content, setContent] = React.useState(<ContentEventSetting />)
 
   useEffect(() => {
     if(contentId === 'menubar-dashboard') {
