@@ -12,12 +12,15 @@ const dashboard = ({}) => {
   const {data:session} = useSession()
   const eoid = session?.user?.userID as string
 
+  console.log('yo',session)
+
   const [event, setEvent] = useState([]);
   const [getfinish, setGetfinish] = useState(false);
   
   const router = useRouter();
 
   useEffect(() => {
+    console.log('eoid',eoid)
     axios.get(`https://eventbud-jujiu2awda-uc.a.run.app/eo_event/${eoid}`)
       .then((response) => {
         setEvent(response.data);
@@ -27,7 +30,7 @@ const dashboard = ({}) => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [eoid]);
 
   const handleCreateEvent = async () => {
     const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app';
