@@ -5,6 +5,7 @@ import Event from '../components/eventEO';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const dashboard = ({}) => {
 
@@ -13,6 +14,8 @@ const dashboard = ({}) => {
 
   const [event, setEvent] = useState([]);
   const [getfinish, setGetfinish] = useState(false);
+  
+  const router = useRouter();
 
   useEffect(() => {
     axios.get(`https://eventbud-jujiu2awda-uc.a.run.app/eo_event/${eoid}`)
@@ -25,6 +28,20 @@ const dashboard = ({}) => {
         console.error('Error fetching data:', error);
       });
   }, []);
+
+  const handleCreateEvent = async () => {
+    const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app';
+        const POST_URL = `${BASE_URL}/eo_create_event/${eoid}`
+    const response = await fetch (POST_URL, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      })
+      const res = await response.json();
+      console.log(res)
+      router.push(`/eventeditor/${res}`)
+  }
 
   
   return (
@@ -43,7 +60,7 @@ const dashboard = ({}) => {
         {/*page name and create event button*/}
         <div className='flex justify-between mb-5'>
           <div className='text-5xl body-font font-montserrat font-bold'>All Events</div>
-          <button className='font-montserrat font-bold bg-black rounded-lg text-white px-3'>create an event</button>
+          <button onClick={handleCreateEvent} className='font-montserrat font-bold bg-black rounded-lg text-white px-3'>create an event</button>
         </div>
         {/*table header*/}
         <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
