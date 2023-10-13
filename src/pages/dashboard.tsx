@@ -3,14 +3,22 @@ import Head from 'next/head';
 import NavbarEO from '../components/navbarEO';
 import Event from '../components/eventEO';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import { Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const dashboard = ({}) => {
 
+  const {data:session} = useSession()
+  const eoid = session?.user?.userID as string
+
   const [event, setEvent] = useState([]);
   const [getfinish, setGetfinish] = useState(false);
+  
+  const router = useRouter();
 
   useEffect(() => {
-    axios.get('https://eventbud-jujiu2awda-uc.a.run.app/eo_event/rajadamnern')
+    axios.get(`https://eventbud-jujiu2awda-uc.a.run.app/eo_event/${eoid}`)
       .then((response) => {
         setEvent(response.data);
         console.log(response.data);
@@ -19,14 +27,23 @@ const dashboard = ({}) => {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [eoid]);
 
-  useEffect(() => {
-    console.log("event: ",event)
-  },[event])
+  const handleCreateEvent = async () => {
+    const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app';
+        const POST_URL = `${BASE_URL}/eo_create_event/${eoid}`
+    const response = await fetch (POST_URL, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      })
+      const res = await response.json();
+      console.log(res)
+      router.push(`/eventeditor/${res}`)
+  }
 
   
-
   return (
     <>
       <Head>
@@ -43,7 +60,7 @@ const dashboard = ({}) => {
         {/*page name and create event button*/}
         <div className='flex justify-between mb-5'>
           <div className='text-5xl body-font font-montserrat font-bold'>All Events</div>
-          <button className='font-montserrat font-bold bg-black rounded-lg text-white px-3'>create an event</button>
+          <button onClick={handleCreateEvent} className='font-montserrat font-bold bg-black rounded-lg text-white px-3'>create an event</button>
         </div>
         {/*table header*/}
         <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
@@ -56,8 +73,9 @@ const dashboard = ({}) => {
           <div className='w-1/12'></div>
         </div>
         <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
-        {getfinish ? event.map((event) => (
+        {getfinish ? event.length > 0 ? event.map((event) => (
           <Event
+            eventID={event.eventID}
             eventName={event.eventName}
             startDateTime={event.startDateTime}
             endDateTime={event.endDateTime}
@@ -67,7 +85,8 @@ const dashboard = ({}) => {
             soldTicket={event.soldTicket}
             totalTicket={event.totalTicket}
           />
-          )) :
+          )) : <div className='font-montserrat text-xl font-medium my-8 text-gray-400 flex justify-center'>No Staff</div>
+          :
           <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
           <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />

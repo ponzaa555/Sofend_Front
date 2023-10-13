@@ -1,5 +1,6 @@
 import React from 'react'
 import Arrow from '../components/icon/ForwardButton';
+import { Link } from 'react-router-dom';
 
 const eventEO = (props:any) => {
 
@@ -77,9 +78,9 @@ const eventEO = (props:any) => {
             <div className='w-2/12'>{checkstatus()}</div>
             <div className='w-2/12'>{eventEO.soldTicket}/{eventEO.totalTicket}</div>
             <div className='w-1/12 items-center'>
-                <button className=''>
+                <a href={`/eventeditor/${eventEO.eventID}`}>
                     <Arrow />
-                </button>
+                </a>
             </div>
         </div>
         <div className='w-full h-0.5 bg-gray-300 rounded-lg mb-5' />
