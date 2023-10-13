@@ -7,10 +7,10 @@ interface SeatingPlanProps {
   numRows: number;
   numSeatsPerRow: number;
   pricePerSeat: number;
-  arrayOfSeat: string[];
+  objectOfSeat: object;
 }
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeatsPerRow, pricePerSeat, arrayOfSeat }) => {
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -29,12 +29,18 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeat
   //   'total',total,
   //   'count',count,
   // )
-  console.log('arrayOfSeat',arrayOfSeat)
+  console.log('objectOfSeat',objectOfSeat)
 
   useEffect(() => {
     setTotal(count*pricePerSeat)
   }
   , [count]);
+
+  useEffect(() => {
+    setCount(0)
+    setSelectedSeats([])
+  }
+  , [nameOfZone]);
 
   const renderSeats = () => {
     const seats = [];

@@ -14,6 +14,7 @@ import type { TicketClass } from '~/components/events/eventitem';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { set } from 'zod';
 
 
 type EventDetail = {
@@ -120,9 +121,13 @@ const selectzonenseat = () => {
     }
   }, [id]);
 
-
   const [selectedZone, setSelectedZone] = useState<number>(0)
-  // console.log(eventDetail.ticketClass[0]?.seatNo)
+  const handleSelectZone = (zoneIndex: number) => {
+    setSelectedZone(zoneIndex)
+  }
+  // console.log(eventDetail.ticketClass[0]?.rowNo)
+
+
 
   return (
     <div className='mb-10'>
@@ -161,11 +166,13 @@ const selectzonenseat = () => {
           <h1 className=' text-black font-montserrat font-bold mb-5 text-2xl'>Select Zone</h1>
                 {/* zone selction */}
                 <div className='grid grid-cols-3 gap-y-8 justify-items-center'>
-                    {eventDetail.ticketClass.map((ticketclass) => (
+                    {eventDetail.ticketClass.map((ticketclass,index) => (
                         <GenTicketClass
+                            key={index}
                             nameOfZone={ticketclass.className}
                             pricePerSeat={ticketclass.pricePerSeat}
                             amountOfSeat={ticketclass.AmountOfSeat}
+                            onSelect={() => handleSelectZone(index)}
                         ></GenTicketClass>
                     ))}
                 </div>
@@ -186,12 +193,13 @@ const selectzonenseat = () => {
                 }
               </select>
               {/* Seating */}
+
               <SeatingPlan
-                arrayOfSeat={eventDetail.ticketClass[selectedZone]?.seatNo?.map(String) ?? []}
+                objectOfSeat={eventDetail.ticketClass[selectedZone] ?? {}}
                 nameOfZone={eventDetail.ticketClass[selectedZone]?.className ?? ""}
                 pricePerSeat={eventDetail.ticketClass[selectedZone]?.pricePerSeat ?? 0}
-                numRows={10}
-                numSeatsPerRow={20}
+                numRows={eventDetail.ticketClass[selectedZone]?.rowNo ?? 0}
+                numSeatsPerRow={eventDetail.ticketClass[selectedZone]?.columnNo ?? 0}
               />
             </div>
 

@@ -172,12 +172,16 @@ const EventDetail = ({}) => {
                 <h1 className=' text-black font-montserrat font-bold mb-5 text-2xl'>Ticket</h1>
                 {/* zone selction */}
                 <div className='grid grid-cols-3 gap-y-8'>
-                    {eventDetail.ticketClass.map((ticketclass) => (
-                        <GenTicketClass
-                            nameOfZone={ticketclass.className}
-                            pricePerSeat={ticketclass.pricePerSeat}
-                            amountOfSeat={ticketclass.AmountOfSeat}
-                        ></GenTicketClass>
+                    {eventDetail.ticketClass.map((ticketclass,index) => (
+                        <Link href={"/selectzonenseats/" + id}>
+                            <GenTicketClass
+                                key={index}
+                                nameOfZone={ticketclass.className}
+                                pricePerSeat={ticketclass.pricePerSeat}
+                                amountOfSeat={ticketclass.AmountOfSeat}
+                                onSelect = {() => {}} 
+                            ></GenTicketClass>
+                        </Link>
                     ))}
                 </div>
             </div>
