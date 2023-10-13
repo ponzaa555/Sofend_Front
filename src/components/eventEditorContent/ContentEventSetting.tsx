@@ -2,84 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 import type { TicketClass } from '~/components/events/eventitem';
-
-// const ContentStaff = () => {
-//   const [inputemail, setInputmail] = useState("")
-//   const [getFinish, setgetFinish] = useState(false)
-//   const [staff, setstaff] = useState([])
-//   const router = useRouter()
-//   const { id } = router.query;
-//   const eventid = id as string
-//   const {data:session} = useSession()
-//   console.log("session: ",session)
-//   const eoid = session?.user?.userID as string
-
-
-//   const handleaddstaff = async (e: React.FormEvent) => {
-//     e.preventDefault()
-//     setInputmail("")
-//     toast.loading(`Adding ${inputemail}...`)
-//     {/**add to database*/ }
-//     const add_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
-//     // const add_url = `http://127.0.0.1:8000/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
-//     console.log(add_url);
-//     const response = await fetch(add_url, {
-//       method: 'POST',
-//     });
-//     const res = await response.json();
-//     console.log(res);
-//     if (response.ok) {
-//       fetchStaff("add", inputemail)
-//     } else {
-//       console.log(res.detail)
-//       toast.remove()
-//       toast.error(`Add ${inputemail} failed (${res.detail})`)
-//     }
-//   }
-
-// const handleremovestaff = async (removestaff: string) => {
-//   toast.loading(`Removing ${removestaff}...`)
-//   {/**remove from database*/ }
-//   // setstaff(staff.filter((item) => item.email !== removestaff))
-//   const remove_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
-//   // const remove_url = `http://127.0.0.1:8000/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
-//     console.log(remove_url);
-//     const response = await fetch(remove_url, {
-//       method: 'POST',
-//     });
-//     const res = await response.json();
-//     console.log(res);
-//     if (response.ok) {
-//       fetchStaff("remove", removestaff)
-//     } else {
-//       console.log(res.detail)
-//       toast.remove()
-//       toast.error(`Remove ${inputemail} failed (${res.detail})`)
-//     }
-// }
-
-// {/**fetch staff*/ }
-// const fetchStaff = async (typefetch: string, showmail: string) => {
-//   console.log("fetching staff")
-//   const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_staff/${eoid}/${eventid}`;
-//   // const BASE_URL = `http://127.0.0.1:8000/eo_get_all_staff/${eoid}/${eventid}`;
-//   try {
-//     const response = await axios.get(`${BASE_URL}`);
-//     const data = response.data;
-//     setstaff(data)
-//     setgetFinish(true)
-//     console.log("fetching staff success : ", data)
-//     toast.remove()
-//     if (typefetch === "add") {
-//       toast.success(`Add ${showmail} success`)
-//     }
-//     else if (typefetch === "remove") {
-//       toast.success(`Remove ${showmail} success`)
-//     }
-//   } catch (error) {
-//     console.error('Error fetching events:', error);
-//   }
-// }
+import { Toaster, toast } from 'react-hot-toast';
 
 type EventDetail = {
   eventID: string;
@@ -102,10 +25,15 @@ type EventDetail = {
   organizerName: string;
 }
 
+const posterMaxWidth:React.CSSProperties = {
+  maxWidth: 256,
+};
+
 const ContentEventSetting = () => {
   const [imageSrc, setImageSrc] = useState<string>("/images/blank_poster.png");
   const [uploadData, setUploadData] = useState<string | undefined>();
   const {data:session} = useSession()
+  const eoId = session?.user?.userID as string
   const router = useRouter()
   const eventId = router.query.id as string;
   const [eventDetail, setEventDetail] = useState<EventDetail>({
@@ -142,7 +70,7 @@ const ContentEventSetting = () => {
           throw new Error("You are not the organizer of this event")
         }
         setEventDetail(eventData)
-        if (eventData.posterImage) {
+        if (eventData.posterImage !== "") {
           setImageSrc(eventData.posterImage)
         }
         const dropdown = document.getElementById("es-event-type") as HTMLSelectElement;
@@ -163,7 +91,6 @@ const ContentEventSetting = () => {
   }
 
   useEffect(() => {
-    
     getEventDetail()
     .catch((error) => {
       console.error('Error fetching events:', error);
@@ -181,13 +108,82 @@ const ContentEventSetting = () => {
       endSaleDateTime: (e.currentTarget.elements[6] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[7] as HTMLInputElement).value,
       startDateTime: (e.currentTarget.elements[8] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[9] as HTMLInputElement).value,
       endDateTime: (e.currentTarget.elements[10] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[11] as HTMLInputElement).value,
-      location: (e.currentTarget.elements[12] as HTMLInputElement).value,
+      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
       posterImage: imageSrc,
     })
     console.log(eventDetail)
   }
 
-  // handleOnChange : Triggers when the file input changes (when a file is selected)
+  const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const changedData = {
+      eventName: (e.currentTarget.elements[0] as HTMLTextAreaElement).value,
+      tagName: [(e.currentTarget.elements[1] as HTMLInputElement).value],
+      ticketType: (e.currentTarget.elements[2] as HTMLSelectElement).value,
+      info: (e.currentTarget.elements[3] as HTMLTextAreaElement).value,
+      onSaleDateTime: (e.currentTarget.elements[4] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[5] as HTMLInputElement).value,
+      endSaleDateTime: (e.currentTarget.elements[6] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[7] as HTMLInputElement).value,
+      startDateTime: (e.currentTarget.elements[8] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[9] as HTMLInputElement).value,
+      endDateTime: (e.currentTarget.elements[10] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[11] as HTMLInputElement).value,
+      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
+      posterImage: imageSrc,
+    }
+    console.log(changedData)
+    if(eventId && eoId) {
+      const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_event_setting/${eoId}/${eventId}`;
+      fetch(saveUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(changedData),
+      })
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Save success")
+        }
+        else {
+          let errorText = ""
+          response.json()
+          .then((data) => {
+            errorText = data.detail
+          })
+          .then(() => {
+            toast.error(`Save failed (${errorText})`)
+          })
+        }
+      })
+    }
+  }
+
+  const handleDeleteEvent = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(eventId && eoId) {
+      const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_event/${eoId}/${eventId}`;
+      fetch(saveUrl, {
+        method: 'DELETE'
+      })
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Delete success")
+          router.push('/dashboard')
+        }
+        else {
+          let errorText = ""
+          response.json()
+          .then((data) => {
+            errorText = data.detail
+          })
+          .then(() => {
+            toast.error(`Delete failed (${errorText})`)
+          })
+        }
+      })
+    }
+  }
+
+
+  // handleOnChangeUploadImg : Triggers when the file input changes (when a file is selected)
 
   const handleOnChangeUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
     const reader = new FileReader();
@@ -208,7 +204,7 @@ const ContentEventSetting = () => {
     reader.readAsDataURL(e.target.files[0]);
   }
 
-  // handleOnSubmit : Triggers when the form is submitted
+  // handleOnSubmitUploadImg : Triggers when the form is submitted
 
   const handleOnSubmitUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -252,11 +248,12 @@ const ContentEventSetting = () => {
 
   return (
     <div className='font-montserrat'>
+      <Toaster />
 
       {/* Event Details */}
 
       <h2 className='font-bold text-3xl mb-4'>Event Details</h2>
-      <form action="" method='post' onChange={handleOnChangeUploadImg} onSubmit={handleOnSubmitUploadImg} className='absolute w-1/5 mt-2'>
+      <form action="" method='post' onChange={handleOnChangeUploadImg} onSubmit={handleOnSubmitUploadImg} className='absolute w-1/5 mt-2' style={posterMaxWidth}>
         <img src={imageSrc} alt="poster-img" className='h-72 w-full bg-gray-200 rounded object-cover'/>
         <p className='mt-3'>
           <input type="file" name="img-file" id="img-file" className='w-full'/>
@@ -274,7 +271,7 @@ const ContentEventSetting = () => {
           )
         }
       </form>
-      <form action="" onChange={handleOnChange}>
+      <form action="" onChange={handleOnChange} onSubmit={handleOnSubmit}>
         <div className='flex flex-row gap-10'>
           <div className='w-2/3 flex flex-row gap-9'>
             <div className='w-1/3 h-2/3'></div>
@@ -285,9 +282,9 @@ const ContentEventSetting = () => {
               <input type="text" id='es-category' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.tagName} required/>
               <label htmlFor="es-event-type" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Event Type</label>
               <select name="es-event-type" id="es-event-type" className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' required>
-                <option value="one-price">One price</option>
-                <option value="zone-classed">Zone</option>
-                <option value="seat">Seat</option>
+                <option value="OnePrice">One price</option>
+                <option value="Classed">Zone (Classed)</option>
+                <option value="Seat">Seat</option>
               </select>
               <label htmlFor="es-description" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Description</label>
               <textarea id='es-description' className='border border-gray-500 rounded h-1/2 mb-3 font-kanit p-2' value={eventDetail?.info} required/>
@@ -317,7 +314,7 @@ const ContentEventSetting = () => {
               </div>
               <div className='flex flex-col justify-start w-5/12'>
                 <label htmlFor="es-on-sale-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Start time</label>
-                <input type="time" id='es-on-sale-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.onSaleDateTime.split('T')[1]} required/>
+                <input type="time" id='es-on-sale-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.onSaleDateTime.split('T')[1]?.split(".")[0]} required/>
               </div>
             </div>
             <div className='flex flex-row justify-start gap-7'>
@@ -327,7 +324,7 @@ const ContentEventSetting = () => {
               </div>
               <div className='flex flex-col justify-start w-5/12'>
                 <label htmlFor="es-end-sale-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">End Time</label>
-                <input type="time" id='es-end-sale-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.endDateTime.split("T")[1]} required/>
+                <input type="time" id='es-end-sale-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.endSaleDateTime.split("T")[1]?.split(".")[0]} required/>
               </div>
             </div>
           </div>
@@ -351,7 +348,7 @@ const ContentEventSetting = () => {
               </div>
               <div className='flex flex-col justify-start w-5/12'>
                 <label htmlFor="es-start-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Start time</label>
-                <input type="time" id='es-start-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.startDateTime.split("T")[1]} required/>
+                <input type="time" id='es-start-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.startDateTime.split("T")[1]?.split(".")[0]} required/>
               </div>
             </div>
             <div className='flex flex-row justify-start gap-7'>
@@ -361,7 +358,7 @@ const ContentEventSetting = () => {
               </div>
               <div className='flex flex-col justify-start w-5/12'>
                 <label htmlFor="es-end-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">End Time</label>
-                <input type="time" id='es-end-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.endDateTime.split("T")[1]} required/>
+                <input type="time" id='es-end-time' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.endDateTime.split("T")[1]?.split(".")[0]} required/>
               </div>
             </div>
           </div>
@@ -378,10 +375,10 @@ const ContentEventSetting = () => {
         <h2 className='font-bold text-3xl mb-4 mt-16'>Location</h2>
         <div className='flex flex-row gap-10'>
           <div className='flex flex-col justify-start w-2/3'>
-            <label htmlFor="es-event-name" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Event Location (Name of Venue)</label>
-            <input type="text" id='es-event-name' className='border border-gray-500 rounded h-9 mb-3 font-kanit font-regular px-2' value={eventDetail?.location} required/>
-            <label htmlFor="es-category" className="text-xl mb-1">Room/Floor/Hall/etc.</label>
-            <input type="text" id='es-category' className='border border-gray-500 rounded h-9 mb-3 font-kanit px-2'/>
+            <label htmlFor="es-location" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">Event Location (Name of Venue)</label>
+            <input type="text" id='es-location' className='border border-gray-500 rounded h-9 mb-3 font-kanit font-regular px-2' value={eventDetail?.location} required/>
+            <label htmlFor="es-room" className="text-xl mb-1">Room/Floor/Hall/etc.</label>
+            <input type="text" id='es-room' className='border border-gray-500 rounded h-9 mb-3 font-kanit px-2'/>
           </div>
           <div className='flex flex-col w-1/3 justify-start'>
             <div>
@@ -391,7 +388,7 @@ const ContentEventSetting = () => {
           </div>
         </div>
         <div className='flex flew-row justify-between w-2/3 mt-16'>
-          <button className='text-red-600 font-bold text-left text-lg m-0 leading-none' onClick={() => alert("Delete This Event ?")}>Delete This Event<br/><span className='text-sm font-normal m-0'>(This action cannot be undone)</span></button>
+          <button className='text-red-600 font-bold text-left text-lg m-0 leading-none' onClick={handleDeleteEvent}>Delete This Event<br/><span className='text-sm font-normal m-0'>(This action cannot be undone)</span></button>
           <button type='submit' className='text-white font-bold text-lg w-52 h-10 bg-black rounded mr-7'>Save</button>
         </div>
       </form>
