@@ -93,6 +93,7 @@ const Ticket = (props:any) => {
 
     const data = {
         ticketID : eventTicket.ticketID,
+        userID: eventTicket.userID,
         firstname: eventTicket.firstname,
         lastname: eventTicket.lastname,
         eventName: eventName_ch,
@@ -151,7 +152,7 @@ const Ticket = (props:any) => {
                                 {qr()}
                             </div>
                         </div>
-                        <div className="flex flex-row-2 justify-items-start gap-20 mt-3">
+                        <div className="flex flex-row-2 justify-items-start gap-10 mt-3">
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">First Name</div>
                                 <div className="font-montserrat font-bold text-xl text-black">{eventTicket.firstname}</div>
