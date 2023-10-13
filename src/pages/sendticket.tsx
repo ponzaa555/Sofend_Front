@@ -62,8 +62,8 @@ const SendTicket = () => {
                 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
             </Head>
             <Navbar/>
-            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
-                <div className="font-montserrat font-bold text-4xl mb-10">Send ticket to your friend</div>
+            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col my-8'>
+                <div className="font-montserrat font-bold text-4xl md:px-8 mb-10">Send ticket to your friend</div>
                 <ComponentSend1 ticketID={ticket.ticketID} 
                     userID = {ticket.userID}
                     firstname= {ticket.firstname}
