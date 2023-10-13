@@ -1,5 +1,6 @@
 import React from "react";
 import TicketSend from "./ticketforsend";
+import { Toaster } from "react-hot-toast";
 
 const ComponentSend2 = (props:any) => {
 

@@ -5,6 +5,8 @@ import Link from "next/link";
 import TicketSend from "./ticketforsend";
 import axios from "axios";
 import { postTicket } from "~/service/api";
+import toast, {Toaster} from 'react-hot-toast';
+import { set } from "zod";
 
 const ComponentSend1 = (props:any) => {
 
@@ -12,24 +14,45 @@ const ComponentSend1 = (props:any) => {
     const [Email, setEmail] = useState("");
     const [newfirstname, setnewfirstname] = useState("");
     const [newlastname, setnewlastname] = useState("");
+    let check;
 
-    const onSubmit = async () => {
-        setSend(true);
-        console.log(Email)
-        console.log(ticket.ticketID)
-        console.log(ticket.userID)
+    const onSubmit = async (e:React.FormEvent) => {
+        toast.loading('Sending...');
+        e.preventDefault();
+        // console.log(Email)
+        // console.log(ticket.ticketID)
+        // console.log(ticket.userID)
 
-        postTicket(ticket.userID,ticket.ticketID,Email)
-        .then(data => {
-            console.log(data);
-            setnewfirstname(data.firstName);
-            setnewlastname(data.lastName);
+        postTicket(ticket.userID, ticket.ticketID, Email)
+        .then(response => {
+            check = response;
+            console.log(response);
+            if (check == undefined){
+                toast.remove();
+                toast.error('Fail!');
+                window.location.href = '/myticket'
+            }
+            else{
+                toast.remove();
+                toast.success('Success!');
+                setnewfirstname(response.firstName);
+                setnewlastname(response.lastName);
+                setTimeout(() => {
+                    setSend(true);
+                }, 600);
+            }
         })
+        .catch(error => {
+            console.error('Error:', error);
+            toast.remove();
+            toast.error('Fail!');
+        });
     };
-    
+
     const ticket = props
-    console.log(Email)
+    // console.log(Email)
     // console.log(ticket)
+    // console.log(Send)
 
     return (
         <>
@@ -46,6 +69,7 @@ const ComponentSend1 = (props:any) => {
                     seat= {ticket.seat}
                     date={ticket.date}/> :
             <div className="flex flex-row gap-16">
+                <div><Toaster/></div>
                 <div className="basis-3/5">
                     <TicketSend ticketID={ticket.ticketID} 
                     firstname= {ticket.firstname}
