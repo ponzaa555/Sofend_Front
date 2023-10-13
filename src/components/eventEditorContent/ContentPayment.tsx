@@ -1,24 +1,77 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
-
+import { useRouter } from 'next/router'
+import axios from 'axios'
+import toast, { Toaster } from "react-hot-toast";
 // type Props = {}
-
+type Bankinfo = {
+  bankAccount:JSON
+}
 const ContentPayment = () => {
-  const [bank,Setbank] = useState()
-  const [accountname,Setaccountname] = useState()
-  const [accountype, Setaccountype] = useState()
-  const [accountnum, Setaccountnum] = useState()
-  const [branch, Setbranch] = useState()
-  const onSubmit:FormEventHandler<HTMLFormElement> = (e) => {
+  const [bank,Setbank] = useState<string>("")
+  const [checkchange,Setcheckchange] = useState<Bankinfo>()
+  const [accountname,Setaccountname] = useState<string>("")
+  const [accountype, Setaccountype] = useState<string>("")
+  const [accountnum, Setaccountnum] = useState<string>("")
+  const [branch, Setbranch] = useState<string>("")
+  const { data: session } = useSession()
+  const router = useRouter()
+  const eventId = router.query.id as string;
+  const organizerid = session?.user?.userID as string
+  const onSubmit:FormEventHandler<HTMLFormElement> = async(e) => {
     e.preventDefault();
-    Setbank("")
-    Setaccountname("")
-    Setaccountype("")
-    Setaccountnum("")
-    Setbranch("")
+    if(checkchange?.bank === bank && 
+      checkchange?.accountName === accountname &&
+      checkchange?.accountType === accountype &&
+      checkchange?.accountNo === accountnum &&
+      checkchange.branch === branch  ){
+      toast.remove()
+      toast.error("Not Change")
+    }else{
+      toast.loading("Updating...")
+    const posturl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_post_bank_account/${organizerid}/${eventId}`
+    const bankinformation = {
+      "bank":bank,
+      "accountName":accountname,
+      "accountNo":accountnum,
+      "accountType":accountype,
+      "branch":branch,
+    }
+    const res = await fetch(posturl,{
+      method:"POST",
+      body:JSON.stringify(bankinformation),
+      headers:{
+        "Content-Type":"application/json",
+      },
+    }).then(response =>{
+      if(response.ok){
+        toast.remove()
+        toast.success("Updated")
+      }
+      else{
+        toast.remove()
+        toast.error("Failed to update")
+      }
+    })
+  }
+}
+  const getEventDetail = async () => {
+    const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventId}`;
+    const respone = await fetch(BASE_URL)
+    const eventData = await respone.json() as Bankinfo
+    const bankinfo = eventData.bankAccount
+    Setcheckchange(bankinfo)
+    console.log("bankAccount:",bankinfo)
+    Setbank(bankinfo?.bank)
+    Setaccountname(bankinfo.accountName)
+    Setaccountype(bankinfo.accountType)
+    Setaccountnum(bankinfo.accountNo)
+    Setbranch(bankinfo.branch)
   }
 
-  
+  useEffect(() => {
+   getEventDetail()
+  }, [])
 
   const onchangebank = (e) =>{
     Setbank(e.target.value)
@@ -37,6 +90,7 @@ const ContentPayment = () => {
   }
   return (
   <div className=' font-montserrat'>
+    <Toaster/>
     <h2 className='font-bold text-3xl mb-4'> Bank Accounts</h2>
     <form onSubmit={onSubmit}>
       {/* Bank */}
