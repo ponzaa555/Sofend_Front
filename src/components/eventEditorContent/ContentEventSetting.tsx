@@ -25,6 +25,10 @@ type EventDetail = {
   organizerName: string;
 }
 
+const posterMaxWidth:React.CSSProperties = {
+  maxWidth: 256,
+};
+
 const ContentEventSetting = () => {
   const [imageSrc, setImageSrc] = useState<string>("/images/blank_poster.png");
   const [uploadData, setUploadData] = useState<string | undefined>();
@@ -125,7 +129,7 @@ const ContentEventSetting = () => {
     }
     console.log(changedData)
     if(eventId && eoId) {
-      const saveUrl = `http://127.0.0.1:8080/eo_event_setting/${eoId}/${eventId}`;
+      const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_event_setting/${eoId}/${eventId}`;
       fetch(saveUrl, {
         method: 'POST',
         headers: {
@@ -154,7 +158,7 @@ const ContentEventSetting = () => {
   const handleDeleteEvent = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(eventId && eoId) {
-      const saveUrl = `http://127.0.0.1:8080/eo_delete_event/${eoId}/${eventId}`;
+      const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_event/${eoId}/${eventId}`;
       fetch(saveUrl, {
         method: 'DELETE'
       })
@@ -247,7 +251,7 @@ const ContentEventSetting = () => {
       {/* Event Details */}
 
       <h2 className='font-bold text-3xl mb-4'>Event Details</h2>
-      <form action="" method='post' onChange={handleOnChangeUploadImg} onSubmit={handleOnSubmitUploadImg} className='absolute w-1/5 mt-2'>
+      <form action="" method='post' onChange={handleOnChangeUploadImg} onSubmit={handleOnSubmitUploadImg} className='absolute w-1/5 mt-2' style={posterMaxWidth}>
         <img src={imageSrc} alt="poster-img" className='h-72 w-full bg-gray-200 rounded object-cover'/>
         <p className='mt-3'>
           <input type="file" name="img-file" id="img-file" className='w-full'/>
