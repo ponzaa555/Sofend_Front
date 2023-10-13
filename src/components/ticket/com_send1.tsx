@@ -14,46 +14,42 @@ const ComponentSend1 = (props:any) => {
     const [Email, setEmail] = useState("");
     const [newfirstname, setnewfirstname] = useState("");
     const [newlastname, setnewlastname] = useState("");
-    let check;
 
     const onSubmit = async (e:React.FormEvent) => {
+        const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app';
+        const POST_URL = `${BASE_URL}/transfer_ticket/${ticket.userID}/${ticket.ticketID}/${Email}`
         toast.loading('Sending...');
         e.preventDefault();
-        // console.log(Email)
-        // console.log(ticket.ticketID)
-        // console.log(ticket.userID)
 
-        postTicket(ticket.userID, ticket.ticketID, Email)
-        .then(response => {
-            check = response;
-            console.log(response);
-            if (check == undefined){
-                toast.remove();
-                toast.error('Fail!');
-                window.location.href = '/myticket'
-            }
-            else{
-                toast.remove();
-                toast.success('Success!');
-                setnewfirstname(response.firstName);
-                setnewlastname(response.lastName);
-                setTimeout(() => {
-                    setSend(true);
-                }, 600);
-            }
+        const response = await fetch (POST_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                srcUserID: ticket.userID,
+                ticketID: ticket.ticketID,
+                dstUserEmail: Email
+            })
         })
-        .catch(error => {
-            console.error('Error:', error);
+        const res = await response.json();
+        console.log(res)
+        if (response.ok) {
             toast.remove();
-            toast.error('Fail!');
-        });
+            toast.success('Success!');
+            setnewfirstname(res.firstName);
+            setnewlastname(res.lastName);
+            setTimeout(() => {
+                setSend(true);
+            }, 600);
+        }
+        else {
+            toast.remove();
+            toast.error(`Failed (${res.detail})`)
+        }
     };
 
     const ticket = props
-    // console.log(Email)
-    // console.log(ticket)
-    // console.log(Send)
-
     return (
         <>
         {Send ? <ComponentSend2 ticketID={ticket.ticketID}
