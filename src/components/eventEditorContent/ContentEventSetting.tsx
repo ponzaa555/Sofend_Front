@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 import type { TicketClass } from '~/components/events/eventitem';
 import { Toaster, toast } from 'react-hot-toast';
+import { set } from 'zod';
 
 type EventDetail = {
   eventID: string;
@@ -31,6 +32,7 @@ const posterMaxWidth:React.CSSProperties = {
 
 const ContentEventSetting = () => {
   const [imageSrc, setImageSrc] = useState<string>("/images/blank_poster.png");
+  const [newImageSrc, setNewImageSrc] = useState<boolean>(false);
   const [uploadData, setUploadData] = useState<string | undefined>();
   const {data:session} = useSession()
   const eoId = session?.user?.userID as string
@@ -83,7 +85,7 @@ const ContentEventSetting = () => {
         else {
           dropdown.selectedIndex = 0;
         }
-        console.log("Fetching event detail success : ", eventData)
+        // console.log("Fetching event detail success : ", eventData)
       } catch (error) {
         console.error('Error fetching events:', error);
       }
@@ -111,7 +113,7 @@ const ContentEventSetting = () => {
       location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
       posterImage: imageSrc,
     })
-    console.log(eventDetail)
+    // console.log(eventDetail)
   }
 
   const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -128,7 +130,7 @@ const ContentEventSetting = () => {
       location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
       posterImage: imageSrc,
     }
-    console.log(changedData)
+    // console.log(changedData)
     if(eventId && eoId) {
       const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_event_setting/${eoId}/${eventId}`;
       fetch(saveUrl, {
@@ -194,6 +196,7 @@ const ContentEventSetting = () => {
         return;
       }
       setImageSrc(onLoadEvent.target.result.toString());
+      setNewImageSrc(true);
       setUploadData(undefined);
     };
 
@@ -236,7 +239,7 @@ const ContentEventSetting = () => {
       setImageSrc(data.secure_url)
       setUploadData(data.original_filename + '.' + data.format)
   
-      console.log('data', data)
+      // console.log('data', data)
     }
 
     uploadImage()
@@ -259,7 +262,7 @@ const ContentEventSetting = () => {
           <input type="file" name="img-file" id="img-file" className='w-full'/>
         </p>
         {
-          imageSrc && !uploadData && (
+          imageSrc && newImageSrc && !uploadData && (
             <p>
               <button className='text-white font-bold text-base w-full h-8 bg-black rounded mt-3'>Upload file</button>
             </p>
