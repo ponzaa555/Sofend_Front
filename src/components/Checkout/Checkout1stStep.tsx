@@ -41,6 +41,13 @@ const Component1 = (props:any) => {
             <div className="">{parseInt(timestart)+7}:{eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)+7}:{eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
         )
     }
+    let eventZone = eventData.zone
+    const checklength = () => {
+        if(eventData.zone?.length > 50){
+            eventZone = eventData.zone.substring(0,50) + "..."
+        }
+        }
+    checklength()
 
     return (
         <div className=''>
@@ -94,10 +101,10 @@ const Component1 = (props:any) => {
                             <div className='text-black font-montserrat text-lg mb-3'>{checktime()}</div>
                         </div>
                         <div className='text-black font-montserrat text-lg mb-7'>{eventData.location}</div>
-                        <div className='flex justify-between bg-[#EFEFEF] p-7'>
-                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-left'>{eventData.zone}</div>
-                            <p className='text-black font-bold font-montserrat text-2xl my-4 text-left pr-36'>x{eventData.amount}</p>
-                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-right pr-5'>{eventData.price} ฿</div>
+                        <div className='flex justify-between items-center bg-[#EFEFEF] p-7'>
+                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-left w-4/6 pr-36 '>{eventZone}</div>
+                            <p className='text-black font-bold font-montserrat text-2xl my-4 text-left pr-36 w-1/6'>x{eventData.amount}</p>
+                            <div className='text-black font-bold font-montserrat text-3xl my-4 text-right pr-5 w-1/3'>{eventData.price} ฿</div>
                         </div>
                     </div>
                 </div>

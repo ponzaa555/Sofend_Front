@@ -128,7 +128,7 @@ const Ticket = (props:any) => {
                         <div className="flex flex-row-2 justify-items-start justify-between">
                             <div className="font-montserrat font-bold text-xl text-[#D40000]">{parsedate}</div>
                         </div>
-                        <div className="font-montserrat font-bold text-xl text-black h-20 mt-2 w-96">{eventName_ch}</div>
+                        <div className="font-montserrat font-bold text-xl text-black h-20 mt-2 w-80">{eventName_ch}</div>
                         <div className="flex flex-row-2 justify-items-start">
                             <div className="">
                                 <div className="font-montserrat font-medium text-base text-black my-2 h-16 w-48">{eventTicket.location}</div>

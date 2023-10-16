@@ -32,7 +32,7 @@ const TicketSend = (props:any) => {
                         <div className="flex flex-row-2 justify-items-start justify-between">
                             <div className="font-montserrat font-bold text-xl text-[#D40000]">{eventTicket.date}</div>
                         </div>
-                        <div className="font-montserrat font-bold text-xl text-black w-96 h-20">{eventTicket.eventName}</div>
+                        <div className="font-montserrat font-bold text-xl text-black w-80 h-20">{eventTicket.eventName}</div>
                         <div className="flex flex-row-2 justify-items-start my-2">
                             <div className="">
                                 <div className="font-montserrat font-medium text-base text-black my-2">{eventTicket.location}</div>
