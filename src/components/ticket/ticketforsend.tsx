@@ -23,7 +23,7 @@ const TicketSend = (props:any) => {
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[20rem] h-[450px] px-3">
                     <div className="flex flex-col justify-items-center my-4">
-                        {/* <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. {eventTicket.ticketID}</div> */}
+                        <div className="text-white font-montserrat font-bold ml-6 -mb-4 mt-4">no.</div>
                         <img className="rounded-md p-6" src={eventTicket.poster}></img>
                     </div>
                 </div>

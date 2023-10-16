@@ -8,7 +8,7 @@ const ComponentSend2 = (props:any) => {
 
     return(
         <>  
-            <div className="flex flex-row justify-center gap-16">
+            <div className="flex flex-row justify-center gap-4">
             <div className="">
                     <TicketSend ticketID={ticket.ticketID} 
                     firstname= {ticket.firstname}
