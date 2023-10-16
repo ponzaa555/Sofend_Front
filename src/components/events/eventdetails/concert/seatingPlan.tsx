@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Seat from './seat';
 import { set } from 'zod';
+import Link from 'next/link'
 
 interface SeatingPlanProps {
   nameOfZone: string;
@@ -11,25 +12,36 @@ interface SeatingPlanProps {
 }
 
 const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
-  const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
 
 
-  const handleSeatSelect = (seatNumber: number) => {
-    if (selectedSeats.includes(seatNumber)) {
-      setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
-      setCount(count-1);
-    } else {
-      setSelectedSeats([...selectedSeats, seatNumber]);
-      setCount(count+1);
+  const handleSeatSelect = (seatId: any) => {
+
+    const updatedSelectedSeats = [...selectedSeats];
+    const index = updatedSelectedSeats.indexOf(seatId);
+    if (index > -1) {
+      updatedSelectedSeats.splice(index, 1);
     }
-  };
+    else {
+      updatedSelectedSeats.push(seatId);
+    }
+
+    setSelectedSeats(updatedSelectedSeats);
+    setCount(updatedSelectedSeats.length);
+
+  }
+    
+
+
   // console.log(
   //   'total',total,
   //   'count',count,
   // )
-  console.log('objectOfSeat',objectOfSeat)
+  //console.log('objectOfSeat',objectOfSeat)
+
+
 
   useEffect(() => {
     setTotal(count*pricePerSeat)
@@ -49,16 +61,18 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeat
       const rowSeats = [];
 
       for (let seatNumber = 1; seatNumber <= numSeatsPerRow; seatNumber++) {
-        const seatId = row * 100 + seatNumber; // Generate a unique ID for each seat
+        const seatId = `${row}-${seatNumber}`; // Generate a unique ID for each seat
         const isSelected = selectedSeats.includes(seatId);
+      
 
         rowSeats.push(
           <Seat
             key={seatId}
-            seatId={seatId.toString()}
-            seatNumber={seatId}
+            seatId={seatId}
+            seatNumber={seatId.split('-')[1] as unknown as number}
             isSelected={isSelected}
-            onSelect={handleSeatSelect}
+            onSelect={() => handleSeatSelect(seatId)}
+            isReserved={objectOfSeat.seatNo[seatId]}
           />
         );
       }
@@ -69,6 +83,8 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeat
         </div>
       );
     }
+
+    console.log('selected seats',selectedSeats)
 
     return seats;
   };
@@ -91,9 +107,14 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ nameOfZone , numRows, numSeat
           </div>
         </div>
       </div>
-      <button disabled={count===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">
-        Check out
-      </button>
+      <Link href={{
+          pathname: '/checkout',
+          query: selectedSeats as string[] // the data
+        }}>
+        <button disabled={count===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">
+          Check out
+        </button>
+      </Link>
     </div>
   )
 };

@@ -44,7 +44,10 @@ type EventDetail = {
 const EventDetail = ({}) => {
     const ref = useRef<null | HTMLDivElement>(null);
 
-
+    const [selectedZone, setSelectedZone] = useState<number>(0)
+    const handleSelectZone = (zoneIndex: number) => {
+       setSelectedZone(zoneIndex)
+    }
     const handleClick = () => {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
     };
@@ -179,7 +182,7 @@ const EventDetail = ({}) => {
                                 nameOfZone={ticketclass.className}
                                 pricePerSeat={ticketclass.pricePerSeat}
                                 amountOfSeat={ticketclass.AmountOfSeat}
-                                onSelect = {() => {}} 
+                                onSelect = {() => {handleSelectZone(index)}} 
                             ></GenTicketClass>
                         </Link>
                     ))}
