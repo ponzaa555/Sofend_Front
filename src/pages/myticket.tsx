@@ -7,6 +7,7 @@ import { getTicket } from "../service/api";
 import { useState } from "react";
 import { useEffect } from "react";
 import { set } from "zod";
+import ticketforphone from "../components/ticket/ticketforphone";
 
 
 const MyTicket = () => {
@@ -124,7 +125,9 @@ const MyTicket = () => {
                                 <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location}/>   
                             ))}
                     </div>
-                </div>:
+                    <ticketforphone/>
+                </div>
+                :
             <>
               <div className="h-32 mt-3"/>
               <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
