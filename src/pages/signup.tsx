@@ -38,7 +38,8 @@ const Signup = () => {
                 else{
                     toast.remove()
                     toast.success('Sign up success')
-                    router.push('/auth/signin')
+                    // router.push('/auth/signin')
+                    router.back();
                 }
             }
             catch(err){

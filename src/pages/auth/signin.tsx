@@ -14,7 +14,7 @@ export const login: NextPage = (props): JSX.Element => {
         e.preventDefault();
 
 
-        const res = await signIn('credentials', {
+        const res = await signIn('user', {
             "email": info.email,
             "password": info.password,
             redirect: false,
@@ -27,7 +27,7 @@ export const login: NextPage = (props): JSX.Element => {
         }
         else{
             toast.success('Sign in success')
-            router.push('/main')
+            router.back();
 
         }
 
