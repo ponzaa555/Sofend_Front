@@ -15,10 +15,16 @@ interface createNewTicketTypes {
     expiredDatetime : string;
 }
 
+const posterMaxWidth:React.CSSProperties = {
+    maxWidth: 256,
+};
+
 const ContentCreateNewTicketTypes = () => {
     const [handleCancelButton, sethandleCancelButton] = useState(false)
     const [handleTicketType, sethandleTicketType] = useState(0)
     const [getfinish, setgetfinish] = useState(false);
+    const [uploadData, setUploadData] = useState<string | undefined>();
+    const [newImageSrc, setNewImageSrc] = useState<boolean>(false);
 
     const router = useRouter()
     const { id } = router.query;
@@ -53,7 +59,59 @@ const ContentCreateNewTicketTypes = () => {
         };
     }, [id]);
 
+    const handleOnChangeUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
+        const reader = new FileReader();
     
+        reader.onload = function (onLoadEvent) {
+          if (onLoadEvent.target === null || onLoadEvent.target.result === null) {
+            return;
+          }
+          setNewImageSrc(true);
+          setUploadData(undefined);
+        };
+    
+        if (e.target.files === null || e.target.files.length === 0) {
+          return;
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    const handleOnSubmitUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const fileInput = Array.from(form.elements).find(({ name }) => name === 'img-file');
+        
+        const formData = new FormData();
+    
+        for (const file of fileInput.files) {
+          formData.append('file', file);
+        }
+    
+        formData.append('upload_preset', 'eventbud')
+    
+        const uploadImage = async () => {
+          let data;
+          await fetch('https://api.cloudinary.com/v1_1/deyk9edom/image/upload', {
+            method: 'POST',
+            body: formData
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              data = result
+            })
+            .catch((error) => {
+              console.error('Error fetching events:', error);
+            });
+      
+          setUploadData(data.original_filename + '.' + data.format)
+          console.log('data', data)
+        }
+    
+        uploadImage()
+        .catch((error) => {
+          console.error('Error fetching events:', error);
+        });
+    }
 
     const handleCreateNewTicketType = async (e:React.FormEvent) => {
         toast.loading(`Creating New Ticket Type...`)
@@ -173,6 +231,40 @@ const ContentCreateNewTicketTypes = () => {
                                 </div>
                             </div> 
 
+                            {/* Seat Plan */}
+                            { handleTicketType == 0 ? null :
+                            <>
+                                <h2 className='font-bold text-3xl mb-4 mt-8'>Seat Plan</h2>
+                                <div className='flex flex-row gap-10'>
+                                    <div className='w-2/3 flex flex-row gap-9'>
+                                        <form action="" method='post' onChange={handleOnChangeUploadImg} onSubmit={handleOnSubmitUploadImg} className='mt-2' style={posterMaxWidth}>
+                                            <p className='mt-3'>
+                                                <input type="file" name="img-file" id="img-file" className='w-full'/>
+                                            </p>
+                                            {
+                                                newImageSrc && !uploadData && (
+                                                    <p>
+                                                    <button className='text-white font-bold text-base w-full h-8 bg-black rounded mt-3'>Upload file</button>
+                                                    </p>
+                                                )
+                                            }
+                                            {
+                                                uploadData && (
+                                                    <p className='mt-3'>{JSON.stringify(uploadData, null, 2)} is successfully uploaded</p>
+                                                )
+                                            }
+                                        </form>
+                                    </div>
+                                    <div className='flex flex-col w-1/3 justify-start'>
+                                        <div>
+                                            <h3 className='font-bold text-lg mb-2'>Seat Plan</h3>
+                                            <p className='mb-4'>Providing image of location of seat in each zone (Type of ticket)</p>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </>
+                            }
+
                             {/* Valid Date-Time */}
                             <h2 className='font-bold text-3xl mb-4 mt-8'>Valid Date-Time</h2>
                             <div className='flex flex-row gap-10'>
@@ -195,7 +287,6 @@ const ContentCreateNewTicketTypes = () => {
                                 </div>
                             </div>
                             </div>
-
 
                             {/* Expired Date-Time */}
                             <h2 className='font-bold text-3xl mb-4 mt-8'>Expired Date-Time</h2>
