@@ -106,9 +106,6 @@ const selectzonenseat = () => {
         )
     }
 
-
-
-
   useEffect(() => {
     if (id) {
       axios.get<EventDetail>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
@@ -195,6 +192,12 @@ const selectzonenseat = () => {
               {/* Seating */}
 
               <SeatingPlan
+                eventID={eventDetail.eventID}
+                eventName={eventDetail.eventName}
+                startDateTime={eventDetail.startDateTime}
+                endDateTime={eventDetail.endDateTime}
+                posterImage={eventDetail.posterImage}
+                location= {eventDetail.location}
                 objectOfSeat={eventDetail.ticketClass[selectedZone] ?? {}}
                 nameOfZone={eventDetail.ticketClass[selectedZone]?.className ?? ""}
                 pricePerSeat={eventDetail.ticketClass[selectedZone]?.pricePerSeat ?? 0}

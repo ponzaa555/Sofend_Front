@@ -130,6 +130,7 @@ const EventDetail = ({}) => {
 
     // console.log("seatImage",eventDetail.seatImage[0]?.imageURL)
 
+
     return(
         <>
             <Navbar/>
