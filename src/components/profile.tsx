@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import PersonCircle from './icon/PersonCircle';
+import PersonCircleBlack from './icon/PersonCircleBlack';
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
@@ -17,12 +17,12 @@ const profile = () => {
                             <p>My Ticket</p>
                     </Link>
                     <ul className="items-center justify-center space-y-8 md:flex md:space-x-2 md:space-y-0">
-                    <Link href="/profilepage">
-                        <PersonCircle/>
-                    </Link>
-                    <button className='font-medium'
-                        onClick={() => signOut()}
-                    >Sign out</button>
+                        <Link href="/profilepage">
+                            <PersonCircleBlack/>
+                        </Link>
+                        <button className='font-medium'
+                            onClick={() => signOut({callbackUrl: '/main'})}
+                        >Sign out</button>
                     </ul>
                 </ul> 
             </div>

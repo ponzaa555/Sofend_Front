@@ -54,7 +54,7 @@ const Component2 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >1
                         </span>
                     </li>
@@ -63,7 +63,7 @@ const Component2 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >2
                         </span>
                     </li>
@@ -72,7 +72,7 @@ const Component2 = (props:any) => {
                         className="flex items-center gap-2 p-2"
                     >
                         <span
-                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-6xl text-center font-montserrat font-bold w-28 h-28`}
+                            className={`flex justify-center items-center rounded-full border-2 border-[#54D260] bg-[#F9F9F9] text-[#54D260] text-3xl text-center font-montserrat font-bold w-16 h-16`}
                         >3
                         </span>
                     </li>
@@ -85,11 +85,11 @@ const Component2 = (props:any) => {
                 </div>
                 <div className='flex flex-row-2 justify-between mt-6 '>
                     <div className='w-8/12 rounded-md'>
-                        <div className="border-8 border-[#D9D9D9] rounded-lg mx-10">
+                        <div className="border-8 border-[#D9D9D9] rounded-lg mx-12">
                             <div className="border-8 border-black rounded-sm"></div>
                         </div>
                         <div className='relative bottom-3.5'>
-                            <div className='bg-white mx-20 px-20 drop-shadow-md'>
+                            <div className='bg-white mx-24 px-20 drop-shadow-md'>
                                 <div className='text-xl font-kanit font-bold pt-12'>{eventData.eventName}</div>
                                 <div className='text-lg font-montserrat pb-1 text-[#9F9F9F]'>{eventData.location}</div>
                                 <div className="border-t-4 border-[#BDBDBD] rounded-md my-6"></div>
@@ -107,23 +107,22 @@ const Component2 = (props:any) => {
                                     <div className='text-black font-montserrat text-xl'>seat (เลขที่นั่ง)</div>
                                 </div> */}
                                 <div className='flex justify-between pb-14 pt-14'>
-                                    <div className='flex justify-between w-full'>
-                                        <div className="">
+                                    <div className='w-2/3 pr-10'>
+                                        <div className="flex justify-between">
                                             <div className='text-black font-montserrat text-2xl font-bold pb-6'>Total</div>
-                                            <div className='text-black font-montserrat text-2xl font-bold pb-8'>{eventData.price}</div>
-                                            <div className='text-[#838383] font-montserrat text-lg font-bold'>scan QR code to pay</div>
-                                        </div>
-                                        <div className="">
                                             <div className='text-black font-montserrat text-lg pb-6'>({eventData.amount} items)</div>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <div className='text-black font-montserrat text-2xl font-bold pb-8'>{eventData.price}</div>
                                             <div className='text-black font-montserrat text-2xl font-bold'>฿</div>
                                         </div>
-                                        <div className="w-48 h-48">
+                                        <div className='text-[#838383] font-montserrat text-lg font-bold'>scan QR code to pay</div>
+                                    </div>
+                                    <div className="h-48 w-1/3">
                                             <ComponentGenerateQR
                                                 price={eventData.price}
                                             />
-                                        </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>                     
