@@ -36,7 +36,7 @@ const TicketSend = (props:any) => {
                         <div className="flex flex-row-2 justify-items-start my-2">
                             <div className="">
                                 <div className="font-montserrat font-medium text-base text-black my-2">{eventTicket.location}</div>
-                                <div className="flex flex-row-2 justify-items-start gap-20">
+                                <div className="flex flex-row-2 justify-items-start gap-14">
                                     <div className="">
                                         <div className="font-montserrat font-bold text-base text-black">ZONE</div>
                                         <div className="font-montserrat font-bold text-xl text-black">{eventTicket.zone}</div>
