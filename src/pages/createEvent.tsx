@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import type { TicketClass } from '~/components/events/eventitem';
 import { Toaster, toast } from 'react-hot-toast';
 import { c } from 'msw/lib/glossary-de6278a9';
+import { set } from 'zod';
 
 type EventDetail = {
     eventID: string;
@@ -79,7 +80,11 @@ const CreateEvent = () => {
         // console.log(eventDetail)
     }
 
+    const [disabledSave, setDisabledSave] = useState<boolean>(false)
     const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+        toast.remove()
+        toast.loading("Saving...")
+        setDisabledSave(true)
         e.preventDefault();
         const changedData = {
             eventName: (e.currentTarget.elements[0] as HTMLTextAreaElement).value,
@@ -117,23 +122,39 @@ const CreateEvent = () => {
                 })
                     .then((response) => {
                         if (response.ok) {
+                            toast.remove()
                             toast.success("Save success")
                             router.push(`/eventeditor/${eventId}`)
                         }
                         else {
+                            // delete eventID
+                            const deleteUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_event/${eoId}/${eventId}`;
+                            fetch(deleteUrl, {
+                                method: 'DELETE'
+                            })
+                                .then((response) => {
+                                    if (response.ok) {
+                                        console.log("delete success")
+                                    }
+                                    else {
+                                        console.log("delete failed")
+                                    }
+                                })
                             let errorText = ""
                             response.json()
                                 .then((data) => {
                                     errorText = data.detail
                                 })
                                 .then(() => {
+                                    toast.remove()
                                     toast.error(`Save failed (${errorText})`)
+                                    setDisabledSave(false)
                                 })
                         }
                     })
             }
         }
-
+        setDisabledSave(false)
     }
 
     // handleOnChangeUploadImg : Triggers when the file input changes (when a file is selected)
@@ -353,7 +374,7 @@ const CreateEvent = () => {
                             </div>
                         </div>
                         <div className='flex justify-end w-2/3 mt-16'>
-                            <button type='submit' className='text-white font-bold text-lg w-52 h-10 bg-black rounded mr-7'>Save</button>
+                            <button type='submit' className='text-white font-bold text-lg w-52 h-10 bg-black rounded mr-7' disabled={disabledSave}>Save</button>
                         </div>
                     </form>
                 </div>
