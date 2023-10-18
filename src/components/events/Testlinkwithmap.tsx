@@ -45,9 +45,9 @@ const Testlinkwithmap = () =>{
                     <div className=" overflow-y-scroll max-h-60">
                     {results.map(product =>{
                     return(
-                        <a href= {"/eventdetail/"+product.eventID}>
+                        <a href= {`/eventdetail/${product.ticketType}/${product.eventID}`} >
                             <div className=" pl-2 py-3 hover:bg-slate-200 relative "  >
-                                <a href={"/eventdetail/"+product.eventID} className=" pl-5 " >{product.eventName}</a>
+                                <a href={`/eventdetail/${product.ticketType}/${product.eventID}`}className=" pl-5 " >{product.eventName}</a>
                                 <svg
                                     className="w-6 h-6 text-gray-500 dark:text-gray-400 absolute left-0 inset-3  "
                                     fill="none"
