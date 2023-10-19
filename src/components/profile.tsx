@@ -4,6 +4,7 @@ import PersonCircleBlack from './icon/PersonCircleBlack';
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
+import { sign } from 'crypto';
 
 
 const profile = () => {

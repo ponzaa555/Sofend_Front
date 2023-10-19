@@ -184,10 +184,12 @@ const EventDetails = ({ }) => {
         startDateTime: eventDetail.startDateTime,
         endDateTime: eventDetail.endDateTime,
         posterImage: eventDetail.posterImage,
-        location: eventDetail.location,
         zone: Zone,
+        nameOfZone: "",
+        seat : [""],
         amount: Total,
         price: Price,
+        location: eventDetail.location,
     }
 
     {/* check ticket left */ }

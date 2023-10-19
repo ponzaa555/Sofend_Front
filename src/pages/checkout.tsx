@@ -66,6 +66,8 @@ type EventData = {
     endDateTime: string,
     posterImage: string,
     zone: string,
+    nameOfZone: string,
+    seat: string[],
     amount: number,
     price: number,
     location: string,
@@ -93,30 +95,28 @@ const Checkout: React.FC = ({}) => {
 
         const eventID = eventData?.eventID
         const userID = session?.user?.userID as string
-        const className = eventData?.zone
+        let className = ""
         const amount = eventData?.amount
-        const seatNo = [""]
-        
-        for (let i = 1; i < amount!; i++) {
-            seatNo.push("");
+        let seat = eventData?.seat
+
+        if (eventData?.zone != "") {
+            className = eventData?.zone!
+            for (let i = 1; i < amount!; i++) {
+                seat?.push("");
+            }
+        }   
+        else {
+            className = eventData?.nameOfZone!
+            seat = eventData?.seat
         }
 
-        console.log(seatNo)
-        // 0 = zone, 1 = seat
-        // if (handleTicketType == 0) {
-        //     QuantityAvailable = document.getElementById('tt-qa').value
-        // }
-        // else {
-        //     NumberOfRows = document.getElementById('tt-num-row').value
-        //     NumberOfCols = document.getElementById('tt-num-col').value
-        //     QuantityAvailable = NumberOfRows * NumberOfCols
-        // }
+        console.log(seat)
         
         const jsonPostNewTicket:postNewTicket = {
-            eventID : eventID,
+            eventID : eventID!,
             userID : userID,
             className : className,
-            seatNo : seatNo,
+            seatNo : seat!,
         }
         console.log('jsonPostNewTicket: ', jsonPostNewTicket)
 
@@ -177,6 +177,8 @@ const Checkout: React.FC = ({}) => {
                         endDateTime={eventData!.endDateTime}
                         posterImage={eventData!.posterImage}
                         zone={eventData!.zone}
+                        nameOfZone={eventData!.nameOfZone}  
+                        seat={eventData!.seat}  
                         amount={eventData!.amount}
                         price={eventData!.price}
                         location={eventData!.location}
@@ -193,6 +195,8 @@ const Checkout: React.FC = ({}) => {
                         endDateTime={eventData!.endDateTime}
                         posterImage={eventData!.posterImage}
                         zone={eventData!.zone}
+                        nameOfZone={eventData!.nameOfZone}
+                        seat={eventData!.seat}
                         amount={eventData!.amount}
                         price={eventData!.price}
                         location={eventData!.location}
