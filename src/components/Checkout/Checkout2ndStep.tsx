@@ -43,6 +43,13 @@ const Component2 = (props:any) => {
         )
     }
 
+    let eventZone = eventData.zone
+    if (eventZone == "") {
+        eventZone = eventData.nameOfZone
+    }
+
+    const seats = eventData.seat.join(', ')
+
     return (
         <div className=''>
             {/* timeline steps*/}
@@ -98,14 +105,12 @@ const Component2 = (props:any) => {
                                     <div className='text-black font-montserrat text-lg'>{checktime()}</div>
                                 </div>
                                 <div className='flex justify-between mb-2'>
-                                    <div className='text-black font-montserrat text-xl'>{eventData.zone}</div>
+                                    <div className='text-black font-montserrat text-xl'>
+                                        <p>{eventZone}</p>
+                                        {/* <p>{seats}</p> */}
+                                    </div>
                                     <div className='text-black font-montserrat text-xl'>{eventData.price} ฿</div>
                                 </div>
-                                {/* กรณีเลือกที่นั่ง */}
-                                {/* <div className='flex justify-start pb-14'>
-                                    <div className='text-black font-montserrat text-xl pr-12'>area C1</div>
-                                    <div className='text-black font-montserrat text-xl'>seat (เลขที่นั่ง)</div>
-                                </div> */}
                                 <div className='flex justify-between pb-14 pt-14'>
                                     <div className='w-2/3 pr-10'>
                                         <div className="flex justify-between">

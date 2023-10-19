@@ -12,8 +12,6 @@ interface SeatingPlanProps {
   eventName: string;
   startDateTime: string;
   endDateTime: string;
-  onSaleDateTime: string;
-  endSaleDateTime: string;
   nameOfZone: string;
   numRows: number;
   numSeatsPerRow: number;
@@ -21,7 +19,7 @@ interface SeatingPlanProps {
   objectOfSeat: object;
 }
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTime, endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -44,8 +42,6 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTi
 
   }
     
-
-
   // console.log(
   //   'total',total,
   //   'count',count,
@@ -108,10 +104,12 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTi
     startDateTime: startDateTime,
     endDateTime: endDateTime,
     posterImage: posterImage,
-    location: location,
-    zone : selectedSeats,
+    zone: "",
+    nameOfZone: nameOfZone,
+    seat : selectedSeats,
     amount: count,
     price: total,
+    location: location,
   }
   console.log("dataEventDetailToCheckout",dataEventDetailToCheckout)
 
