@@ -24,7 +24,7 @@ const profilepage = ({}) => {
     // console.log("data1: ",data1)
    
     return(
-        <div className= 'bg-slate-100 h-full relative'>
+        <div className= 'bg-slate-100 h-screen relative'>
             <div className='h-16'>
                 <Navbar/>
             </div>

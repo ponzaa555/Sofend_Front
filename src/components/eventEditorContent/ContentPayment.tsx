@@ -47,6 +47,7 @@ const ContentPayment = () => {
       "accountType":banktype,
       "branch":branch,
     }
+    Setcheckchange(bankinformation)
     const res = await fetch(posturl,{
       method:"POST",
       body:JSON.stringify(bankinformation),
