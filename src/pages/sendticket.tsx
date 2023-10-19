@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 
 type sendData = {
     ticketID : string,
+    userID : string,
     firstname: string,
     lastname: string,
     eventName: string,
@@ -31,6 +32,7 @@ const SendTicket = () => {
 
     const [ticket, setTicket] = useState<sendData>({
         ticketID: "",
+        userID: "",
         firstname: "",
         lastname: "",
         eventName: "",
@@ -60,9 +62,21 @@ const SendTicket = () => {
                 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
             </Head>
             <Navbar/>
-            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
-                <div className="font-montserrat font-bold text-4xl mb-10">Send ticket to your friend</div>
-                <div className="flex flex-row gap-16">
+            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col my-8'>
+                <div className="font-montserrat font-bold text-4xl md:px-8 mb-10">Send ticket to your friend</div>
+                <ComponentSend1 ticketID={ticket.ticketID} 
+                    userID = {ticket.userID}
+                    firstname= {ticket.firstname}
+                    lastname= {ticket.lastname}
+                    eventName= {ticket.eventName}
+                    location= {ticket.location}
+                    poster = {ticket.poster}
+                    zone= {ticket.zone}
+                    row= {ticket.row}
+                    gate= {ticket.gate}
+                    seat= {ticket.seat}
+                    date={ticket.date}/>    
+                {/* <div className="flex flex-row gap-16">
                     <div className="basis-3/5">
                         <TicketSend ticketID={ticket.ticketID} 
                         firstname= {ticket.firstname}
@@ -79,7 +93,7 @@ const SendTicket = () => {
                     <div className="basis-2/4">
                         <ComponentSend1 />
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className='justify-center bg-white p-4'>
                 <h1 className='text-center text-black font-montserrat font-bold text-2xl'>EventBud</h1>

@@ -16,6 +16,7 @@ const MyTicket = () => {
     // console.log(session?.user?.name)
     // console.log(session?.user?.userID)
 
+    const userID = session?.user?.userID as string;
     const Firstname = session?.user?.name?.split(/[' ']/)[0] as string;
     const Lastname = session?.user?.name?.split(/[' ']/)[1] as string;
 
@@ -121,7 +122,7 @@ const MyTicket = () => {
                 <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                         <div className ="flex flex-wrap gap-4">
                             {filteredE.map((ticket,index) => (
-                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location}/>   
+                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userID} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location}/>   
                             ))}
                     </div>
                 </div>:

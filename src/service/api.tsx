@@ -44,3 +44,15 @@ export async function getTicket(userid: string) {
     throw error; 
   }
 }
+
+export async function postTicket(srcUserID :string,ticketID : string, dstUserEmail : string) {
+  try {
+    const response = await axios.post(`${BASE_URL}/transfer_ticket/${srcUserID}/${ticketID}/${dstUserEmail}`);
+    // if(!response.data.success) {
+    //   console.log(response.data.detail);
+    // }
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}

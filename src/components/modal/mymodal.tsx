@@ -13,7 +13,7 @@ export default function Mymodal({visible,onClose,organizerName,organizerEmail}) 
                 </div>
                 <div className='grid grid-rows-2 place-items-center'>
                     <div className="w-20 h-20 overflow-hidden rounded-full border border-gray-300 mb-2 mt-2 ml-5">
-                        <img src='../images/events/profileblack.png'/>
+                        <img src='../../images/events/profileblack.png'/>
                     </div>
                     <div className="font-montserrat font-bold">{organizerName}</div>
                 </div>

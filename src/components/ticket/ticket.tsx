@@ -85,14 +85,15 @@ const Ticket = (props:any) => {
     let eventName_ch = eventTicket.eventName
     const checklength = () => {
     console.log(eventTicket.eventName?.length,eventTicket.eventName)
-    if(eventTicket.eventName?.length > 75){
-        eventName_ch = eventTicket.eventName.substring(0,75) + "..."
+    if(eventTicket.eventName?.length > 60){
+        eventName_ch = eventTicket.eventName.substring(0,60) + "..."
     }
     }
     checklength()
 
     const data = {
         ticketID : eventTicket.ticketID,
+        userID: eventTicket.userID,
         firstname: eventTicket.firstname,
         lastname: eventTicket.lastname,
         eventName: eventName_ch,
@@ -127,7 +128,7 @@ const Ticket = (props:any) => {
                         <div className="flex flex-row-2 justify-items-start justify-between">
                             <div className="font-montserrat font-bold text-xl text-[#D40000]">{parsedate}</div>
                         </div>
-                        <div className="font-montserrat font-bold text-xl text-black h-20 mt-2 w-96">{eventName_ch}</div>
+                        <div className="font-montserrat font-bold text-xl text-black h-20 mt-2 w-80">{eventName_ch}</div>
                         <div className="flex flex-row-2 justify-items-start">
                             <div className="">
                                 <div className="font-montserrat font-medium text-base text-black my-2 h-16 w-48">{eventTicket.location}</div>
@@ -151,7 +152,7 @@ const Ticket = (props:any) => {
                                 {qr()}
                             </div>
                         </div>
-                        <div className="flex flex-row-2 justify-items-start gap-20 mt-3">
+                        <div className="flex flex-row-2 justify-items-start gap-10 mt-3">
                             <div className="">
                                 <div className="font-montserrat font-bold text-base text-black">First Name</div>
                                 <div className="font-montserrat font-bold text-xl text-black">{eventTicket.firstname}</div>

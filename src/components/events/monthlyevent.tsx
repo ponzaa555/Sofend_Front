@@ -42,7 +42,7 @@ const monthlyevent = () => {
       return (
         <div className="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-1 place-content-center ">
           {filteredEvent1.map((eventcard, index) => (
-            <a key = {index} href= {"/eventdetail/"+eventcard.eventID} className="w-52">
+            <a key = {index} href= {`/eventdetail/${eventcard.ticketType}/${eventcard.eventID}`} className="w-52">
             <Card image={eventcard.posterImage} datestart={eventcard.startDateTime} dateend={eventcard.endDateTime} name={eventcard.eventName} place={eventcard.location} />
             </a>
           ))}

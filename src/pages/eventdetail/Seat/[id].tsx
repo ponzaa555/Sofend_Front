@@ -1,4 +1,4 @@
-import EventDetails from '../eventdetail';
+import EventDetails from '../../eventdetailC';
 
 const EventDetail = () => {
 
