@@ -106,7 +106,7 @@ const Ticket = (props:any) => {
         location: eventTicket.location,
         poster : eventTicket.eventImage,
         date: parsedate,
-        zone: eventTicket.zone,
+        zone: event_zone,
         row: row,
         gate: gate,
         seat: seat,

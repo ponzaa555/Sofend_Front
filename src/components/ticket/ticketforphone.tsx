@@ -86,8 +86,8 @@ const ticketforphone = (props:any) => {
     let eventName_ch = eventTicket.eventName
     const checklength = () => {
     console.log(eventTicket.eventName?.length,eventTicket.eventName)
-    if(eventTicket.eventName?.length > 60){
-        eventName_ch = eventTicket.eventName.substring(0,60) + "..."
+    if(eventTicket.eventName?.length > 40){
+        eventName_ch = eventTicket.eventName.substring(0,40) + "..."
     }
     }
     checklength()
