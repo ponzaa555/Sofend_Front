@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import { getEventDetail } from '~/service/api';
 
 interface createNewTicketTypes {
+<<<<<<< Updated upstream
     className: string;
     amountOfSeat: number;
     rowNo: number;
@@ -14,6 +15,16 @@ interface createNewTicketTypes {
     validDatetime: string;
     expiredDatetime: string;
     zoneSeatImage: string;
+=======
+    className : string;
+    amountOfSeat : number;
+    rowNo : number;
+    columnNo : number;
+    pricePerSeat : number;
+    validDatetime : string;
+    expiredDatetime : string;
+    // zoneSeatImage: string;
+>>>>>>> Stashed changes
 }
 
 const ContentCreateNewTicketTypes = () => {
@@ -57,6 +68,7 @@ const ContentCreateNewTicketTypes = () => {
         };
     }, [id]);
 
+<<<<<<< Updated upstream
     const handleOnSubmitUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
         // e.preventDefault();
         // const form = e.currentTarget;
@@ -93,6 +105,44 @@ const ContentCreateNewTicketTypes = () => {
         //   console.error('Error fetching events:', error);
         // });
     }
+=======
+    // const handleOnSubmitUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
+    //     e.preventDefault();
+    //     const form = e.currentTarget;
+    //     const fileInput = Array.from(form.elements).find(({ name }) => name === 'img-file');
+        
+    //     const formData = new FormData();
+    
+    //     for (const file of fileInput.files) {
+    //       formData.append('file', file);
+    //     }
+    
+    //     formData.append('upload_preset', 'eventbud')
+    
+    //     const uploadImage = async () => {
+    //       let data;
+    //       await fetch('https://api.cloudinary.com/v1_1/deyk9edom/image/upload', {
+    //         method: 'POST',
+    //         body: formData
+    //       })
+    //         .then((response) => response.json())
+    //         .then((result) => {
+    //           data = result
+    //         })
+    //         .catch((error) => {
+    //           console.error('Error fetching events:', error);
+    //         });
+      
+    //       setUploadData(data.original_filename + '.' + data.format)
+    //       console.log('data', data)
+    //     }
+    
+    //     uploadImage()
+    //     .catch((error) => {
+    //       console.error('Error fetching events:', error);
+    //     });
+    // }
+>>>>>>> Stashed changes
 
     const handleCreateNewTicketType = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -109,6 +159,7 @@ const ContentCreateNewTicketTypes = () => {
         let QuantityAvailable = 0
         let NumberOfRows = 0
         let NumberOfCols = 0
+<<<<<<< Updated upstream
         let jsonCreateNewTicketTypes: createNewTicketTypes = {
             className: "",
             amountOfSeat: 0,
@@ -118,6 +169,17 @@ const ContentCreateNewTicketTypes = () => {
             validDatetime: "",
             expiredDatetime: "",
             zoneSeatImage: "",
+=======
+        let jsonCreateNewTicketTypes:createNewTicketTypes = {
+            className : "",
+            amountOfSeat : 0,
+            rowNo : 0,
+            columnNo : 0,
+            pricePerSeat : 0,
+            validDatetime : "",
+            expiredDatetime : "",
+            // zoneSeatImage: "",
+>>>>>>> Stashed changes
         }
 
         // 0 = zone, 1 = seat
@@ -154,6 +216,7 @@ const ContentCreateNewTicketTypes = () => {
                     console.error('Error fetching events:', error);
                 });
             jsonCreateNewTicketTypes = {
+<<<<<<< Updated upstream
                 className: Name,
                 amountOfSeat: QuantityAvailable,
                 rowNo: NumberOfRows,
@@ -162,6 +225,16 @@ const ContentCreateNewTicketTypes = () => {
                 validDatetime: validDatetime,
                 expiredDatetime: expiredDatetime,
                 zoneSeatImage: data.secure_url,
+=======
+                className : Name,
+                amountOfSeat : QuantityAvailable,
+                rowNo : NumberOfRows,
+                columnNo : NumberOfCols,
+                pricePerSeat : TicketPrice,
+                validDatetime : validDatetime,
+                expiredDatetime : expiredDatetime,
+                // zoneSeatImage: data.secure_url,
+>>>>>>> Stashed changes
             }
             console.log('after set jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
             const response = await fetch(createURL, {
@@ -181,6 +254,8 @@ const ContentCreateNewTicketTypes = () => {
                 toast.error(`Failed (${res.detail})`)
             }
             console.log('jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
+
+            return jsonCreateNewTicketTypes
         }
 
         uploadImage()
