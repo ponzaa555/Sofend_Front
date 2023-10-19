@@ -123,7 +123,7 @@ const MyTicket = () => {
                 <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
                         <div className ="flex flex-wrap gap-4">
                             {filteredE.map((ticket,index) => (
-                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userID} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location} zone={ticket.className}/>   
+                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userID} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location} zone={ticket.className} no={ticket.runNo}/>   
                             ))}
                     </div>
                     <ticketforphone/>

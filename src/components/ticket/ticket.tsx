@@ -110,8 +110,11 @@ const Ticket = (props:any) => {
         row: row,
         gate: gate,
         seat: seat,
+        no: eventTicket.no,
     }
     // const dataString = encodeURIComponent(JSON.stringify(data));
+
+    console.log(eventTicket.no)
 
     const setDataToLocalStorage = () => {
         localStorage.setItem('data', JSON.stringify(data));
@@ -122,7 +125,7 @@ const Ticket = (props:any) => {
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[200px] h-[400px] px-3">
                     <div className="flex flex-col justify-items-center my-8 gap-2">
-                        <div className="font-montserrat font-bold text-white">no.</div>
+                        <div className="font-montserrat font-bold text-white">no.{eventTicket.no}</div>
                         {/* <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div> */}
                         <img className="rounded-md" src={eventTicket.eventImage}></img>
                             <Link href={`/sendticket`}>

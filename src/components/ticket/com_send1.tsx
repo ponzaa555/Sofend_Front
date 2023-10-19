@@ -63,7 +63,8 @@ const ComponentSend1 = (props:any) => {
                     row= {ticket.row}
                     gate= {ticket.gate}
                     seat= {ticket.seat}
-                    date={ticket.date}/> :
+                    date={ticket.date}
+                    no ={ticket.no}/> :
             <div className="flex flex-row justify-center gap-4">
                 <div><Toaster/></div>
                 <div className="">
@@ -77,7 +78,8 @@ const ComponentSend1 = (props:any) => {
                     row= {ticket.row}
                     gate= {ticket.gate}
                     seat= {ticket.seat}
-                    date={ticket.date}/>
+                    date={ticket.date}
+                    no = {ticket.no}/>
                 </div>
                 <div className="w-1/4">
                 <div className="bg-[#F9F9F9] rounded-md basis-2/4 p-8 h-auto">
