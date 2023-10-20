@@ -32,8 +32,8 @@ const MenubarEO = ({setContentId}: MenubarEOProps) => {
   }
 
   return (
-    <div className='mx-auto lg:px-80 md:items-center md:flex-col md:px-8 mb-10 bg-neutral-100'>
-      <ul className='flex flex-row justify-between items-center h-14'>
+    <div className='mb-10 bg-neutral-100'>
+      <ul className='flex flex-row justify-between items-center h-14 lg:max-w-7xl mx-auto md:px-8 px-4'>
         <li>
           <input type="radio" name="menubar" id="menubar-dashboard" className='appearance-none' onChange={(e) => selectMenu(e)}/>
           <label htmlFor="menubar-dashboard" className='font-montserrat'>Dashboard</label>

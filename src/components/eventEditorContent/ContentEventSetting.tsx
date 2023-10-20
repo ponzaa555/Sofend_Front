@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react"
 import { useRouter } from 'next/router'
 import type { TicketClass } from '~/components/events/eventitem';
 import { Toaster, toast } from 'react-hot-toast';
-import { set } from 'zod';
 
 type EventDetail = {
   eventID: string;
@@ -18,7 +17,7 @@ type EventDetail = {
   eventStatus: string;
   tagName: string[];
   posterImage: string;
-  seatImage: string[];
+  seatImage: string;
   staff: string[];
   ticket: string[];
   ticketType: string;
@@ -32,12 +31,13 @@ const posterMaxWidth:React.CSSProperties = {
 
 const ContentEventSetting = () => {
   const [imageSrc, setImageSrc] = useState<string>("/images/blank_poster.png");
-  const [newImageSrc, setNewImageSrc] = useState<boolean>(false);
-  const [uploadData, setUploadData] = useState<string | undefined>();
+  const [uploadData, setUploadData] = useState<string>("");
+  const [seatImageSrc, setSeatImageSrc] = useState<string>(" ");
   const {data:session} = useSession()
   const eoId = session?.user?.userID as string
   const router = useRouter()
   const eventId = router.query.id as string;
+  let currentPosterImg = ""
   const [eventDetail, setEventDetail] = useState<EventDetail>({
     eventID: "",
     eventName: "",
@@ -51,7 +51,7 @@ const ContentEventSetting = () => {
     eventStatus: "",
     tagName: [],
     posterImage: "",
-    seatImage: [],
+    seatImage: "",
     staff: [],
     ticket: [],
     ticketType: "",
@@ -74,6 +74,10 @@ const ContentEventSetting = () => {
         setEventDetail(eventData)
         if (eventData.posterImage !== "") {
           setImageSrc(eventData.posterImage)
+          currentPosterImg = eventData.posterImage
+        }
+        if (eventData.seatImage !== "") {
+          setSeatImageSrc(eventData.seatImage)
         }
         const dropdown = document.getElementById("es-event-type") as HTMLSelectElement;
         if (eventData.ticketType === "Seat") {
@@ -85,7 +89,6 @@ const ContentEventSetting = () => {
         else {
           dropdown.selectedIndex = 0;
         }
-        // console.log("Fetching event detail success : ", eventData)
       } catch (error) {
         console.error('Error fetching events:', error);
       }
@@ -106,14 +109,14 @@ const ContentEventSetting = () => {
       tagName: [(e.currentTarget.elements[1] as HTMLInputElement).value],
       ticketType: (e.currentTarget.elements[2] as HTMLSelectElement).value,
       info: (e.currentTarget.elements[3] as HTMLTextAreaElement).value,
-      onSaleDateTime: (e.currentTarget.elements[4] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[5] as HTMLInputElement).value,
-      endSaleDateTime: (e.currentTarget.elements[6] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[7] as HTMLInputElement).value,
-      startDateTime: (e.currentTarget.elements[8] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[9] as HTMLInputElement).value,
-      endDateTime: (e.currentTarget.elements[10] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[11] as HTMLInputElement).value,
-      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
+      seatImage: seatImageSrc,
+      onSaleDateTime: (e.currentTarget.elements[5] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[6] as HTMLInputElement).value,
+      endSaleDateTime: (e.currentTarget.elements[7] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[8] as HTMLInputElement).value,
+      startDateTime: (e.currentTarget.elements[9] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[10] as HTMLInputElement).value,
+      endDateTime: (e.currentTarget.elements[11] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[12] as HTMLInputElement).value,
+      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[13] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[13] as HTMLInputElement).value,
       posterImage: imageSrc,
     })
-    // console.log(eventDetail)
   }
 
   const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -123,14 +126,18 @@ const ContentEventSetting = () => {
       tagName: [(e.currentTarget.elements[1] as HTMLInputElement).value],
       ticketType: (e.currentTarget.elements[2] as HTMLSelectElement).value,
       info: (e.currentTarget.elements[3] as HTMLTextAreaElement).value,
-      onSaleDateTime: (e.currentTarget.elements[4] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[5] as HTMLInputElement).value,
-      endSaleDateTime: (e.currentTarget.elements[6] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[7] as HTMLInputElement).value,
-      startDateTime: (e.currentTarget.elements[8] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[9] as HTMLInputElement).value,
-      endDateTime: (e.currentTarget.elements[10] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[11] as HTMLInputElement).value,
-      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[12] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[12] as HTMLInputElement).value,
+      seatImage: seatImageSrc,
+      onSaleDateTime: (e.currentTarget.elements[5] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[6] as HTMLInputElement).value,
+      endSaleDateTime: (e.currentTarget.elements[7] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[8] as HTMLInputElement).value,
+      startDateTime: (e.currentTarget.elements[9] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[10] as HTMLInputElement).value,
+      endDateTime: (e.currentTarget.elements[11] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[12] as HTMLInputElement).value,
+      location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[13] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[13] as HTMLInputElement).value,
       posterImage: imageSrc,
     }
-    // console.log(changedData)
+    if (currentPosterImg === " " && uploadData === ""){
+      toast.error("Please upload poster image")
+      return
+    }
     if(eventId && eoId) {
       const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_event_setting/${eoId}/${eventId}`;
       fetch(saveUrl, {
@@ -158,8 +165,7 @@ const ContentEventSetting = () => {
     }
   }
 
-  const handleDeleteEvent = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleDeleteEvent: React.MouseEventHandler<HTMLButtonElement> = () => {
     if(eventId && eoId) {
       const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_event/${eoId}/${eventId}`;
       fetch(saveUrl, {
@@ -187,32 +193,37 @@ const ContentEventSetting = () => {
 
   // handleOnChangeUploadImg : Triggers when the file input changes (when a file is selected)
 
-  const handleOnChangeUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleOnChangeUploadImg: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const reader = new FileReader();
 
     reader.onload = function (onLoadEvent) {
       if (onLoadEvent.target === null || onLoadEvent.target.result === null) {
-        setImageSrc("/images/blank_poster.png");
+        if (currentPosterImg !== "") {
+          setImageSrc(currentPosterImg);
+        }
+        else {
+          setImageSrc("/images/blank_poster.png");
+        }
         return;
       }
       setImageSrc(onLoadEvent.target.result.toString());
-      setNewImageSrc(true);
-      setUploadData(undefined);
     };
 
     if (e.target.files === null || e.target.files.length === 0) {
-      setImageSrc("/images/blank_poster.png");
+      if (currentPosterImg !== "") {
+        setImageSrc(currentPosterImg);
+      }
+      else {
+        setImageSrc("/images/blank_poster.png");
+      }
       return;
     }
     reader.readAsDataURL(e.target.files[0]);
-  }
+    const fileInput = e.currentTarget;
 
-  // handleOnSubmitUploadImg : Triggers when the form is submitted
-
-  const handleOnSubmitUploadImg: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fileInput = Array.from(form.elements).find(({ name }) => name === 'img-file');
+    if (fileInput.files === null || fileInput.files.length === 0) {
+      return;
+    }
     
     const formData = new FormData();
 
@@ -231,21 +242,57 @@ const ContentEventSetting = () => {
         .then((response) => response.json())
         .then((result) => {
           data = result
+          setImageSrc(data.secure_url)
+          setUploadData(data.original_filename + '.' + data.format)
         })
         .catch((error) => {
           console.error('Error fetching events:', error);
         });
-  
-      setImageSrc(data.secure_url)
-      setUploadData(data.original_filename + '.' + data.format)
-  
-      // console.log('data', data)
     }
 
-    uploadImage()
-    .catch((error) => {
-      console.error('Error fetching events:', error);
-    });
+    toast.promise(uploadImage(), {
+      loading: 'Uploading...',
+      success: 'Upload success',
+      error: 'Upload failed',
+    })
+  }
+
+  const handleOnChangeUploadSeatImg: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const fileInput = e.currentTarget;
+
+    if (fileInput.files === null || fileInput.files.length === 0) {
+      return;
+    }
+    
+    const formData = new FormData();
+
+    for (const file of fileInput.files) {
+      formData.append('file', file);
+    }
+
+    formData.append('upload_preset', 'eventbud')
+
+    const uploadImage = async () => {
+      let data;
+      await fetch('https://api.cloudinary.com/v1_1/deyk9edom/image/upload', {
+        method: 'POST',
+        body: formData
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          data = result
+          setSeatImageSrc(data.secure_url)
+        })
+        .catch((error) => {
+          console.error('Error fetching events:', error);
+        });
+    }
+
+    toast.promise(uploadImage(), {
+      loading: 'Uploading...',
+      success: 'Upload success',
+      error: 'Upload failed',
+    })
   }
   
 
@@ -256,24 +303,12 @@ const ContentEventSetting = () => {
       {/* Event Details */}
 
       <h2 className='font-bold text-3xl mb-4'>Event Details</h2>
-      <form action="" method='post' onChange={handleOnChangeUploadImg} onSubmit={handleOnSubmitUploadImg} className='absolute w-1/5 mt-2' style={posterMaxWidth}>
-        <img src={imageSrc} alt="poster-img" className='h-72 w-full bg-gray-200 rounded object-cover'/>
+      <div className='absolute w-1/5 mt-2' style={posterMaxWidth}>
+        <img src={imageSrc} alt="poster-img" className='h-90 w-full bg-gray-200 rounded object-cover'/>
         <p className='mt-3'>
-          <input type="file" name="img-file" id="img-file" className='w-full'/>
+          <input type="file" name="img-file" id="img-file" className='w-full' onChange={handleOnChangeUploadImg} accept='.png, .jpg, .jpeg'/>
         </p>
-        {
-          imageSrc && newImageSrc && !uploadData && (
-            <p>
-              <button className='text-white font-bold text-base w-full h-8 bg-black rounded mt-3'>Upload file</button>
-            </p>
-          )
-        }
-        {
-          uploadData && (
-            <p className='mt-3'>{JSON.stringify(uploadData, null, 2)} is successfully uploaded</p>
-          )
-        }
-      </form>
+      </div>
       <form action="" onChange={handleOnChange} onSubmit={handleOnSubmit}>
         <div className='flex flex-row gap-10'>
           <div className='w-2/3 flex flex-row gap-9'>
@@ -305,6 +340,26 @@ const ContentEventSetting = () => {
           </div>
         </div>
 
+        {/* Event Map */}
+
+        <h2 className='font-bold text-3xl mb-4 mt-16'>Event Map</h2>
+        <div className='flex flex-row gap-10'>
+          <div className='w-2/3'>
+            {seatImageSrc !== " " && <img src={seatImageSrc} alt="seat-img" className='w-full bg-gray-100 rounded object-contain'/>}
+            <p className='mt-3'>
+              <input type="file" name="seatImg-file" id="img-file" className='w-full' onChange={handleOnChangeUploadSeatImg} accept='.png, .jpg, .jpeg'/>
+            </p>
+          </div>
+          
+          <div className='flex flex-col w-1/3 justify-start'>
+            <div>
+              <h3 className='font-bold text-lg mb-2'>Event Map</h3>
+              <p>Providing image of zone and and location of important facilities (eg. gate, toilets, etc.) this section can be null.</p>
+            </div>
+          </div>
+        </div>
+        
+
         {/* Sales Period */}
 
         <h2 className='font-bold text-3xl mb-4 mt-16'>Sales Period</h2>
@@ -323,7 +378,7 @@ const ContentEventSetting = () => {
             <div className='flex flex-row justify-start gap-7'>
               <div className='flex flex-col justify-start w-7/12'>
                 <label htmlFor="es-end-sale-date" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">End at Date</label>
-                <input type="date" id='es-end-sale-date' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.endDateTime.split("T")[0]} required/>
+                <input type="date" id='es-end-sale-date' className='border border-gray-500 rounded h-9 mb-3 font-montserrat px-2' value={eventDetail?.endSaleDateTime.split("T")[0]} required/>
               </div>
               <div className='flex flex-col justify-start w-5/12'>
                 <label htmlFor="es-end-sale-time" className="text-xl mb-1 after:content-['*'] after:ml-0.5 after:text-red-500">End Time</label>
