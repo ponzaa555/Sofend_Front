@@ -44,7 +44,7 @@ const EventEditor = () => {
       </Head>
       <NavbarEO />
       <MenubarEO setContentId={setContentId}/>
-      <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10 font-montserrat'>
+      <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10 font-montserrat px-4'>
         {content}
       </div>
     </div>

@@ -20,8 +20,7 @@ const ContentCreateNewTicketTypes = () => {
     const [handleCancelButton, sethandleCancelButton] = useState(false)
     const [handleTicketType, sethandleTicketType] = useState(0)
     const [getfinish, setgetfinish] = useState(false);
-    const [uploadData, setUploadData] = useState<string | undefined>();
-
+    const [zoneSeatImage, setzoneSeatImage] = useState<string>(" ");
 
     const router = useRouter()
     const { id } = router.query;
@@ -29,8 +28,6 @@ const ContentCreateNewTicketTypes = () => {
     const { data: session } = useSession()
     console.log("session: ", session)
     const eoid = session?.user?.userID as string
-    let data = {}
-
 
     const handleButton = () => {
         sethandleCancelButton(true)
@@ -67,8 +64,6 @@ const ContentCreateNewTicketTypes = () => {
         const TicketPrice = document.getElementById('tt-ticketprice').value
         const validDatetime = document.getElementById('tt-valid-date').value + 'T' + document.getElementById('tt-valid-time').value
         const expiredDatetime = document.getElementById('tt-expired-date').value + 'T' + document.getElementById('tt-expired-time').value
-        // console.log('validDatetime', validDatetime);
-        // console.log('expiredDatetime', expiredDatetime);
         let QuantityAvailable = 0
         let NumberOfRows = 0
         let NumberOfCols = 0
@@ -80,7 +75,7 @@ const ContentCreateNewTicketTypes = () => {
             pricePerSeat: 0,
             validDatetime: "",
             expiredDatetime: "",
-            zoneSeatImage: "",
+            zoneSeatImage: zoneSeatImage,
         }
 
         // 0 = zone, 1 = seat
@@ -93,64 +88,75 @@ const ContentCreateNewTicketTypes = () => {
             QuantityAvailable = NumberOfRows * NumberOfCols
         }
 
-        const form = e.currentTarget;
-        const fileInput = Array.from(form.elements).find(({ name }) => name === 'img-file');
-
-        const formData = new FormData();
-
-        for (const file of fileInput.files) {
-            formData.append('file', file);
+        jsonCreateNewTicketTypes = {
+            className: Name,
+            amountOfSeat: QuantityAvailable,
+            rowNo: NumberOfRows,
+            columnNo: NumberOfCols,
+            pricePerSeat: TicketPrice,
+            validDatetime: validDatetime,
+            expiredDatetime: expiredDatetime,
+            zoneSeatImage: zoneSeatImage,
         }
-
-        formData.append('upload_preset', 'eventbud')
-
-        const uploadImage = async () => {
-            await fetch('https://api.cloudinary.com/v1_1/deyk9edom/image/upload', {
-                method: 'POST',
-                body: formData
-            })
-                .then((response) => response.json())
-                .then((result) => {
-                    data = result
-                })
-                .catch((error) => {
-                    console.error('Error fetching events:', error);
-                });
-            jsonCreateNewTicketTypes = {
-                className: Name,
-                amountOfSeat: QuantityAvailable,
-                rowNo: NumberOfRows,
-                columnNo: NumberOfCols,
-                pricePerSeat: TicketPrice,
-                validDatetime: validDatetime,
-                expiredDatetime: expiredDatetime,
-                zoneSeatImage: data.secure_url,
-            }
-            console.log('after set jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
-            const response = await fetch(createURL, {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(jsonCreateNewTicketTypes)
-            });
-            const res = await response.json();
-            console.log('res', res);
-            if (response.ok) {
-                toast.remove()
-                toast.success(`Create Success`)
-                sethandleCancelButton(true)
-            }
-            else {
-                toast.remove()
-                toast.error(`Failed (${res.detail})`)
-            }
-            console.log('jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
+        console.log('after set jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
+        const response = await fetch(createURL, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonCreateNewTicketTypes)
+        });
+        const res = await response.json();
+        console.log('res', res);
+        if (response.ok) {
+            toast.remove()
+            toast.success(`Create Success`)
+            sethandleCancelButton(true)
         }
+        else {
+            toast.remove()
+            toast.error(`Failed (${res.detail})`)
+        }
+        console.log('jsonCreateNewTicketTypes: ', jsonCreateNewTicketTypes)
 
-        uploadImage()
-            .catch((error) => {
-                console.error('Error fetching events:', error);
-            });
     }
+
+    const handleOnChangeUploadImg: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        const fileInput = e.currentTarget;
+    
+        if (fileInput.files === null || fileInput.files.length === 0) {
+          return;
+        }
+        
+        const formData = new FormData();
+    
+        for (const file of fileInput.files) {
+          formData.append('file', file);
+        }
+    
+        formData.append('upload_preset', 'eventbud')
+    
+        const uploadImage = async () => {
+          let data;
+          await fetch('https://api.cloudinary.com/v1_1/deyk9edom/image/upload', {
+            method: 'POST',
+            body: formData
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              data = result
+              setzoneSeatImage(data.secure_url)
+            })
+            .catch((error) => {
+              console.error('Error fetching events:', error);
+            });
+        }
+    
+        toast.promise(uploadImage(), {
+          loading: 'Uploading...',
+          success: 'Upload success',
+          error: 'Upload failed',
+        })
+    }
+    
 
     const checkSpecialChar = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (/[/]/.test(e.key)) {
@@ -227,13 +233,12 @@ const ContentCreateNewTicketTypes = () => {
                             <>
                                 <h2 className='font-bold text-3xl mb-4 mt-8'>Seat Plan</h2>
                                 <div className='flex flex-row gap-10'>
-                                    <div className='w-2/3 flex flex-row gap-9'>
-                                        <div className='mt-2'>
-                                            <p className='mt-3'>
-                                                <input type="file" name="img-file" id="img-file" className='w-full' />
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div className='w-2/3'>
+                                    {zoneSeatImage !== " " && <img src={zoneSeatImage} alt="seat-img" className='w-full bg-gray-100 rounded object-contain'/>}
+                                    <p className='mt-3'>
+                                        <input type="file" name="seatImg-file" id="img-file" className='w-full' onChange={handleOnChangeUploadImg}/>
+                                    </p>
+                                </div>
                                     <div className='flex flex-col w-1/3 justify-start'>
                                         <div>
                                             <h3 className='font-bold text-lg mb-2'>Seat Plan</h3>
