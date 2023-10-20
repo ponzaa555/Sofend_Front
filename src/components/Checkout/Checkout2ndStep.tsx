@@ -39,7 +39,7 @@ const Component2 = (props:any) => {
 
     const checktime = () => {
         return(
-            <div className="">{parseInt(timestart)+7}:{eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)+7}:{eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
+            <div className="">{parseInt(timestart)}:{eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)}:{eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
         )
     }
 
@@ -48,7 +48,26 @@ const Component2 = (props:any) => {
         eventZone = eventData.nameOfZone
     }
 
-    const seats = eventData.seat.join(', ')
+    // const seats = eventData.seat.join(', ')
+    const InsertNewLine = (props: any) => {
+        const ar = props
+        const count = ar.length
+        let result = []
+        for (let i = 0; i < count; i++) {
+            if (i % 4 === 0 && i !== 0) {
+                result.push("\n")
+                result.push(ar[i])
+            }
+            else{
+                result.push(ar[i])
+            }
+        }
+        return result
+    }
+    console.log(InsertNewLine(eventData.seat))
+
+    const seats = InsertNewLine(eventData.seat).join(',').replaceAll(",", " ")
+    console.log(seats)
 
     return (
         <div className=''>
@@ -107,7 +126,12 @@ const Component2 = (props:any) => {
                                 <div className='flex justify-between mb-2'>
                                     <div className='text-black font-montserrat text-xl'>
                                         <p>{eventZone}</p>
-                                        {/* <p>{seats}</p> */}
+                                        {/* <p className="whitespace-pre-line">{seats}</p> */}
+                                        <div className="grid grid-cols-5 justify-items-start w-auto gap-x-2">
+                                            {eventData.seat.map((item:any,index:any) => (
+                                                <p className="grid" key={index}>{item}</p>
+                                            ))}
+                                        </div>
                                     </div>
                                     <div className='text-black font-montserrat text-xl'>{eventData.price} ฿</div>
                                 </div>

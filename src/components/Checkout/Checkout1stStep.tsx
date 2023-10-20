@@ -38,7 +38,7 @@ const Component1 = (props:any) => {
 
     const checktime = () => {
         return(
-            <div className="">{parseInt(timestart)+7}:{eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)+7}:{eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
+            <div className="">{parseInt(timestart)}:{eventData.startDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}-{parseInt(timeend)}:{eventData.endDateTime.split(/[T-]/)[3]?.split(/[:]/)[1]}</div>
         )
     }
     let eventZone = eventData.zone
@@ -52,9 +52,28 @@ const Component1 = (props:any) => {
     }
     else {
         eventZone = eventData.nameOfZone
+    } 
+        
+    const InsertNewLine = (props: any) => {
+        const ar = props
+        const count = ar.length
+        let result = []
+        for (let i = 0; i < count; i++) {
+            if (i % 4 === 0 && i !== 0) {
+                result.push("\n")
+                result.push(ar[i])
+            }
+            else{
+                result.push(ar[i])
+            }
+        }
+        return result
     }
 
-    const seats = eventData.seat.join(', ');
+    console.log(InsertNewLine(eventData.seat))
+
+    const seats = InsertNewLine(eventData.seat).join(',').replaceAll(",", " ")
+    console.log(seats)
 
     return (
         <div className=''>
@@ -111,7 +130,7 @@ const Component1 = (props:any) => {
                         <div className='flex justify-between items-center bg-[#EFEFEF] p-7'>
                             <div className='text-black font-bold font-montserrat text-3xl my-4 text-left w-4/6 pr-36'>
                                 <p>{eventZone}</p>
-                                {/* <p>{seats}</p> */}
+                                {/* <p className="whitespace-pre-line text-xl">{seats}</p> */}
                             </div>
                             <p className='text-black font-bold font-montserrat text-2xl my-4 text-left pr-36 w-1/6'>x{eventData.amount}</p>
                             <div className='text-black font-bold font-montserrat text-3xl my-4 text-right pr-5 w-1/3'>{eventData.price} ฿</div>
