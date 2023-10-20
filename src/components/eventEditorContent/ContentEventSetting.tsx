@@ -307,7 +307,7 @@ const ContentEventSetting = () => {
       <div className='absolute w-1/5 mt-2' style={posterMaxWidth}>
         <img src={imageSrc} alt="poster-img" className='h-90 w-full bg-gray-200 rounded object-cover'/>
         <p className='mt-3'>
-          <input type="file" name="img-file" id="img-file" className='w-full' onChange={handleOnChangeUploadImg}/>
+          <input type="file" name="img-file" id="img-file" className='w-full' onChange={handleOnChangeUploadImg} accept='.png, .jpg, .jpeg'/>
         </p>
       </div>
       <form action="" onChange={handleOnChange} onSubmit={handleOnSubmit}>
@@ -348,7 +348,7 @@ const ContentEventSetting = () => {
           <div className='w-2/3'>
             {seatImageSrc !== " " && <img src={seatImageSrc} alt="seat-img" className='w-full bg-gray-100 rounded object-contain'/>}
             <p className='mt-3'>
-              <input type="file" name="seatImg-file" id="img-file" className='w-full' onChange={handleOnChangeUploadSeatImg}/>
+              <input type="file" name="seatImg-file" id="img-file" className='w-full' onChange={handleOnChangeUploadSeatImg} accept='.png, .jpg, .jpeg'/>
             </p>
           </div>
           
