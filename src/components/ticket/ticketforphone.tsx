@@ -114,9 +114,9 @@ const ticketforphone = (props:any) => {
     
     return(
         <>
-            <div className="flex w-auto mx-3">
+            <div className="flex w-auto mx-3 items-stretch">
                 <div className="bg-black rounded-md w-1/3 px-3">
-                    <div className="flex flex-col justify-items-center my-8 gap-2 text-sm">
+                    <div className="flex flex-col my-8 gap-2 text-sm self-center h-auto">
                         <div className="font-montserrat font-bold text-white">no.</div>
                         {/* <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div> */}
                         <img className="rounded-md w-auto" src={eventTicket.eventImage}></img>
@@ -128,24 +128,24 @@ const ticketforphone = (props:any) => {
                 <div className="bg-[#F9F9F9] w-2/3 rounded-md px-4 py-2 shadow-lg">
                     <div className="flex flex-col justify-between mt-4">
                         <div className="flex flex-row-2 justify-between">
-                            <div className="font-montserrat font-bold text-sm text-[#D40000]">{parsedate}</div>
+                            <div className="font-montserrat font-bold text-xs text-[#D40000]">{parsedate}</div>
                         </div>
                         <div className="font-montserrat font-bold text-base text-black mt-2 w-auto">{eventName_ch}</div>
                         <div className="flex flex-row-2 ">
                             <div className="">
-                                <div className="font-montserrat font-medium text-sm text-black my-2 w-auto">{eventTicket.location}</div>
+                                <div className="font-montserrat font-medium text-xs text-black my-2 w-auto">{eventTicket.location}</div>
                                 <div className="flex gap-2 w-auto">
                                     <div className="flex flex-row-2 w-1/2 justify-between h-auto">
                                         <div className="">
-                                            <div className="font-montserrat font-bold text-sm text-black">ZONE</div>
+                                            <div className="font-montserrat font-bold text-xs text-black">ZONE</div>
                                             <div className="font-montserrat font-bold text-base text-black">{zone}</div>
-                                            <div className="font-montserrat font-bold text-sm text-black">ROW</div>
+                                            <div className="font-montserrat font-bold text-xs text-black">ROW</div>
                                             <div className="font-montserrat font-bold text-base text-black">{row}</div>
                                         </div>
                                         <div className="">
-                                            <div className="font-montserrat font-bold text-sm text-black">GATE</div>
+                                            <div className="font-montserrat font-bold text-xs text-black">GATE</div>
                                             <div className="font-montserrat font-bold text-base text-black">{gate}</div>
-                                            <div className="font-montserrat font-bold text-sm text-black">SEAT</div>
+                                            <div className="font-montserrat font-bold text-xs text-black">SEAT</div>
                                             <div className="font-montserrat font-bold text-base text-black">{seat}</div>
                                         </div>
                                     </div>
@@ -155,14 +155,14 @@ const ticketforphone = (props:any) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-row-2 justify-items-start gap-10 mt-3">
-                            <div className="">
-                                <div className="font-montserrat font-bold text-sm text-black">First Name</div>
+                        <div className="flex mt-3 w-auto">
+                            <div className="w-1/2">
+                                <div className="font-montserrat font-bold text-xs text-black w-auto">First Name</div>
                                 <div className="font-montserrat font-bold text-base text-black">{eventTicket.firstname}</div>
                             </div>
-                            <div className="">
-                                <div className="font-montserrat font-bold text-sm text-black">Last Name</div>
-                                <div className="font-montserrat font-bold text-base text-black">{eventTicket.lastname}</div>
+                            <div className="w-1/2">
+                                <div className="font-montserrat font-bold text-xs text-black">Last Name</div>
+                                <div className="font-montserrat font-bold text-base text-black w-auto h-auto">{eventTicket.lastname}</div>
                             </div>
                         </div>
                     </div>
