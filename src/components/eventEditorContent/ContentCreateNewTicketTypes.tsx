@@ -236,7 +236,7 @@ const ContentCreateNewTicketTypes = () => {
                                 <div className='w-2/3'>
                                     {zoneSeatImage !== " " && <img src={zoneSeatImage} alt="seat-img" className='w-full bg-gray-100 rounded object-contain'/>}
                                     <p className='mt-3'>
-                                        <input type="file" name="seatImg-file" id="img-file" className='w-full' onChange={handleOnChangeUploadImg}/>
+                                        <input type="file" name="seatImg-file" id="img-file" className='w-full' onChange={handleOnChangeUploadImg} accept='.png, .jpg, .jpeg'/>
                                     </p>
                                 </div>
                                     <div className='flex flex-col w-1/3 justify-start'>
