@@ -118,7 +118,7 @@ const selectzonenseat = () => {
     }
   }, [id]);
 
-  const [selectedZone, setSelectedZone] = useState<number>(0)
+  const [selectedZone, setSelectedZone] = useState<number>(-1)
   const handleSelectZone = (zoneIndex: number) => {
     setSelectedZone(zoneIndex)
   }
