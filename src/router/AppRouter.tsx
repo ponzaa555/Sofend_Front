@@ -5,6 +5,8 @@ import Main from '../pages/main';
 import Scanevent from '../pages/scan';
 import Eventdetail from '../pages/eventdetail';
 
+
+
 const AppRouter: React.FC = () => {
   return (
     <Router>
