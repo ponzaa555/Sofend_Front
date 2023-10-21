@@ -29,18 +29,8 @@ const dashboard = ({}) => {
       });
   }, [eoid]);
 
-  const handleCreateEvent = async () => {
-    const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app';
-        const POST_URL = `${BASE_URL}/eo_create_event/${eoid}`
-    const response = await fetch (POST_URL, {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          }
-      })
-      const res = await response.json();
-      console.log(res)
-      router.push(`/eventeditor/${res}`)
+  const handleCreateEvent = () => {
+      router.push(`/createEvent`)
   }
 
   
