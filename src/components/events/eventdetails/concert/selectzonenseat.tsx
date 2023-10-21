@@ -124,6 +124,20 @@ const selectzonenseat = () => {
   }
   // console.log(eventDetail.ticketClass[0]?.rowNo)
 
+  console.log("eventdetail",eventDetail.zoneRevenue)
+
+  const checkIsFull = (index:number) => {
+    if (eventDetail.zoneRevenue[index]?.quota - eventDetail.zoneRevenue[index].ticketSold > 0){
+      //console.log("full")
+      return true
+    }
+    else{
+      //console.log("not full")
+      return false
+    }
+  }
+
+
 
 
   return (
@@ -169,6 +183,7 @@ const selectzonenseat = () => {
                             nameOfZone={ticketclass.className}
                             pricePerSeat={ticketclass.pricePerSeat}
                             amountOfSeat={ticketclass.AmountOfSeat}
+                            isAvailable={checkIsFull(index)}
                             onSelect={() => handleSelectZone(index)}
                         ></GenTicketClass>
                     ))}
@@ -181,11 +196,17 @@ const selectzonenseat = () => {
                   setSelectedZone(parseInt(e.target.value))
                 }}
                 value={selectedZone}
+                defaultValue={selectedZone}
               >
-                <option className='font-montserrat' disabled>Zone</option>
+                <option className='font-montserrat' disabled value={-1}>Zone</option>
                 {/*option from ticketClass[i].className */}
                 {eventDetail.ticketClass.map((ticketclass,index) => (
-                  <option key={index} value={index} className='font-montserrat'>{ticketclass.className}</option>
+                  <option 
+                    key={index} 
+                    value={index} 
+                    className='font-montserrat'
+                    disabled={!checkIsFull(index)}
+                  >{ticketclass.className}</option>
                   ))  
                 }
               </select>
