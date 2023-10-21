@@ -130,6 +130,16 @@ const EventDetail = ({}) => {
 
     // console.log("seatImage",eventDetail.seatImage[0]?.imageURL)
 
+    const checkIsFull = (index:number) => {
+        if (eventDetail.zoneRevenue[index]?.quota - eventDetail.zoneRevenue[index].ticketSold > 0){
+          //console.log("full")
+          return true
+        }
+        else{
+          //console.log("not full")
+          return false
+        }
+      }
 
     return(
         <>
@@ -180,6 +190,7 @@ const EventDetail = ({}) => {
                         <Link href={"/selectzonenseats/" + id}>
                             <GenTicketClass
                                 key={index}
+                                isAvailable={checkIsFull(index)}
                                 nameOfZone={ticketclass.className}
                                 pricePerSeat={ticketclass.pricePerSeat}
                                 amountOfSeat={ticketclass.AmountOfSeat}
