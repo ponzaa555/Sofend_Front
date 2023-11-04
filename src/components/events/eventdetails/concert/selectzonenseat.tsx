@@ -211,10 +211,7 @@ const selectzonenseat = () => {
                 numSeatsPerRow={eventDetail.ticketClass[selectedZone]?.columnNo ?? 0}
               />
             </div>
-
         </div>
-        
-        
     </div>
     </> :
     <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
