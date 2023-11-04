@@ -6,6 +6,7 @@ import Recommendevent from '../components/events/recommendevent'
 import Allevent from '../components/events/allevent'
 import Monthlyevent from '../components/events/monthlyevent'
 import Head from "next/head";
+import { Toast, Toaster } from 'react-hot-toast'
 
 export const main = () => {
   return (
@@ -20,6 +21,7 @@ export const main = () => {
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"/>
       </Head>
         <Navbar/>
+        <Toaster/>
         <Introevent/>
           <div className="justify-between px-4 py-8 mx-auto lg:max-w-7xl md:items-center md:px-8">
             <Recommendevent/>

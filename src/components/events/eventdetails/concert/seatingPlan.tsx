@@ -21,7 +21,7 @@ interface SeatingPlanProps {
   objectOfSeat: object;
 }
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone, numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -44,7 +44,7 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     setCount(updatedSelectedSeats.length);
 
   }
-    
+
   // console.log(
   //   'total',total,
   //   'count',count,
@@ -54,15 +54,15 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
 
 
   useEffect(() => {
-    setTotal(count*pricePerSeat)
+    setTotal(count * pricePerSeat)
   }
-  , [count]);
+    , [count]);
 
   useEffect(() => {
     setCount(0)
     setSelectedSeats([])
   }
-  , [nameOfZone]);
+    , [nameOfZone]);
 
   const renderSeats = () => {
     const seats = [];
@@ -73,7 +73,7 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
       for (let seatNumber = 1; seatNumber <= numSeatsPerRow; seatNumber++) {
         const seatId = `${row}-${seatNumber}`; // Generate a unique ID for each seat
         const isSelected = selectedSeats.includes(seatId);
-      
+
 
         rowSeats.push(
           <Seat
@@ -94,9 +94,9 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
       );
     }
 
-    
 
-    console.log('selected seats',selectedSeats)
+
+    console.log('selected seats', selectedSeats)
 
     return seats;
   };
@@ -109,12 +109,13 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     posterImage: posterImage,
     zone: "",
     nameOfZone: nameOfZone,
-    seat : selectedSeats,
+    seat: selectedSeats,
     amount: count,
     price: total,
     location: location,
+    checkoutTime: new Date(),
   }
-  console.log("dataEventDetailToCheckout",dataEventDetailToCheckout)
+  console.log("dataEventDetailToCheckout", dataEventDetailToCheckout)
 
   // check seat before go to payment
   const router = useRouter();
@@ -122,29 +123,31 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventID}`;
     console.log(BASE_URL)
     try {
-        const response = await axios.get(`${BASE_URL}`);
-        const data = response.data;
-        console.log("getTicketSold success : ", data)
-        const ticketZone = data.ticketClass.filter((ticketZone: any) => ticketZone.className === nameOfZone)[0];
-        console.log("ticketZone : ", ticketZone);
-        const seatReserved = [] as string[];
-        selectedSeats.forEach((seat: any) => {
-            if (ticketZone.seatNo[seat] === "reserved") {
-                seatReserved.push(seat);
-            }
-        });
-        console.log("seatReserved : ", seatReserved as string[]);
-        if (seatReserved.length === 0) {
-            localStorage.setItem("dataEventDetailToCheckout", JSON.stringify(dataEventDetailToCheckout));
-            router.push("/checkout");
-        } else {
-            alert(`${seatReserved} are already reserved. Please select again.`);
-            window.location.reload();
+      const response = await axios.get(`${BASE_URL}`);
+      const data = response.data;
+      console.log("getTicketSold success : ", data)
+      const ticketZone = data.ticketClass.filter((ticketZone: any) => ticketZone.className === nameOfZone)[0];
+      console.log("ticketZone : ", ticketZone);
+      const seatReserved = [] as string[];
+      selectedSeats.forEach((seat: any) => {
+        if (ticketZone.seatNo[seat] === "reserved") {
+          seatReserved.push(seat);
         }
+      });
+      console.log("seatReserved : ", seatReserved as string[]);
+      if (seatReserved.length === 0) {
+        let currentTime = new Date();
+        let timeAfter15Minutes = new Date(currentTime.getTime() + 15 * 60000);
+        localStorage.setItem("dataEventDetailToCheckout", JSON.stringify({ ...dataEventDetailToCheckout, checkoutTime: timeAfter15Minutes }));
+        router.push("/checkout");
+      } else {
+        alert(`${seatReserved} are already reserved. Please select again.`);
+        window.location.reload();
+      }
     } catch (error) {
-        console.log("getTicketSold error : ", error);
+      console.log("getTicketSold error : ", error);
     }
-}
+  }
 
   return (
     <div className='flex flex-col gap-10'>
@@ -160,12 +163,12 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
           <hr className='border-[1.5px] border-gray-300 mx-8'></hr>
           <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
             <div className='font-montserrat font-bold texl-xl'>{total}</div>
-            <div className='font-montserrat font-bold text-xl'>฿</div>   
+            <div className='font-montserrat font-bold text-xl'>฿</div>
           </div>
         </div>
       </div>
       {session ?
-        <button onClick={() => handleCheckout()} disabled={count===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">
+        <button onClick={() => handleCheckout()} disabled={count === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">
           Check out
         </button>
         : <button onClick={() => signIn()} disabled={count === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>

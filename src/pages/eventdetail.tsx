@@ -186,10 +186,11 @@ const EventDetails = ({ }) => {
         posterImage: eventDetail.posterImage,
         zone: Zone,
         nameOfZone: "",
-        seat : [""],
+        seat: [""],
         amount: Total,
         price: Price,
         location: eventDetail.location,
+        checkoutTime: new Date(),
     }
 
     {/* check ticket left */ }
@@ -201,7 +202,7 @@ const EventDetails = ({ }) => {
             const response = await axios.get(`${BASE_URL}`);
             const data = response.data;
             console.log("getTicketSold success : ", data)
-            const ticketZone = data.zoneRevenue.filter(zone => zone.className === Zone && zone.price === Price/Total)[0];
+            const ticketZone = data.zoneRevenue.filter(zone => zone.className === Zone && zone.price === Price / Total)[0];
             console.log("ticketZone : ", ticketZone);
             const ticketLeft = ticketZone.quota - ticketZone.ticketSold;
             console.log("ticketLeft : ", ticketLeft);
@@ -210,15 +211,17 @@ const EventDetails = ({ }) => {
             }
             else {
                 // router.push(`/checkout?data=${dataString}`);
-                localStorage.setItem('dataEventDetailToCheckout', JSON.stringify(dataEventDetailToCheckout));
+                let currentTime = new Date();
+                let timeAfter15Minutes = new Date(currentTime.getTime() + 15 * 60000);
+                localStorage.setItem("dataEventDetailToCheckout", JSON.stringify({ ...dataEventDetailToCheckout, checkoutTime: timeAfter15Minutes }));
                 router.push(`/checkout`);
             }
         } catch (error) {
             console.log("getTicketSold error : ", error);
         }
     }
-    
-        
+
+
 
 
     return (
