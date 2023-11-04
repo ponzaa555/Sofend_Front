@@ -21,7 +21,7 @@ interface SeatingPlanProps {
   objectOfSeat: object;
 }
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone, numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -147,7 +147,7 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     } catch (error) {
       console.log("getTicketSold error : ", error);
     }
-  }
+}
 
   return (
     <div className='flex flex-col gap-10'>
