@@ -159,6 +159,7 @@ const Checkout: React.FC = ({ }) => {
     const handleBack = () => {
         setStep(step - 1)
         if (step === 1) {
+            { handlecancle()}
             return router.back()
         }
 
