@@ -20,8 +20,14 @@ interface SeatingPlanProps {
   pricePerSeat: number;
   objectOfSeat: object;
 }
+interface reservedSeat {
+  eventID : string;
+  userID : string;
+  className : string;
+  seatNo : string[];
+}
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone, numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -147,7 +153,22 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     } catch (error) {
       console.log("getTicketSold error : ", error);
     }
-}
+    const userID = session?.user?.userID as string
+    const reserved: reservedSeat = {
+      eventID: eventID,
+      userID: userID,
+      className: nameOfZone,
+      seatNo: selectedSeats,
+    }
+    console.log('reserved: ', reserved)
+    const reservedURL = `https://eventbud-jujiu2awda-uc.a.run.app/reserve_ticket`;
+    const response = await fetch(reservedURL, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reserved)
+    });
+    console.log('response: ', response)
+  }
 
   return (
     <div className='flex flex-col gap-10'>
