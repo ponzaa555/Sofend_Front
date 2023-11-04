@@ -75,7 +75,7 @@ const dashboard = ({}) => {
             soldTicket={event.soldTicket}
             totalTicket={event.totalTicket}
           />
-          )) : <div className='font-montserrat text-xl font-medium my-8 text-gray-400 flex justify-center'>No Staff</div>
+          )) : <div className='font-montserrat text-xl font-medium my-8 text-gray-400 flex justify-center'>No Event, Please Create A New Event</div>
           :
           <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>
           <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
