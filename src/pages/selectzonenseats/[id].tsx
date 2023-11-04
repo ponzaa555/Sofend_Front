@@ -27,7 +27,6 @@ const SelectZoneSeats = () => {
             <main className="flex min-h-screen flex-col">
                 <Navbar/>
                 <Selectzonenseat/>
-                <Footer/>
             </main>
         </>
     );
