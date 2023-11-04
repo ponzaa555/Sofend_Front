@@ -23,6 +23,13 @@ interface SeatingPlanProps {
   objectOfSeat: object;
 }
 
+interface reservedSeat {
+  eventID : string;
+  userID : string;
+  className : string;
+  seatNo : string[];
+}
+
 const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTime, endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
@@ -146,6 +153,21 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTi
     } catch (error) {
         console.log("getTicketSold error : ", error);
     }
+
+    const userID = session?.user?.userID as string
+    const reserved:reservedSeat = {
+      eventID : eventID,
+      userID : userID,
+      className : eventName,
+      seatNo : selectedSeats,
+    }
+    console.log('reserved: ', reserved)
+    const reservedURL = ``;
+    const response = await fetch(reservedURL, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reserved)
+    });
 }
 
   return (
