@@ -71,13 +71,13 @@ export const loginEO: NextPage = (props): JSX.Element => {
                                             value={info.password}
                                             onChange={(e) => {setInfo({...info, password: e.target.value})}}
                                         />
-                                        <div className="flex flex-row justify-between">
+                                        {/* <div className="flex flex-row justify-between">
                                             <div>
                                             <input type="checkbox"></input>
                                             <span className="font-montserrat text-white pl-2">Remember me</span>
                                             </div>
                                             <a className="font-montserrat text-gray-500 pl-2" href="/resetpassword">Forgot password?</a> 
-                                        </div> 
+                                        </div>  */}
                                         <button className="hover:bg-black bg-white text-black border-2 border-white duration-300 hover:text-white font-bold py-2 w-full rounded mt-5" type="submit">
                                                 Sign In
                                         </button>
