@@ -158,16 +158,17 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTi
     const reserved:reservedSeat = {
       eventID : eventID,
       userID : userID,
-      className : eventName,
+      className : nameOfZone,
       seatNo : selectedSeats,
     }
     console.log('reserved: ', reserved)
-    const reservedURL = ``;
+    const reservedURL = `https://eventbud-jujiu2awda-uc.a.run.app/reserve_ticket`;
     const response = await fetch(reservedURL, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(reserved)
     });
+    console.log('response: ', response)
 }
 
   return (
