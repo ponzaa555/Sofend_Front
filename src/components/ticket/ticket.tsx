@@ -30,21 +30,24 @@ const Ticket = (props:any) => {
     const month_list = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     const parsedate = day + " " + month_list[parseInt(month)-1] + " " + year as string;
     
-    let zone = "-"
+    // let zone = "-"
     let row = "-"
     let gate = "-"
-    let seat = "-"
+    let seat = eventTicket.seat
     const checkseat = () => {
-        if (eventTicket.seat.length == 2) {
-            zone = eventTicket.seat
-            row = eventTicket.seat[0]
-            seat = eventTicket.seat[1]
-        }
-        else if (eventTicket.seat.length > 6) {
-            zone = eventTicket.seat.substring(0,6) + "..."
-        }
-        else if(eventTicket.seat != ""){
-            zone = eventTicket.seat
+        // if (eventTicket.seat.length == 2) {
+        //     // zone = eventTicket.seat
+        //     row = eventTicket.seat[0]
+        //     seat = eventTicket.seat[1]
+        // }
+        // else if (eventTicket.seat.length > 6) {
+        //     // zone = eventTicket.seat.substring(0,6) + "..."
+        // }
+        // else if(eventTicket.seat != ""){
+        //     // zone = eventTicket.seat
+        // }
+        if (eventTicket.seat == ""){
+            seat = "-"
         }
     }
     checkseat()
@@ -83,11 +86,14 @@ const Ticket = (props:any) => {
     }
 
     let eventName_ch = eventTicket.eventName
+    let event_zone = eventTicket.zone
     const checklength = () => {
-    console.log(eventTicket.eventName?.length,eventTicket.eventName)
-    if(eventTicket.eventName?.length > 60){
-        eventName_ch = eventTicket.eventName.substring(0,60) + "..."
-    }
+        if(eventTicket.eventName?.length > 60){
+            eventName_ch = eventTicket.eventName.substring(0,60) + "..."
+        }
+        if(eventTicket.zone?.length > 4){
+            event_zone = eventTicket.zone.substring(0,4) + "..."
+        }
     }
     checklength()
 
@@ -100,12 +106,15 @@ const Ticket = (props:any) => {
         location: eventTicket.location,
         poster : eventTicket.eventImage,
         date: parsedate,
-        zone: zone,
+        zone: event_zone,
         row: row,
         gate: gate,
         seat: seat,
+        no: eventTicket.no,
     }
     // const dataString = encodeURIComponent(JSON.stringify(data));
+
+    console.log(eventTicket.no)
 
     const setDataToLocalStorage = () => {
         localStorage.setItem('data', JSON.stringify(data));
@@ -115,7 +124,8 @@ const Ticket = (props:any) => {
         <>
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[200px] h-[400px] px-3">
-                    <div className="flex flex-col justify-items-center my-12 gap-2">
+                    <div className="flex flex-col justify-items-center my-8 gap-2">
+                        <div className="font-montserrat font-bold text-white">no.{eventTicket.no}</div>
                         {/* <div className="text-white font-montserrat font-bold ml-2">no. {eventTicket.ticketID}</div> */}
                         <img className="rounded-md" src={eventTicket.eventImage}></img>
                             <Link href={`/sendticket`}>
@@ -135,7 +145,7 @@ const Ticket = (props:any) => {
                                 <div className="flex flex-row-2 justify-items-start gap-16">
                                     <div className="">
                                         <div className="font-montserrat font-bold text-base text-black">ZONE</div>
-                                        <div className="font-montserrat font-bold text-xl text-black">{zone}</div>
+                                        <div className="font-montserrat font-bold text-xl text-black">{event_zone}</div>
                                         <div className="font-montserrat font-bold text-base text-black">ROW</div>
                                         <div className="font-montserrat font-bold text-xl text-black">{row}</div>
                                     </div>

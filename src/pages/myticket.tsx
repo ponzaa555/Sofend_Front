@@ -7,7 +7,8 @@ import { getTicket } from "../service/api";
 import { useState } from "react";
 import { useEffect } from "react";
 import { set } from "zod";
-
+import Ticketforphone from "../components/ticket/ticketforphone";
+import { useMediaQuery } from 'react-responsive';
 
 const MyTicket = () => {
 
@@ -99,6 +100,8 @@ const MyTicket = () => {
     // console.log("data",Data)
     // console.log("filteredE",filteredE)
 
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
     return(
         <>
             <Head>
@@ -120,12 +123,24 @@ const MyTicket = () => {
             </div>
             {getfinish == true ? 
                 <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 my-8'>
-                        <div className ="flex flex-wrap gap-4">
-                            {filteredE.map((ticket,index) => (
-                                <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userID} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location}/>   
-                            ))}
+                    <div>
+                    <div className="md:hidden flex flex-wrap gap-4">
+                        {filteredE.map((ticket,index) => (
+                            <Ticketforphone ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userID} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location} zone={ticket.className} no={ticket.runNo}/>
+                        ))}
                     </div>
-                </div>:
+                    </div>
+                    <div>
+                    <div className ="flex flex-wrap gap-4 lg:max-w-7xl">
+                        {filteredE.map((ticket, index) => (
+                            !isMobile && (
+                            <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userID} firstname={Firstname} lastname={Lastname} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status={ticket.status} location={ticket.location} zone={ticket.className} no={ticket.runNo} />
+                        )
+                        ))}
+                    </div>
+                    </div>
+                </div>
+                :
             <>
               <div className="h-32 mt-3"/>
               <div role="status" className='flex flex-row items-center justify-center mb-5 mt-4 '>

@@ -23,7 +23,7 @@ const TicketSend = (props:any) => {
             <div className="flex flex-row-2">
                 <div className="bg-black rounded-md w-[20rem] h-[450px] px-3">
                     <div className="flex flex-col justify-items-center my-4">
-                        {/* <div className="text-white font-montserrat font-bold ml-8 -mb-4 mt-4">no. {eventTicket.ticketID}</div> */}
+                        <div className="text-white font-montserrat font-bold ml-6 -mb-4 mt-4">no.</div>
                         <img className="rounded-md p-6" src={eventTicket.poster}></img>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ const TicketSend = (props:any) => {
                         <div className="flex flex-row-2 justify-items-start my-2">
                             <div className="">
                                 <div className="font-montserrat font-medium text-base text-black my-2">{eventTicket.location}</div>
-                                <div className="flex flex-row-2 justify-items-start gap-20">
+                                <div className="flex flex-row-2 justify-items-start gap-14">
                                     <div className="">
                                         <div className="font-montserrat font-bold text-base text-black">ZONE</div>
                                         <div className="font-montserrat font-bold text-xl text-black">{eventTicket.zone}</div>

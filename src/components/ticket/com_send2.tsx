@@ -8,7 +8,7 @@ const ComponentSend2 = (props:any) => {
 
     return(
         <>  
-            <div className="flex flex-row justify-center gap-16">
+            <div className="flex flex-row justify-center gap-4">
             <div className="">
                     <TicketSend ticketID={ticket.ticketID} 
                     firstname= {ticket.firstname}
@@ -20,7 +20,8 @@ const ComponentSend2 = (props:any) => {
                     row= {ticket.row}
                     gate= {ticket.gate}
                     seat= {ticket.seat}
-                    date={ticket.date}/>
+                    date={ticket.date}
+                    no = {ticket.no}/>
             </div>
             <div className="w-1/4">
             <div className="grid grid-col place-content-center justify-items-center gap-4 place-items-center mt-28">
