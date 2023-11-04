@@ -205,10 +205,7 @@ const selectzonenseat = () => {
                 numSeatsPerRow={eventDetail.ticketClass[selectedZone]?.columnNo ?? 0}
               />
             </div>
-
         </div>
-        
-        
     </div>
   )
 }

@@ -4,6 +4,8 @@ import { set } from 'zod';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 interface SeatingPlanProps {
   posterImage: string;
@@ -26,6 +28,7 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTi
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
   console.log(objectOfSeat)
+  const { data: session } = useSession();
 
 
   const handleSeatSelect = (seatId: any) => {
@@ -163,14 +166,12 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTi
           </div>
         </div>
       </div>
-      {/* <Link href={{
-          pathname: '/checkout',
-          query: selectedSeats as string[] // the data
-        }}> */}
+      {session ?
         <button onClick={() => handleCheckout()} disabled={count===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">
           Check out
         </button>
-      {/* </Link> */}
+        : <button onClick={() => signIn()} disabled={count === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+      }
     </div>
   )
 };
