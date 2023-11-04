@@ -283,7 +283,7 @@ const Checkout: React.FC = ({ }) => {
     }, []);
 
     useEffect(() => {
-        if (timer === '14:50' && step !== 3) {
+        if (timer === '00:00' && step !== 3) {
             { handlecancle() }
             toast.error(`Time out!`)
             router.push('/main');
