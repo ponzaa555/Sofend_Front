@@ -4,6 +4,8 @@ import { set } from 'zod';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 interface SeatingPlanProps {
   posterImage: string;
@@ -12,6 +14,8 @@ interface SeatingPlanProps {
   eventName: string;
   startDateTime: string;
   endDateTime: string;
+  onSaleDateTime: string;
+  endSaleDateTime: string;
   nameOfZone: string;
   numRows: number;
   numSeatsPerRow: number;
@@ -19,11 +23,19 @@ interface SeatingPlanProps {
   objectOfSeat: object;
 }
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
+interface reservedSeat {
+  eventID : string;
+  userID : string;
+  className : string;
+  seatNo : string[];
+}
+
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTime, endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
   console.log(objectOfSeat)
+  const { data: session } = useSession();
 
 
   const handleSeatSelect = (seatId: any) => {
@@ -42,6 +54,8 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
 
   }
     
+
+
   // console.log(
   //   'total',total,
   //   'count',count,
@@ -104,12 +118,10 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     startDateTime: startDateTime,
     endDateTime: endDateTime,
     posterImage: posterImage,
-    zone: "",
-    nameOfZone: nameOfZone,
-    seat : selectedSeats,
+    location: location,
+    zone : selectedSeats,
     amount: count,
     price: total,
-    location: location,
   }
   console.log("dataEventDetailToCheckout",dataEventDetailToCheckout)
 
@@ -141,13 +153,29 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
     } catch (error) {
         console.log("getTicketSold error : ", error);
     }
+
+    const userID = session?.user?.userID as string;
+    const reserved:reservedSeat = {
+      eventID : eventID,
+      userID : userID,
+      className : eventName,
+      seatNo : selectedSeats,
+    }
+    console.log('reserved: ', reserved)
+    const reservedURL = ``;
+    const response = await fetch(reservedURL, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reserved)
+    });
 }
 
   return (
-    <div className='flex flex-col gap-10'>
+    <div className='flex flex-col gap-10 place-items-center'>
       <div className="space-y-4">
         {renderSeats()}
       </div>
+      <div className="w-[30rem]">
       <div className=' border-2 border-gray-300 rounded-md'>
         <div className='flex flex-col'>
           <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
@@ -161,14 +189,13 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
           </div>
         </div>
       </div>
-      {/* <Link href={{
-          pathname: '/checkout',
-          query: selectedSeats as string[] // the data
-        }}> */}
+      {session ?
         <button onClick={() => handleCheckout()} disabled={count===0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">
           Check out
         </button>
-      {/* </Link> */}
+        : <button onClick={() => signIn()} disabled={count === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
+      }
+      </div>
     </div>
   )
 };

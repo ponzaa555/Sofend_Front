@@ -198,14 +198,14 @@ const selectzonenseat = () => {
                 value={selectedZone}
                 defaultValue={selectedZone}
               >
-                <option className='font-montserrat' disabled value={-1}>Zone</option>
+                <option className='font-montserrat'>Zone</option>
                 {/*option from ticketClass[i].className */}
                 {eventDetail.ticketClass.map((ticketclass,index) => (
                   <option 
                     key={index} 
                     value={index} 
                     className='font-montserrat'
-                    disabled={!checkIsFull(index)}
+                    // disabled={!checkIsFull(index)}
                   >{ticketclass.className}</option>
                   ))  
                 }
