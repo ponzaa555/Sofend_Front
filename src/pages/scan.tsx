@@ -82,8 +82,8 @@ export const scan = () => {
     const showticket = () => {
         if (getTicketFinish && getUserInfo) {
         return (
-            <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} firstname={userInfo.firstName} lastname={userInfo.lastName} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status="scanned" location={ticket.location}/>
-        )
+            <Ticket ticketID={ticket.ticketID} eventID={ticket.eventID} eventName={ticket.eventName} userID={userInfo.userID} firstname={userInfo.firstName} lastname={userInfo.lastName} eventImage={ticket.eventImage} date={ticket.validDatetime} seat={ticket.seatNo} class={ticket.className} status="scanned" location={ticket.location} zone={ticket.className} no={ticket.runNo} />
+            )
         }
     }
 
