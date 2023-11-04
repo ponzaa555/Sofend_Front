@@ -37,6 +37,7 @@ type EventDetail = {
     ticketType: string;
     ticketClass: TicketClass[];
     organizerName: string;
+    organizerEmail: string;
 }
 
 
@@ -75,6 +76,7 @@ const EventDetail = ({}) => {
         ticketType: "",
         ticketClass: [],
         organizerName: "",
+        organizerEmail: "",
     })
     
     const daystart = eventDetail.startDateTime.split(/[T-]/)[2] as string
@@ -133,6 +135,16 @@ const EventDetail = ({}) => {
 
     // console.log("seatImage",eventDetail.seatImage[0]?.imageURL)
 
+    const checkIsFull = (index:number) => {
+        if (eventDetail.zoneRevenue[index]?.quota - eventDetail.zoneRevenue[index].ticketSold > 0){
+          //console.log("full")
+          return true
+        }
+        else{
+          //console.log("not full")
+          return false
+        }
+      }
 
     return(
         <>
@@ -175,16 +187,19 @@ const EventDetail = ({}) => {
                 <div className='font-kanit text-center'>
                     {eventDetail.info}
                 </div>
-                <img src={eventDetail.seatImage[0]?.imageURL}></img>
+                <div className='flex justify-center mt-4'>
+                    <img src={eventDetail.seatImage}></img>
+                </div>
             </div>
             <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10'>
                 <h1 className=' text-black font-montserrat font-bold mb-5 text-2xl'>Ticket</h1>
                 {/* zone selction */}
-                <div className='grid grid-cols-3 gap-y-8'>
+                <div className='grid grid-cols-3 gap-y-8 justify-items-center'>
                     {eventDetail.ticketClass.map((ticketclass,index) => (
                         <Link href={"/selectzonenseats/" + id}>
                             <GenTicketClass
                                 key={index}
+                                isAvailable={checkIsFull(index)}
                                 nameOfZone={ticketclass.className}
                                 pricePerSeat={ticketclass.pricePerSeat}
                                 amountOfSeat={ticketclass.AmountOfSeat}
@@ -211,14 +226,14 @@ const EventDetail = ({}) => {
                 <div className='flex justify-between items-center border-2 border-gray-300 rounded-xl'>
                     <div className='flex'>
                         <div className="w-20 h-20 overflow-hidden rounded-full border border-gray-300 mb-2 mt-2 ml-5">
-                            <img src='https://s-media-cache-ak0.pinimg.com/originals/45/8b/be/458bbe24f9c6f35c2148e30a926976c8.jpg'/>
+                            <img src='../../images/events/profileblack.png'/>
                         </div>
                         <div className='flex flex-col'>
                             <div className='text-black font-montserrat ml-5 mt-5 '>Organized by</div>
                             <div className='text-black font-montserrat font-bold text-xl ml-5 mb-5'>{eventDetail.organizerName}</div>
                         </div>
                     </div>
-                    <Modal organizerName={eventDetail.organizerName}></Modal>
+                    <Modal organizerName={eventDetail.organizerName} organizerEmail={eventDetail.organizerEmail}></Modal>
                 </div>
             </div>
             <div className='justify-center bg-white p-4'>

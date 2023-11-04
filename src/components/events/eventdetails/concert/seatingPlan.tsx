@@ -14,6 +14,8 @@ interface SeatingPlanProps {
   eventName: string;
   startDateTime: string;
   endDateTime: string;
+  onSaleDateTime: string;
+  endSaleDateTime: string;
   nameOfZone: string;
   numRows: number;
   numSeatsPerRow: number;
@@ -27,7 +29,14 @@ interface reservedSeat {
   seatNo : string[];
 }
 
-const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone, numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
+interface reservedSeat {
+  eventID : string;
+  userID : string;
+  className : string;
+  seatNo : string[];
+}
+
+const SeatingPlan: React.FC<SeatingPlanProps> = ({ endSaleDateTime, onSaleDateTime, endDateTime, startDateTime, eventName, eventID, location, posterImage, nameOfZone , numRows, numSeatsPerRow, pricePerSeat, objectOfSeat }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -171,10 +180,11 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
   }
 
   return (
-    <div className='flex flex-col gap-10'>
+    <div className='flex flex-col gap-10 place-items-center'>
       <div className="space-y-4">
         {renderSeats()}
       </div>
+      <div className="w-[30rem]">
       <div className=' border-2 border-gray-300 rounded-md'>
         <div className='flex flex-col'>
           <div className='grid grid-cols-2 place-items-center mt-5 mb-5'>
@@ -194,6 +204,7 @@ const SeatingPlan: React.FC<SeatingPlanProps> = ({ endDateTime, startDateTime, e
         </button>
         : <button onClick={() => signIn()} disabled={count === 0} className="bg-black hover:bg-black hover:text-white border-2 border-black duration-300 text-white font-bold py-2 rounded mt-2 mb-2 box-content w-full disabled:bg-slate-50 disabled:text-slate-200 disabled:border-slate-200 disabled:shadow-none">Check out</button>
       }
+      </div>
     </div>
   )
 };

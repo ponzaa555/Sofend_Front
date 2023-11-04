@@ -8,17 +8,25 @@ interface TicketClassProps {
     pricePerSeat: number;
     amountOfSeat: number;
     onSelect: () => void;
+    isAvailable: boolean;
 }
 
 
-const genTicketClass:React.FC<TicketClassProps> = ({nameOfZone,pricePerSeat,amountOfSeat,onSelect}) => {
+const genTicketClass:React.FC<TicketClassProps> = ({nameOfZone,pricePerSeat,amountOfSeat,onSelect,isAvailable}) => {
     //logic for check available
-    const isAvailable = true
     const router = useRouter()
     const {id} = router.query as {id:string}
+    const handleClick = () => {
+        if(isAvailable){
+            onSelect();
+        }
+        else{
+            return;
+        }
+    }
 
     return (
-                <div onClick={onSelect} className='flex flex-row w-fit gap-2 hover:cursor-pointer'>
+                <div onClick={handleClick} className='flex flex-row w-fit gap-2 hover:cursor-pointer'>
                     <svg height="50" width="50">
                         <circle cx="25" cy="25" r="21" fill={isAvailable? "green":"red"} />
                     </svg>
