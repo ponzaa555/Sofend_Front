@@ -76,7 +76,7 @@ const CreateEvent = () => {
             endSaleDateTime: (e.currentTarget.elements[7] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[8] as HTMLInputElement).value,
             startDateTime: (e.currentTarget.elements[9] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[10] as HTMLInputElement).value,
             endDateTime: (e.currentTarget.elements[11] as HTMLInputElement).value + 'T' + (e.currentTarget.elements[12] as HTMLInputElement).value,
-            location: (document.getElementById("es-room") as HTMLInputElement)?.value !== "" ? (e.currentTarget.elements[13] as HTMLInputElement).value + ", " + (document.getElementById("es-room") as HTMLInputElement)?.value : (e.currentTarget.elements[13] as HTMLInputElement).value,
+            location: (e.currentTarget.elements[13] as HTMLInputElement).value,
             posterImage: imageSrc,
         })
     }
