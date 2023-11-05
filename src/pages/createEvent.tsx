@@ -281,7 +281,7 @@ const CreateEvent = () => {
                 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet" />
             </Head>
             <NavbarEO />
-            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10 font-montserrat'>
+            <div className='mx-auto lg:max-w-7xl md:items-center md:flex-col md:px-8 mb-10 font-montserrat mt-8'>
                 <div className='font-montserrat'>
                     <Toaster />
 
