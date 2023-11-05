@@ -22,6 +22,7 @@ type sendData = {
     row: string,
     gate: string,
     seat: string,
+    no : number
 }
 
 const SendTicket = () => {
@@ -32,6 +33,7 @@ const SendTicket = () => {
 
     const [ticket, setTicket] = useState<sendData>({
         ticketID: "",
+        no : 0,
         userID: "",
         firstname: "",
         lastname: "",
@@ -66,6 +68,7 @@ const SendTicket = () => {
                 <div className="font-montserrat font-bold text-4xl md:px-8 mb-10">Send ticket to your friend</div>
                 <ComponentSend1 ticketID={ticket.ticketID} 
                     userID = {ticket.userID}
+                    no = {ticket.no}
                     firstname= {ticket.firstname}
                     lastname= {ticket.lastname}
                     eventName= {ticket.eventName}
