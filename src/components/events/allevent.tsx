@@ -173,7 +173,7 @@ const allevent = () => {
       <div className=' flex inline-block'>
         <h1 className="text-4xl font-montserrat font-medium  ">All Events</h1>
         <div className='flex flex-auto justify-end'>
-          <button className={colorveiwall} value="viewall" onClick={handleviewall} disabled={disabledv}>ViewAll</button>
+          <button className={colorveiwall} value="viewall" onClick={handleviewall} disabled={disabledv}>View All</button>
         </div>
       </div>
       <div className='flex flex-col '>

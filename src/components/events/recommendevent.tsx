@@ -65,7 +65,7 @@ const recommendevent = () => {
   
   return (
     <div className='flex flex-col mt-6'>
-      <div className="text-4xl font-montserrat font-medium py-4">Recommend Events</div>
+      <div className="text-4xl font-montserrat font-medium py-4">Recommended Events</div>
       {addevent(recE)}
     </div>
   )
