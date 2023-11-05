@@ -31,7 +31,7 @@ const profilepage = ({}) => {
             <div className=' flex justify-center h-24 pt-9'>
                 <div className='flex w-[18%]'>
                     <h1 className='text-4xl font-bold  '>Hello, </h1>
-                    <h1 className='text-4xl font-bold '>Woohoo</h1>
+                    <h1 className='text-4xl font-bold '>{session?.user?.name?.split(" ")[0]}</h1>
                 </div>
                 <div className=' w-3/5'>
                 </div>
