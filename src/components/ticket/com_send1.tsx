@@ -16,7 +16,7 @@ const ComponentSend1 = (props:any) => {
     const [newlastname, setnewlastname] = useState("");
 
     const onSubmit = async (e:React.FormEvent) => {
-        const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app';
+        const BASE_URL = 'http://127.0.0.1:8000';
         const POST_URL = `${BASE_URL}/transfer_ticket/${ticket.userID}/${ticket.ticketID}/${Email}`
         toast.loading('Sending...');
         e.preventDefault();

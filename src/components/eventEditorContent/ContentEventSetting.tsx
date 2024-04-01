@@ -60,7 +60,7 @@ const ContentEventSetting = () => {
   })
 
   const getEventDetail = async () => {
-    const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventId}`;
+    const BASE_URL = `http://127.0.0.1:8000/event/${eventId}`;
     if (eventId) {
       try {
         const response = await fetch(BASE_URL);
@@ -139,7 +139,7 @@ const ContentEventSetting = () => {
       return
     }
     if(eventId && eoId) {
-      const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_event_setting/${eoId}/${eventId}`;
+      const saveUrl = `http://127.0.0.1:8000/eo_event_setting/${eoId}/${eventId}`;
       fetch(saveUrl, {
         method: 'POST',
         headers: {
@@ -167,7 +167,7 @@ const ContentEventSetting = () => {
 
   const handleDeleteEvent: React.MouseEventHandler<HTMLButtonElement> = () => {
     if(eventId && eoId) {
-      const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_event/${eoId}/${eventId}`;
+      const saveUrl = `http://127.0.0.1:8000/eo_delete_event/${eoId}/${eventId}`;
       fetch(saveUrl, {
         method: 'DELETE'
       })

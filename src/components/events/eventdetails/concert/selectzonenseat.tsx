@@ -110,7 +110,7 @@ const selectzonenseat = () => {
 
   useEffect(() => {
     if (id) {
-      axios.get<EventDetail>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
+      axios.get<EventDetail>(`http://127.0.0.1:8000/event/${id}`)
         .then((res) => {
           setEventDetail(res.data);
           setFinish(true);

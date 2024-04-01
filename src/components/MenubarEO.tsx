@@ -18,7 +18,7 @@ const MenubarEO = ({setContentId}: MenubarEOProps) => {
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const publish_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_publish_event/${eoid}/${eventid}`;
+    const publish_url = `http://127.0.0.1:8000/eo_publish_event/${eoid}/${eventid}`;
     const response = await fetch(publish_url, {
       method: 'POST',
     });

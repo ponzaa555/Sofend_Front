@@ -19,7 +19,7 @@ const ContentPayment = () => {
   const [accountype, Setaccountype] = useState<string>("")
   const [accountnum, Setaccountnum] = useState<string>("")
   const [branch, Setbranch] = useState<string>("")
-  const [getFinish, setgetFinish] = useState(false)
+  const [getFinish, setgetFinish] = useState(true)
   const { data: session } = useSession()
   const router = useRouter()
   const eventId = router.query.id as string;
@@ -39,7 +39,7 @@ const ContentPayment = () => {
       toast.error("Not Change")
     }else{
       toast.loading("Updating...")
-    const posturl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_post_bank_account/${organizerid}/${eventId}`
+    const posturl = `http://127.0.0.1:8000/eo_post_bank_account/${organizerid}/${eventId}`
     const bankinformation = {
       "bank":bankName,
       "accountName":accountname,
@@ -68,7 +68,7 @@ const ContentPayment = () => {
 }
 
   const getEventDetail = async () => {
-    const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventId}`;
+    const BASE_URL = `http://127.0.0.1:8000/event/${eventId}`;
     const respone = await fetch(BASE_URL)
     const eventData = await respone.json() as Bankinfo
     const bankinfo = eventData.bankAccount

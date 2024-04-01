@@ -57,7 +57,7 @@ const ContentCreateNewTicketTypes = () => {
     const handleCreateNewTicketType = async (e: React.FormEvent) => {
         e.preventDefault()
         toast.loading(`Creating New Ticket Type...`)
-        const createURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_create_ticket_type/${eoid}/${eventid}`;
+        const createURL = `http://127.0.0.1:8000/eo_create_ticket_type/${eoid}/${eventid}`;
         console.log('createURL', createURL);
 
         const Name = document.getElementById('tt-name').value

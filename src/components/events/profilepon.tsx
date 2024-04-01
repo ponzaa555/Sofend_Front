@@ -48,7 +48,7 @@ const profilepage = (props: any) => {
    
     useEffect(() => {
         if (userID !== undefined) {
-            const url = `https://eventbud-jujiu2awda-uc.a.run.app/profile/${userID!}`
+            const url = `http://127.0.0.1:8000/profile/${userID!}`
             axios.get(url)
                 .then((res) => {
                     Setdata1(res.data)
@@ -64,9 +64,9 @@ const profilepage = (props: any) => {
         }
     }, [userID])
     
-    if(session === null && check ===0){
-        router.push('/main')
-       }
+    // if(session === null && check ===0){
+    //     router.push('/main')
+    //    }
     // get all events
 
 
@@ -126,7 +126,7 @@ const profilepage = (props: any) => {
         }
         console.log("Jsonedit", Jsonedit)
         e.preventDefault()
-        fetch('https://eventbud-jujiu2awda-uc.a.run.app/update_profile', {
+        fetch('http://127.0.0.1:8000/update_profile', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(Jsonedit)
@@ -166,7 +166,7 @@ const profilepage = (props: any) => {
                 newPassword: inputnewpass
             }
             console.log("JsonChangepass", JsonChangepass)
-            const urlchangeprofile = 'https://eventbud-jujiu2awda-uc.a.run.app/reset_password'
+            const urlchangeprofile = 'http://127.0.0.1:8000/reset_password'
             fetch(urlchangeprofile, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },

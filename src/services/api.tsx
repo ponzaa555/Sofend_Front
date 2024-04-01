@@ -22,6 +22,6 @@ type EventDetail = {
 }
 
 export async function getEventDetail(id: string) {
-    const response = await axios.get(`https://eventbriteproject.herokuapp.com/api/events/${id}`);
+    const response = await axios.get(`http://127.0.0.1:8000/api/events/${id}`);
     return response.data;
 }

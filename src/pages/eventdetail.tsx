@@ -126,7 +126,7 @@ const EventDetails = ({ }) => {
 
     useEffect(() => {
         if (id) {
-            axios.get<EventDetail>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
+            axios.get<EventDetail>(`http://127.0.0.1:8000/event/${id}`)
                 .then((res) => {
                     setEventDetail(res.data);
                     setgetfinish(true)
@@ -196,7 +196,7 @@ const EventDetails = ({ }) => {
     {/* check ticket left */ }
     const handleCheckout = async () => {
         console.log("getTicketSold")
-        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`;
+        const BASE_URL = `http://127.0.0.1:8000/event/${id}`;
         console.log(BASE_URL)
         try {
             const response = await axios.get(`${BASE_URL}`);

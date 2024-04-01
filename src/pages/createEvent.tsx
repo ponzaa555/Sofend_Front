@@ -109,7 +109,7 @@ const CreateEvent = () => {
         // console.log(changedData)
         if (eoId) {
             // get eventId
-            const POST_URL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_create_event/${eoId}`
+            const POST_URL = `http://127.0.0.1:8000/eo_create_event/${eoId}`
             const response = await fetch(POST_URL, {
                 method: 'POST',
                 headers: {
@@ -120,7 +120,7 @@ const CreateEvent = () => {
             if (response.ok) {
                 const eventId = await response.json();
                 console.log(eventId)
-                const saveUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_event_setting/${eoId}/${eventId}`;
+                const saveUrl = `http://127.0.0.1:8000/${eoId}/${eventId}`;
                 fetch(saveUrl, {
                     method: 'POST',
                     headers: {
@@ -136,7 +136,7 @@ const CreateEvent = () => {
                         }
                         else {
                             // delete eventID
-                            const deleteUrl = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_event/${eoId}/${eventId}`;
+                            const deleteUrl = `http://127.0.0.1:8000/${eoId}/${eventId}`;
                             fetch(deleteUrl, {
                                 method: 'DELETE'
                             })

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://eventbud-jujiu2awda-uc.a.run.app'; 
+const BASE_URL = 'http://127.0.0.1:8000'; 
 
 // get all events
 export const getAllEvent = async () => {

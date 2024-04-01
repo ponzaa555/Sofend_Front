@@ -16,10 +16,11 @@ const recommendevent = () => {
         setFinish(true);
       })
       .catch(error => {
-        console.error('Error:', error);
+        console.error('ErrorgetAllevent:', error);
       });
   }, []);
 
+  console.log("Eventcard:",Eventcards)
   const reccommend = Eventcards.filter((event)=>event.featured === true )
 
   let recE = reccommend.filter((event,index) =>{

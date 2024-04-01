@@ -49,7 +49,7 @@ const ContentOverview = () => {
 
   useEffect(() => {
     if (id) {
-      axios.get<Ticket>(`https://eventbud-jujiu2awda-uc.a.run.app/event/${id}`)
+      axios.get<Ticket>(`http://127.0.0.1:8000/event/${id}`)
         .then((res) => {
           setTicket(res.data);
           setgetTicketFinish(true)
@@ -61,7 +61,7 @@ const ContentOverview = () => {
             revenue : item.ticketSold * item.price
           })))
         })
-      axios.get<Event>(`https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_ticket_sold/${id}`)
+      axios.get<Event>(`http://127.0.0.1:8000/eo_get_all_ticket_sold/${id}`)
       .then((res) => {
         setEvent(res.data);
         setgetEventFinish(true)

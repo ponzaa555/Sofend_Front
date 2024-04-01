@@ -28,7 +28,7 @@ const ContentTicketTypes = () => {
         toast.loading('Removing Ticket Type...')
 
         {/**remove from database*/ }
-        const removeURL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_delete_ticket_type/${eoid}/${eventid}/${className}`;
+        const removeURL = `http://127.0.0.1:8000/eo_delete_ticket_type/${eoid}/${eventid}/${className}`;
           const response = await fetch(removeURL, {
             method: 'POST',
           });
@@ -44,7 +44,7 @@ const ContentTicketTypes = () => {
 
     {/**fetch TicketType*/ }
     const fetchTicketType = async (typefetch: string) => {
-        const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/event/${eventid}`;
+        const BASE_URL = `http://127.0.0.1:8000/event/${eventid}`;
         
         try {
             const response = await axios.get(`${BASE_URL}`);

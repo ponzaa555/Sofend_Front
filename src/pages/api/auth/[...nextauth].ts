@@ -16,7 +16,7 @@ const options: NextAuthOptions = {
                 // const {email,password} = credentials as {email:string,password:string};
                 //perform login logic
                 //find user in database
-                const res = await fetch("https://eventbud-jujiu2awda-uc.a.run.app/signin",{
+                const res = await fetch("http://127.0.0.1:8000/signin",{
                     method:"POST",
                     body:JSON.stringify(credentials),
                     headers:{
@@ -43,7 +43,7 @@ const options: NextAuthOptions = {
                 // const {email,password} = credentials as {email:string,password:string};
                 //perform login logic
                 //find user in database
-                const res = await fetch("https://eventbud-jujiu2awda-uc.a.run.app/eo_signin",{
+                const res = await fetch("http://127.0.0.1:8000/eo_signin",{
                     method:"POST",
                     body:JSON.stringify(credentials),
                     headers:{

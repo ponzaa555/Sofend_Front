@@ -24,7 +24,7 @@ const ContentStaff = () => {
     setInputmail("")
     toast.loading(`Adding ${inputemail}...`)
     {/**add to database*/ }
-    const add_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
+    const add_url = `http://127.0.0.1:8000/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
     // const add_url = `http://127.0.0.1:8000/eo_add_staff/${eoid}/${eventid}/${inputemail}`;
     console.log(add_url);
     const response = await fetch(add_url, {
@@ -45,7 +45,7 @@ const ContentStaff = () => {
     toast.loading(`Removing ${removestaff}...`)
     {/**remove from database*/ }
     // setstaff(staff.filter((item) => item.email !== removestaff))
-    const remove_url = `https://eventbud-jujiu2awda-uc.a.run.app/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
+    const remove_url = `http://127.0.0.1:8000/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
     // const remove_url = `http://127.0.0.1:8000/eo_remove_staff/${eoid}/${eventid}/${removestaff}`;
     console.log(remove_url);
     const response = await fetch(remove_url, {
@@ -69,7 +69,7 @@ const ContentStaff = () => {
   {/**fetch staff*/ }
   const fetchStaff = async (typefetch: string, showmail: string) => {
     console.log("fetching staff")
-    const BASE_URL = `https://eventbud-jujiu2awda-uc.a.run.app/eo_get_all_staff/${eoid}/${eventid}`;
+    const BASE_URL = `http://127.0.0.1:8000/eo_get_all_staff/${eoid}/${eventid}`;
     // const BASE_URL = `http://127.0.0.1:8000/eo_get_all_staff/${eoid}/${eventid}`;
     try {
       const response = await axios.get(`${BASE_URL}`);

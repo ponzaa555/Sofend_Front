@@ -24,7 +24,7 @@ const SignupEO = () => {
             const sendInfo = {email: info.email, password: info.password, organizerName: info.organization_name, organizerPhone: info.phone_number}
             console.log(sendInfo)
             try{
-                const res = await fetch('https://eventbud-jujiu2awda-uc.a.run.app/eo_signup',{
+                const res = await fetch('http://127.0.0.1:8000/eo_signup',{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -18,7 +18,7 @@ const dashboard = ({}) => {
   const router = useRouter();
 
   useEffect(() => {
-    axios.get(`https://eventbud-jujiu2awda-uc.a.run.app/eo_event/${eoid}`)
+    axios.get(`http://127.0.0.1:8000/eo_event/${eoid}`)
       .then((response) => {
         setEvent(response.data);
         console.log(response.data);

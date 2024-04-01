@@ -93,7 +93,7 @@ const Checkout: React.FC = ({ }) => {
     const handlePostNewTicketType = async (e: React.FormEvent) => {
         setDisableProceedButton(true)
         toast.loading(`Creating New Ticket...`)
-        const postURL = `https://eventbud-jujiu2awda-uc.a.run.app/post_ticket`;
+        const postURL = `http://127.0.0.1:8000/post_ticket`;
         console.log('postURL', postURL);
 
         const eventID = eventData?.eventID
